@@ -1,0 +1,4 @@
+$("#orders").on("ajax:success", "select.update_order_status_link", function(event, data, status, xhr){
+    $(event.target).closest('tr').html(" <%= j render @order %>")
+});
+toastr.success('Статус заказа успешно обновлен!');

@@ -1,0 +1,38 @@
+%header.header
+  = link_to 'Панель управления', dashboard_path, class: 'logo'
+  / Header Navbar: style can be found in header.less
+  %nav.navbar.navbar-static-top{:role => "navigation"}
+    / Sidebar toggle button
+    %a.navbar-btn.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    .navbar-right
+      %ul.nav.navbar-nav
+        %li.dropdown.user.user-menu
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            %i.fa.fa-user
+            %span
+              Админ
+              %i.caret
+          %ul.dropdown-menu.dropdown-custom.dropdown-menu-right
+            %li.dropdown-header.text-center Меню
+            %li
+              = link_to edit_dashboard_admin_path(current_admin) do
+                %i.fa.fa-user.fa-fw.pull-right
+                Профиль
+              = link_to dashboard_currencies_path do
+                %i.fa.fa-money.fa-fw.pull-right
+                %span Настройка валют
+              = link_to dashboard_menus_path do
+                %i.fa.fa-medkit.fa-fw.pull-right
+                %span Настройка меню
+              = link_to edit_dashboard_config_path(@config) do
+                %i.fa.fa-cog.fa-fw.pull-right
+                Настройки сайта
+            %li.divider
+            %li
+              = link_to destroy_admin_session_path, method: :delete do
+                %i.fa.fa-ban.fa-fw.pull-right
+                Выйти

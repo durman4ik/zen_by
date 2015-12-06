@@ -1,0 +1,19 @@
+%h1 Listing vacancies
+
+%table
+  %thead
+    %tr
+      %th
+      %th
+      %th
+
+  %tbody
+    - @vacancies.each do |vacancy|
+      %tr
+        %td= link_to 'Show', vacancy
+        %td= link_to 'Edit', edit_vacancy_path(vacancy)
+        %td= link_to 'Destroy', vacancy, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Vacancy', new_vacancy_path

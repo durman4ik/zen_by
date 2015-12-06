@@ -1,0 +1,89 @@
+= render 'dashboard/pages/meta', page: @country
+
+#contentWrapperWrapper.main-container
+  #contentWrapper.section.main{:role => 'main'}
+    .contentArea.contentAreaC
+      .module.margin-collapse.display
+        %h1{:style => 'font-size: 1.4375em;'}
+          %a{:href => '#', :title => ''}
+            = @country.title
+      .module.divider-divider-variable.divider-variable{:style => 'height: 15px;'}
+      .module.alignleft.text-left.box.callToAction{style: "background-color: #{@country.background_color};"}
+        = raw @country.description
+      .module.divider-divider-variable.divider-variable{:style => 'height: 10px;'}
+
+    - @country.tours.each do |tour|
+      .contentArea.contentAreaD{style: 'padding: 0 2.625em 0 0.875em;'}
+        .module.margin-collapse.htmlModule
+          :css
+            hr {
+             border: none;
+             background-color: #626262;
+             height: 2px;
+             width: 140%;
+            }
+            a{
+               color:#006384;
+            }
+          %hr/
+        .module.divider-divider-variable.divider-variable{:style => 'height: 10px;'}
+        %h2.module.margin-collapse.h2
+          = link_to tour.name, show_tour_path(slug: tour.slug)
+        .module.divider-divider-variable.divider-variable{:style => 'height: 10px;'}
+        .module.divider-divider-variable.divider-variable{:style => 'height: 10px;'}
+        .module.margin-collapse.h4.preamble
+          %p
+            %span{:style => 'color:#FF8C00;font-size:18px;'}
+              %strong
+                = 'Регион: '
+              = "#{@country.region}, #{@country.name}"
+              = "#{', ' + tour.city if tour.city.present?}"
+        .module.divider-divider-variable.divider-variable{:style => 'height: 10px;'}
+        .module.margin-collapse.divider-dotted.dotted
+        %article.module.margin-collapse.text{style: 'min-height:330px;'}
+          %p
+            %span{:style => 'color:#000000;font-size:14px;'}
+              = raw '<strong>Описание: </strong>' + tour.description
+            %br/
+             
+          %h3
+            %strong
+              %span{:style => 'color:#000000;font-size:14px;'}
+                - tour.departures.each do |departure|
+                  - @dates = departure.travel_groups.select{|x| x.active }
+                  - @dates = @dates.map(&:start_date).join(',')
+                  = "Даты путешествия из #{departure.from}: #{@dates}"
+                  %br/
+        .module.margin-collapse.htmlModule
+          :css
+            hr {
+             border: none;
+             background-color: #626262;
+             height: 2px;
+             width: 140%;
+            }
+            a{
+               color:#006384;
+            }
+          %hr/
+      .contentArea.contentAreaB
+        .module.divider-divider-variable.divider-variable{:style => 'height: 25px;'}
+        .module.divider-divider-variable.divider-variable{:style => 'height: 20px;'}
+        = link_to show_tour_path(slug: tour.slug) do
+          = image_tag tour.image(:average), width: 204, 'max-height': 203, overflow: 'hidden'
+        .module.spotcall
+          .textbox
+            %p{:style => 'text-align: center;'}
+              %span{:style => 'font-size: 14px;'}
+                %font{:color => '#ffffff'} Стоимость:
+                %span{:style => 'color:#FFA500;'}
+                  %strong
+                    = show_price(tour)
+              %br/
+              %span{:style => 'color:#FFFFFF;'}
+                %span{:style => 'font-size:10px;'}
+                  %span{:style => 'line-height: 17.6000003814697px;'} ......................................................
+                %br/
+                %span{:style => 'font-size: 14px; line-height: 17.6000003814697px;'}
+                  = tour.days
+          = link_to 'Подробнее', show_tour_path(slug: tour.slug), class: 'btn btn-large piwik_ignore', 'data-track-action': 'spotBoxWithButton', 'data-track-event': 'click'

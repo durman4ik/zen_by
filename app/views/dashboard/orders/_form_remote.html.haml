@@ -1,0 +1,23 @@
+= form_for [:dashboard, @order], remote: true, html: { id: 'form-contentArea_5_-module_59_' } do |f|
+  = f.label :name, 'Вас зовут'
+  .text-container
+    = f.text_field :name, class: 'text'
+  = f.label :phone, 'Телефон'
+  .text-container
+    = f.text_field :phone, class: 'text'
+  = f.label :email, 'Email'
+  .text-container
+    = f.text_field :email, class: 'text'
+  = f.label :city, 'Город'
+  .text-container
+    = f.text_field :city, class: 'text'
+  = f.label :message, 'Сообщение'
+  .text-container
+    = f.text_field :message, class: 'text'
+  = f.label :tour_id, 'Название путешествия'
+  .text-container
+    = f.collection_select :tour_id, Tour.all, :id, :title_for_orders, {selected: tour.id, include_blank: 'Выберите путешествие...'}, class: 'text'
+  .width-container
+    .button-container
+      = f.text_field :anti_spam, class: 'hidden'
+      = f.submit 'Отправить', class: 'btn', remote: true, id: 'place_new_order'

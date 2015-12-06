@@ -1,0 +1,17 @@
+selector: 'textarea.tinymce'
+toolbar:
+  - undo redo | fontsizeselect | bold italic | alignleft aligncenter alignright | link image | bullist numlist outdent indent | code |  forecolor backcolor | pastetext
+plugins:
+  - code
+  - preview
+  - textcolor
+  - link
+  - paste
+  - advlist
+  - wordcount
+  - image
+valid_children: '+body[style],+style[type],+style'
+extended_valid_elements: 'script[language|type|src]'
+min_height: 300
+fontsize_formats: "6pt 7pt 8pt 9pt 10pt 11pt 12pt 13pt 14pt 16pt 18pt 22pt 26pt 30pt 36pt"
+

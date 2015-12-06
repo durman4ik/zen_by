@@ -1,0 +1,81 @@
+.col-xs-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#home'} Основная информация
+        %li
+          %a{'data-toggle': 'tab', href: '#about'} СЕО
+    = form_for [:dashboard, page], html: { id: 'edit_page_form' } do |f|
+      .panel-body
+        .tab-content
+          #home.tab-pane.active
+            .panel-body
+              .form-group
+                = f.label 'Заголовок'
+                = f.text_field :title, class: 'form-control validate[required]', placeholder: 'Заголовок'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: Отзывы'
+
+              .form-group
+                = f.label 'Описание'
+                = f.text_area :description, class: 'form-control tinymce', placeholder: 'Описание', rows: 5
+                = tinymce
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: Большое количество наших клиентов остались довольны нашими..."'
+              .col-sm-4
+                .form-group
+                  = f.label 'Цвет фона для блока с описанием'
+                  = f.text_field :description_background, class: 'form-control', placeholder: 'Описание'
+              .col-sm-4
+                .form-group
+                  = f.label 'Отображать страницу в меню?'
+                  %br
+                  %label
+                    = f.check_box :enabled
+                    Да/Нет
+
+          #about.tab-pane
+            .col-lg-12
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                Редактируйте эти поля, только если знаете что делаете! Это прямо влияет на ранжирование сайта в поисковых системах!
+
+              .alert.alert-info
+                %strong К сведению!
+                Поля
+                %i ссылка
+                и
+                %i meta заголовок
+                можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
+              .form-group
+                = f.label 'meta заголовок'
+                = f.text_field :meta_title, maxlength: 50, class: 'form-control', placeholder: 'meta заголовок'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: Отзывы клиентов о туристической компании "Искатели впечатлений"'
+                  %br
+                  = 'Максимум 50 знаков'
+
+              .form-group
+                = f.label 'Ссылка'
+                = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: otzyvy'
+
+              .form-group
+                = f.label 'meta описание'
+                = f.text_area :meta_description, rows: 4, class: 'form-control', placeholder: 'meta описание'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: Сейчас много туристических компаний, с которыми...'
+                  %br
+                  = 'Будет использовано первых 150 знаков'
+
+              .form-group
+                = f.label 'meta ключевые слова'
+                = f.text_area :meta_keywords, rows: 4, class: 'form-control', placeholder: 'ключевые слова (через запятую)'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: туры, туризм, португалия...'
+
+      .form-group{style: 'margin-top: 15px'}
+        .col-md-4
+          = f.submit 'Сохранить страницу', class: 'btn btn-info'

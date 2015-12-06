@@ -1,0 +1,10 @@
+= form_for @contact_info do |f|
+  - if @contact_info.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@contact_info.errors.count, "error")} prohibited this contact_info from being saved:"
+      %ul
+        - @contact_info.errors.full_messages.each do |msg|
+          %li= msg
+
+  .actions
+    = f.submit 'Save'

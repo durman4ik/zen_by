@@ -1,0 +1,15 @@
+- if @page.show_title && @page.title.present?
+  - if @page.title.length <= 48
+    %h1.module.h1
+      = @page.title
+  - else
+    .module.margin-collapse.display
+      %h1{:style => "font-size: 1.4375em;"}
+        = @page.title
+
+- if @page.description_background.include? '#fff' || !@page.description_background.present?
+  %article.module.text
+    = raw @page.description
+- else
+  .module.alignleft.text-left.box.callToAction{style: "background-color: #{@page.description_background};"}
+    = raw @page.description

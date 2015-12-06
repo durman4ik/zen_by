@@ -1,0 +1,16 @@
+.col-xs-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#admin_config'} Параметры администратора
+        %li
+          %a{'data-toggle': 'tab', href: '#site_config'} Параметры сайта
+
+      -#= nested_form_for [:dashboard, @admin], html: { multipart: true, id: 'admin_form' } do |f|
+      .panel-body
+        .tab-content
+          #admin_config.tab-pane.active
+
+          #site_config.tab-pane
+            #config.col-md-12

@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
+  %body
+    %h1
+      = "Поступил новый заказ с сайта zen.by"
+      %br/
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Имя
+          %th.text-center Email
+          %th.text-center Телефон
+          %th.text-center Город
+          %th.text-center Сообщение
+          %th Выбранный тур
+      %tbody
+        %tr
+          %td= @order.name if @order.name.present?
+          %td= @order.email if @order.email.present?
+          %td= @order.phone if @order.phone.present?
+          %td= @order.city if @order.city.present?
+          %td= @order.message if @order.message.present?
+          %td= @order.tour.name if @order.tour.present?
+  %p
+    Чтобы войти в панель администратора перейдите по ссылке: #{link_to @url, @url, target: '_blank' }.

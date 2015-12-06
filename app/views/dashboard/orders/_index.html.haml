@@ -1,0 +1,22 @@
+- @orders.each do |order|
+  %tr
+    %td= order.created_at.to_date.strftime('%d.%m.%Y')
+    %td.text-center= order.name if order.name.present?
+    %td.text-center= order.email if order.email.present?
+    %td.text-center= order.phone if order.phone.present?
+    %td.text-center= order.city if order.city.present?
+    %td.text-center
+      - if order.message.present?
+        = link_to 'Сообщение', '#', class: 'popover-right', data: { content: "#{order.message}", trigger: 'focus' }
+    %td.text-center{style: 'max-width: 200px;'}
+      = order.tour.name if order.tour.present?
+    -#%td.text-center
+    -#  = form_for [:dashboard, order], html: {id: 'order_status_form'}, remote: true do |f|
+    -#    = f.text_field :anti_spam, class: 'hidden'
+    -#    = f.select :status, Order::STATUSES, {selected: order.status},
+    -#        onchange: "$(this).closest('#order_status_form').submit();", class: 'update_order_status_link'
+    -#    = f.submit ' ', remote: true, class: 'hidden'
+    %td
+      = link_to dashboard_order_path(order, page: params[:page]), method: :delete, class: 'btn btn-default btn-xs destroy_order',
+              data: {confirm: 'Вы уверены что хотите удалить этот заказ?'} do
+        %i.fa.fa-times

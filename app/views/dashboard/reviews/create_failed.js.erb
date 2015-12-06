@@ -1,0 +1,4 @@
+$('.formbuilder').slideToggle(function(){
+    $(this).remove();
+    $('dl#result').text("Внутренняя ошибка! Не удалось принять Ваш отзыв. Попробуйте позже или свяжитесь с нами по телефону <%= @config.phone %>").css('color', 'red');
+});

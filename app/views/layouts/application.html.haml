@@ -1,0 +1,33 @@
+!!!
+/[if lt IE 7] <html lang="ru"  class="no-js lt-ie9 lt-ie8 lt-ie7">
+/[if IE 7] <html lang="ru"  class="no-js lt-ie9 lt-ie8">
+/[if IE 8] <html lang="ru"  class="no-js lt-ie9">
+/[if IE 9] <html lang="ru"  class="no-js ie9" >
+/ [if gt IE 9]><!
+%html.no-js{:lang => 'ru'}
+  / <![endif]
+  %head
+    = stylesheet_link_tag  'application/main', media: 'all'
+    - if controller_name == 'tour'
+      = javascript_include_tag 'application.js', 'application/tour_pages'
+    - else
+      = javascript_include_tag 'application.js', 'application/light_pages'
+    = csrf_meta_tags
+    = metamagic
+    %meta{:content => 'IE=edge', 'http-equiv' => 'X-UA-Compatible'}/
+    %meta{:content => 'width=device-width,initial-scale=1.0', :name => 'viewport'}/
+    :javascript
+      (document.cookie='viewport_size='+((document.documentElement.clientWidth||window.outerWidth)>=672?'large':'small'))=='viewport_size=large'&&document.getElementsByName('viewport')[0].setAttribute('content','')
+    %meta{:content => '', :property => 'og:description'}/
+    %meta{:content => 'website', :property => 'og:type'}/
+    %meta{:content => 'http://www.zen.by/', :property => 'og:url'}/
+    %meta{:content => 'www.zen.by', :property => 'og:site_name'}/
+    %link{:href => 'http://www.zen.by/', :rel => 'canonical'}/
+    %link{:href => 'http://www.zen.by/upl/website/favicon_srcset-large.ico', :rel => 'shortcut icon', :type => 'image/x-icon'}/
+    %link{:href => 'http://fonts.googleapis.com/css?family=Merriweather:300', :rel => 'stylesheet', :type => 'text/css'}/
+    %link{:href => 'http://fonts.googleapis.com/css?family=Poiret+One|Arimo|Ubuntu:400,500|Tenor+Sans&subset=cyrillic,cyrillic-ext', :rel => 'stylesheet', :type => 'text/css'}/
+    %link{:href => 'http://fonts.googleapis.com/css?family=Ubuntu:300,400,500|Tenor+Sans&subset=latin,cyrillic,cyrillic-ext', :rel => 'stylesheet', :type => 'text/css'}/
+  %body
+    = render 'static/header'
+    = yield
+    = render 'static/footer'

@@ -1,0 +1,269 @@
+#contentWrapperWrapper.main-container
+  #contentWrapper.section.main{:role => 'main'}
+    = render 'static/css_for_slider'
+    .contentArea.contentAreaC{style: 'margin-top: -42px;'}
+      .module.hidden-small.htmlModule
+        .slider-container
+          .slider-control.left
+          .slider-control.right
+          %ul.slider-pagi
+          .slider
+            - @sliders.each_with_index do |slide, index|
+              .slide{class: "slide-#{index} #{'active' if index == 0}"}
+                .slide__bg{style: "background-image: url(#{image_path slide.image});"}
+                .slide__content
+                  %svg.slide__overlay{:preserveaspectratio => 'xMaxYMax slice', :viewbox => '0 0 720 405'}
+                    %path.slide__overlay-path{:d => 'M0,0 150,0 500,405 0,405'}
+                  .slide__text
+                    %h2.slide__text-heading
+                      = slide.title
+                    %p.slide__text-desc
+                      = slide.description
+                    - if slide.tour.present?
+                      = link_to 'Подробнее', show_tour_path(slug: slide.tour.slug), class: 'slide__text-link'
+                    - if slide.category.present?
+                      = link_to 'Подробнее', show_category_path(slug: slide.category.slug), class: 'slide__text-link'
+        = render 'static/js_for_slider'
+      .module.hidden-small.divider-divider-variable.divider-variable{:style => 'height: 430px;'}
+
+    .contentArea.contentAreaB
+      .module.divider-divider-variable.divider-variable{:style => 'height: 50px;'}
+      %article.module.hidden-small.intro.image-text.image-text-small.small.alignleft.clear
+        %div
+          = image_tag @rand.image(:average)
+        %p.small
+        %h1.h2{style: 'font-size:16px;'}
+          = @rand.name
+          %p
+            %span{:style => 'color: rgb(34, 34, 34)!important; font-family: arial, sans-serif; font-size: 12.8000001907349px; line-height: normal;'}
+              = raw @rand.description.truncate(145)
+          %p
+            %span{:style => 'color:#000000;'}
+              - if @rand.class == Tour
+                = link_to 'Читать далее>>', show_tour_path(slug: @rand.slug)
+              - if @rand.class == Country
+                = link_to 'Читать далее>>', show_country_path(slug: @rand.slug)
+        -#- else
+        -#  = cl_image_tag @rand_country.image[:public_id] if @rand_country.image.present?
+        -#  %p.small
+        -#  %h1.h2
+        -#    = @rand_country.name + ', ' + @rand_country.region
+        -#  %p
+        -#    %span{:style => 'color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 12.8000001907349px; line-height: normal;'}
+        -#      = strip_tags(@rand_country.description).truncate(220)
+        -#    %span{:style => 'color:#000000;'}
+        -#      = link_to 'Хочу в эту страну>>', show_country_path(@rand_country)
+
+    .contentArea.contentAreaD
+      %h2.module.h1.aligncenter.text-center КТО МЫ?
+      .module.alignleft.text-left.box.callToAction{:style => 'background-color: #0099cc;'}
+        %p{:dir => 'ltr'}
+          %br/
+          %span{:style => 'color:#FFFFFF;'}
+            %span{:style => 'font-size:16px;'} ИСКАТЕЛИ ВПЕЧАТЛЕНИЙ – это туристическая компания и команда единомышленников. Мы придумываем и организовываем путешествия. Именно ПУТЕШЕСТВИЯ, потому что мы не приемлем туристического конвейера и массовых заездов по готовым турпакетам. Мы увлеченно собираем по всему миру как достопримечательности из разряда must see, так и спрятанные, но не менее интересные места, составляя из них оригинальные увлекательные маршруты. И тот, кто уже путешествовал с нами, убедились в нашем тщательном и нестандартном подходе.
+        %p
+          %span{:style => 'color:#FFFFFF;'}
+            %span{:style => 'font-size:16px;'} Что нас вдохновляет? Во-первых, красота нашей планеты. Мы верим, что чем ближе мы знакомимся с ней, тем больше она дает нам в ответ.  А во-вторых, наши клиенты. Мы слушаем и даем то, что хотят путешественники: впечатляющие поездки в интересные места с хорошим сервисом по комфортной цене.
+        %p
+          %span{:style => 'color:#FFFFFF;'}
+            %strong
+              %span{:style => 'font-size:16px;'} Вы можете присоединиться к небольшой группе (до 10 чел), или создать свой индивидуальный тур с нашими экспертами. Любая программа, представленная на нашем сайте, может стать основой для вашего путешествия. Звоните, пишите или приезжайте в гости!
+    .contentArea.contentAreaC
+      .module.htmlModule
+        %meta{:charset => 'utf-8'}/
+        :css
+          .contentArea .columns, .module .columns, .module > .columns:first-child, .footer-content .columns {
+
+          font-size: 14px;
+          color: black;
+
+          }
+          .h2.module.margin-collapse, .cart-container .module.margin-collapse.headline, .carousel figcaption.module.margin-collapse, .product-units .module.margin-collapse.price, .image-text .module.margin-collapse.price, .checkoutArea .module.margin-collapse.h1 {
+          color: rgb(0, 99, 132);
+          }
+          .btn-large, .formbuilder .btn, .checkoutArea .btn, .product-single .btn {
+          font-size: 1em;
+          padding: .5em 1em;
+          }
+           .module.margin-collapse.border.bar h1.h2 {
+          color: #006384;
+          }
+          .module.margin-collapse.border.bar h2.h2 {
+          color: #006384;
+          }
+          .module.margin-collapse.border.bar h3.h2 {
+          color: #006384;
+          }
+          .usp li:before {
+          content: "\0058";
+          color: #FFB32A;
+          }
+          .contentArea .h2 {
+          font-size: 20px;
+          color: #000;
+          line-height: 1;
+          font-style: normal;
+          font-weight: 600;
+          }
+          .btn-call, .btn-email {
+          padding: 2.25em .75em .25em 3em;
+          font-size: 0.985em;
+          height: 90px;
+          }
+          .btn-call:before, .btn-email:before {
+          padding: 2.25em .75em;
+          border-right: 1px dotted white;
+          }
+          .spec{
+          background: #006384;
+          color: #fff;
+          }
+          .to_top{
+          position: fixed;
+          top: 0px;
+          width: 3000px;
+          background: #0099cc;
+          margin-left: -1050px;    padding-left: 1047px;}
+          #stick_menu{
+
+
+          color:black;
+
+          z-index:1;
+          }
+
+          td{
+          vertical-align:center;
+          background: white;
+          border: 1px solid white;
+
+          }
+          .tagun{
+          background: #0099cc;
+          }
+          .tagun:hover{
+          background: #ffa523;
+          color:white;
+          text-decoration:none;
+          }
+          .active{
+          color:white;
+          background: #FFB32A;
+          }
+          td a{
+          color:white;
+          display: block;
+          text-decoration:none;
+          padding: 12px;
+          padding-left: 0px;
+          padding-right: 0px;
+          }
+          .tdd{
+          font-size:14px;
+          }
+          td:focus{
+          color:white;
+
+          text-decoration:none;
+          }
+          a:hover{text-decoration:none;}
+          .btn-large, .formbuilder .btn, .checkoutArea .btn, .product-single .btn {
+          font-size: 1em;
+          padding: 0.5em 1.5em;
+          }
+        #stick_menu
+          %table{:align => 'center', :border => '0', :width => '900'}
+            %tbody
+              %tr{:align => 'center'}
+                - @main_categories.each_with_index do |category, index|
+                  %td.tagun
+                    %a.tdd{:href => "##{index+1}"}
+                      = category.name
+      - @main_categories.each_with_index do |category, index|
+        .module.htmlModule
+          %section{id: "#{index+1}", style: 'position: absolute; height: 518px;'}
+        - if index == 0
+          .module.divider-divider.divider
+        %h3.module.h1.aligncenter.text-center
+          = "#{category.name} #{category.title}"
+        - category.tours.each_slice(3) do |slice|
+          .module.margin-collapse.htmlModule
+            %ul.ul-look
+              - slice.each do |tour|
+                %li#hover-link.detailholder.looktitle
+                  = link_to show_tour_path(slug: tour.slug), class: 'link' do
+                    .hover
+                      %span.map-icon-location-arrow{'aria-hidden': true}
+                    = image_tag tour.image(:preview)
+                    %h2.block
+                      = "#{tour.name} / #{tour.days} #{show_price(tour)}"
+                    %p
+
+        %article.module.text
+          %p{:style => 'text-align: right;'}
+            %span{:style => 'color:#0099cc;'}
+              %strong
+                %span{:style => 'font-size:18px;'}
+                  %a{:href => '/rogdestvo-i-novij-god'} Еще больше рождественских и новогодних туров >>
+        .module.margin-collapse.divider-divider.divider
+
+
+
+
+
+      .module.htmlModule
+        %section#5{:style => "position: absolute; height: 1000px;"}
+      %h3.module.h1.aligncenter.text-center 4 ПРИЧИНЫ ПУТЕШЕСТВОВАТЬ С НАМИ
+      %article.module.imagetextcolumn.image-text-columns.columns.four-column
+        .column.column-25
+          %img{'data-srcset' => 'upl/website/main/2010_srcset-small.png, upl/website/main/2010_srcset-large.png', :src => '/upl/website/main/2010_srcset-large.png'}/
+          %h3.h2.text-left
+          %p
+            %span{:style => 'line-height: 20.7999992370605px;'} Множество туристических компаний предлагают различные места для отдыха. Но настоящим путешественникам нужен не просто билет на самолет, номер в гостинице или место на пляже. Мы создаем для Вас впечатления, потому что уверены, каждое путешествие – это чья-то мечта, и наша задача – воплотить ее в реальность.
+            %br/
+            %br/
+             
+        .column.column-25
+          %img{'data-srcset' => 'upl/website/main/0103_srcset-small.png, upl/website/main/0103_srcset-large.png', :src => '/upl/website/main/0103_srcset-large.png'}/
+          %h3.h2.text-left
+          %p
+            %span{:style => 'line-height: 20.7999992370605px;'} Мы выбираем только надежных партнеров. Мы тщательно продумываем каждую деталь маршрута с партнерами в стране. Изучив наши маршруты и форматы поездок, вы увидите, что наши путешествия – это всегда интересно, но не всегда просто. Поэтому  мы делаем ставку на надежность, уверенность и ответственность.
+        .column.column-25
+          %img{'data-srcset' => 'upl/website/main/0113_srcset-small.png, upl/website/main/0113_srcset-large.png', :src => '/upl/website/main/0113_srcset-large.png'}/
+          %h3.h2.text-left
+          %p
+            %span{:style => 'line-height: 20.7999992370605px;'} Мир открывается намного больше для небольших групп, чем для соло-путешественников или массовых заездов. В наших группах максимум 10 человек - и это индивидуальные путешественники, друзья и семейные пары, которые заводят новые знакомства по интересам и получают много позитива от общения в пути.
+        .column.column-25.last
+          %img{'data-srcset' => 'upl/website/main/201_srcset-small.png, upl/website/main/201_srcset-large.png', :src => '/upl/website/main/201_srcset-large.png'}/
+          %h3.h2.text-left
+          %p
+            %span{:style => 'line-height: 20.7999992370605px;'} Наших путешественников сопровождает опытный гид. Именно он знает самые яркие детали региона и продемонстрирует местный уклад жизни во всех его красках. «С этого места открывается самый красивый вид на бухту», «В этом ресторане готовят самую вкусную рыбу» – ни один буклет или путеводитель не расскажет вам об этом.
+      .module.margin-collapse.full-width-container{:style => 'overflow: hidden;'}
+        .full-width
+          .full-width-inner.clear
+            .module.image-text-columns.columns.clear
+              .column.column-33
+                %h3.h2.text-left ПОЧЕМУ ИСКАТЕЛИ ВПЕЧАТЛЕНИЙ
+                %p{:dir => 'ltr', :style => 'line-height: 20.7999992370605px;'} Мы - туристическая компания и команда единомышленников. Мы придумываем и организовываем  путешествия.
+                %p{:dir => 'ltr', :style => 'line-height: 20.7999992370605px;'} Нас вдохновляет красота нашей планеты и наши клиенты – мы слушаем и даем то, что нужно путешественникам: впечатляющие поездки в интересные места с хорошим сервисом по доступным ценам.
+                %div  
+              .column.column-33
+                %h3.h2.text-left ПУТЕШЕСТВИЯ С НАМИ - ЭТО
+                %p{:dir => 'ltr'} Небольшие группы. А это всегда:
+                %p - хорошая компания - новые знакомства, прекрасная возможность для общения и дух общности интересов в пути;
+                %p - хорошая экономия - с увеличением количества путешественников в группе уменьшаются затраты на одного человека.
+                %div  
+              .column.column-33.last
+                %h3.h2.text-left 3 СПОСОБА ПРИСОЕДИНИТЬСЯ
+                %p{:dir => 'ltr'}
+                  %strong> 1. 
+                  Присоединиться к одному из наших групповых путешествий в одну из наших дат.
+                  %br/
+                  %span{:style => 'line-height: 1.6;'}
+                    %strong> 2. 
+                    Собрать группу из друзей, коллег, родственников и поехать в любое из наших путешествий в любое время.
+                  %br/
+                  %span{:style => 'line-height: 1.6;'}
+                    %strong> 3. 
+                    Рассказать нам про вашу идею поездки и мы сделаем для вас настоящее путешествие вашей мечты.
+                %div  

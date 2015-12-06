@@ -1,0 +1,12 @@
+- @categories.each_with_index do |category, index|
+  %tr
+    %td= index.succ
+    %td= category.name
+    %td.text-center= category.tours.to_a.count
+    %td.text-center= convert_boolean category.show_on_main
+    %td
+      = link_to dashboard_edit_category_path(slug: category.slug), class: 'btn btn-default btn-xs' do
+        %i.fa.fa-pencil
+      = link_to dashboard_category_path(category, page: params[:page]), method: :delete, class: 'btn btn-default btn-xs',
+              data: {confirm: "Вы уверены что хотите удалить страну #{category.name.humanize}"} do
+        %i.fa.fa-times

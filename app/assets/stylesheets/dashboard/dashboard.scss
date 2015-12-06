@@ -1,0 +1,111 @@
+/*
+// Place all the styles related to the dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+*= require_tree .
+*= require jquery-ui/datepicker
+*= require_self
+*/
+@import 'icheck/square/blue';
+
+.panel-body {
+  font-size: 13px !important;
+}
+.form-control {
+  border-radius: 0 !important;
+}
+
+.field_with_errors{
+  border: 2px solid red;
+
+  input {
+    background-color: #FFECEC;
+  }
+}
+
+.onoffswitch {
+  position: relative; width: 100%;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+  display: none;
+}
+.onoffswitch-label {
+  display: block; overflow: hidden; cursor: pointer;
+  border: 1px solid #cccccc; border-radius: 0px;
+}
+.onoffswitch-inner {
+  display: block; width: 200%; margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+  display: block; float: left; width: 50%; height: 31px; padding: 0; line-height: 27px;
+  font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+.onoffswitch-inner:before {
+  content: "групповой";
+  padding-left: 10px;
+  background-color: #CBE5FF; color: #555555;
+}
+.onoffswitch-inner:after {
+  content: "индивидуальный";
+  padding-right: 10px;
+  background-color: #CCFFEF; color: #555555;
+  text-align: right;
+}
+.onoffswitch-switch {
+  display: block; width: 15px; margin: 0px;
+  background: #27A1CA;
+  position: absolute; top: 0; bottom: 0;
+  right: calc(100% - 15px);
+  transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+  background-color: #27A1CA;
+}
+
+// SWITCHER FOR PAGES ... YES/NO
+
+.onoffswitch-inner.default:before{
+  content: "Да";
+  padding-left: 10px;
+  background-color: #A1FBA4; color: #555555;
+}
+
+.onoffswitch-inner.default:after{
+  content: "Нет";
+  padding-right: 10px;
+  background-color: #FF8775; color: #555555;
+}
+
+.tooltip {
+  text-transform: none;
+}
+
+.sidebar-menu.accordion > li {
+  padding-left: 20px;
+  border-bottom: 1px solid #636363;
+}
+
+.sidebar-menu.accordion >li:first-child {
+  border-top: 1px solid #636363;
+}
+
+.sidebar-menu.accordion > li:hover {
+  color: #f6f6f6;
+  background: #425164;
+}
+
+.sidebar-menu.accordion > li > a {
+  padding: 7px 5px 7px 15px;
+}
+
+
+

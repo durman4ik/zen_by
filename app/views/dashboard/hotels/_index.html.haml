@@ -1,0 +1,15 @@
+- @hotels.each_with_index do |hotel, index|
+  %tr
+    %td= index.succ
+    %td= hotel.title
+    %td.text-center= "#{hotel.stars}*"
+    %td.text-center= hotel.country.name if hotel.country.present?
+    %td.text-center= hotel.tours.length if hotel.tours.present?
+    %td
+      -#= link_to '#', class: 'btn btn-default btn-xs', remote: true do
+      -#  %i.fa.fa-file-text-o
+      = link_to dashboard_edit_hotel_path(hotel), class: 'btn btn-default btn-xs' do
+        %i.fa.fa-pencil
+      = link_to dashboard_hotel_path(hotel, page: params[:page]), method: :delete, class: 'btn btn-default btn-xs destroy_hotel',
+            data: {confirm: "Вы уверены что хотите удалить страну #{hotel.title.humanize}"} do
+        %i.fa.fa-times

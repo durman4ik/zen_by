@@ -1,0 +1,116 @@
+.module.margin-collapse.htmlModule
+  :css
+    ul.ul-look {
+    margin: 0;
+    padding: 0!important;
+    width: 900px;
+    overflow: hidden;
+    }
+    #slideout_inner ul.dest, ul.ul-look {
+    list-style: none;
+    }
+    element.style {
+    }
+    ul.ul-look li {
+    display: block;
+    float: left;
+    width: 450px;
+    margin: 0 0 30px 0;
+    position: relative;
+    padding: 1px;
+    height: 160px;
+    overflow: hidden;
+    }
+    Vidymedia="screen"
+    .detailholder {
+    text-align: center;
+    }
+    user agent stylesheetli {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    }
+    Inherited from ul.ul-look
+    #slideout_inner ul.dest, ul.ul-look {
+    list-style: none;
+    }
+    element.style {
+    }
+    #hover-link a.link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-left: -225px;
+    z-index: 1;
+    }
+    #hover-link a.link:hover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-left: -225px;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    a {
+    text-decoration: none;
+    }
+    user agent stylesheeta:-webkit-any-link {
+    color: -webkit-link;
+    text-decoration: underline;
+    cursor: auto;
+    }
+
+    .detailholder {
+    text-align: center;
+    }
+    user agent stylesheetli {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    }
+    Inherited from ul.ul-look
+    #slideout_inner ul.dest, ul.ul-look {
+    list-style: none;
+    }
+    li.looktitle h2.block {
+    bottom: 0;
+    }
+    li.looktitle h2 {
+    padding: 10px 0;
+    display: block;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #FFF;
+    font-weight: 300;
+    margin: 0;
+    z-index:100;
+    }
+    div.trevtitle h2, .bl-journal h2, li.looktitle h2 {
+    font-size: 15px!important;
+    text-transform: none;
+    text-align: center;
+    line-height: 1.3;
+    }
+
+    ul.ul-look li img {
+    width: 100%;
+    min-height: 160px;
+    }
+    a img, img {
+    border: none;
+    }
+  %ul.ul-look
+    - @countries.each do |country|
+      %li#hover-link.detailholder.looktitle
+        = link_to show_country_path(slug: country.slug), class: 'link' do
+          .hover
+            %span.map-icon-location-arrow{'aria-hidden': true}
+        = image_tag country.image(:show)
+        %h2.block
+          = country.name
+        %p
+.module.htmlModule
+  :css
+    a:link{
+    color:black;}

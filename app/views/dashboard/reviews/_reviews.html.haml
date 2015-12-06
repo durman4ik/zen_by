@@ -1,0 +1,18 @@
+- @reviews.each do |review|
+  %tr
+    %td
+      = time_ago_in_words review.created_at
+      = 'назад'
+    %td= review.name if review.name.present?
+    %td= review.email if review.email.present?
+    %td.text-center= review.city if review.city.present?
+    %td.text-center= review_status review.status
+    %td
+      - if review.body.present?
+        = link_to 'Сообщение', '#', class: 'popover-left', data: { content: "#{review.body}", trigger: 'focus' }
+    %td
+      = link_to dashboard_edit_review_path(review), class: 'btn btn-default btn-xs' do
+        %i.fa.fa-pencil
+        = link_to dashboard_review_path(review, page: params[:page]), method: :delete, class: 'btn btn-default btn-xs remove_review', id: "review-#{review.id}",
+       data: {confirm: "Вы уверены, что хотите удалить отзыв от#{review.name}"} do
+          %i.fa.fa-times

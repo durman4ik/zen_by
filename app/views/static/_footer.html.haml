@@ -1,0 +1,53 @@
+%footer#footer.footer.footer-container
+  .bgWrapper.footer-content
+    .columns.clear
+      .column.column-25
+        %p
+          %span{:style => 'color:#FFFFFF;'}
+            %span{:style => 'font-size:16px;'}
+              %span{:itemprop => 'name'} Искатели впечатлений
+        %p
+          %span{:style => 'color:#FFFFFF;font-size:14px;'}
+            - @menu_items.each do |item|
+              - if item.page.present?
+                = link_to item.name, "/#{item.page.slug}", style: 'text-transform:uppercase;'
+              - else
+                = link_to item.name, item.external_link
+              %br
+        %p  
+        %p  
+      .column.column-25
+        %p
+          %span{:style => 'color:#FFFFFF;font-size:20px;'}
+            Адрес
+        %p
+          %span{:style => 'color:#FFFFFF;font-size:14px;line-height: 23.1111106872559px;'}
+            = @config.address
+        %p
+          %span{:style => 'color:#FFFFFF;font-size:16px;line-height: 23.1111106872559px;'}
+            УНП 
+            %span{:style => 'font-size: 14px;'}
+              = @config.unp
+        %div  
+      .column.column-25
+        %p
+          %span{:style => 'color:#FFFFFF;font-size:20px;'}
+            Телефоны
+            %br/
+            %span{:style => 'line-height: 23.1111106872559px; font-size: 14px;'}
+              = @config.phone
+            %br/
+        %p
+          %span{:style => 'color:#FFFFFF;font-size:20px;'}
+            E-mai
+            %br/
+            %span{:style => 'font-size:14px;'}
+              = link_to @config.info_email, "mailto:#{@config.info_email}"
+        %p  
+        %p  
+  #follow
+    %a{:href => "#{@config.facebook}", :target => '_blank'}
+      = image_tag 'facebook.png', height: 47
+  #follow11
+    = link_to subscribe_page_path, target: '_blank' do
+      = image_tag 'sunscribe.png', height: 47

@@ -1,0 +1,2 @@
+module Dashboard::CurrenciesHelper
+end

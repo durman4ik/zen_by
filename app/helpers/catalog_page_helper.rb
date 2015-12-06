@@ -1,0 +1,2 @@
+module CatalogPageHelper
+end

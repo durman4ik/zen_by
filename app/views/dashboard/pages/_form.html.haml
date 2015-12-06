@@ -1,0 +1,103 @@
+.col-xs-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#main'} Основная информация
+        %li
+          %a{'data-toggle': 'tab', href: '#add_html'} HTML
+        %li
+          %a{'data-toggle': 'tab', href: '#seo'} СЕО
+    = form_for [:dashboard, @page], html: { id: 'edit_page_form' } do |f|
+      .panel-body
+        .tab-content
+          #main.tab-pane.active
+            - if @page.errors.any?
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                - @page.errors.messages.each_with_index do |error, index|
+                  = "#{index+1}) #{error[1].join}"
+                  %br
+            .col-md-12
+              .form-group.row
+                .col-md-9
+                  = f.label 'Заголовок'
+                  = f.text_field :title, class: 'form-control validate[required]', placeholder: 'Заголовок'
+                  %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                    = 'Например: FREE TRAVEL: что такое путешествие в формате FREE TRAVEL от ИСКАТЕЛЕЙ ВПЕЧАТЛЕНИЙ'
+
+                .col-md-3{style: 'padding-top:30px;'}
+                  %label
+                    = f.check_box :show_title
+                    Отображать?
+              .form-group.row
+                .col-md-4.form-group
+                  = f.label 'Цвет фона'
+                  .bfh-colorpicker{'data-color': "#{f.object.description_background}", 'data-align': 'left', 'data-name': 'colorpicker'}
+                    .input-group.bfh-colorpicker-toggle{'data-toggle':'bfh-colorpicker'}
+                      %span.input-group-addon
+                        %span.bfh-colorpicker-icon
+                      = f.text_field :description_background, class: 'form-control validate[required]', placeholder: 'Цвет фона'
+
+
+                .col-md-4.form-group
+                  = f.label :stick_to_body, 'Прикрепить контент для страницы'
+                  = f.select :stick_to_body, Page::FOR_BODY_STICKING, {include_blank: 'Нет'}, class: 'form-control',
+                              id: 'stick_to_body_select'
+              .form-group.row
+                .col-md-12#description_field.form-group
+                  = f.label 'Описание'
+                  = f.text_area :description, class: 'form-control tinymce', placeholder: 'Описание', rows: 5, id: 'qwer'
+                  = tinymce
+                  %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                    = 'Например: Большое количество наших клиентов остались довольны нашими..."'
+          #add_html.tab-pane
+            .form-group.row
+              .col-md-12#html_content_field.form-group
+                = f.label 'Если вы хотите вставить собственный html/css/js код, то вставьте его сюда или же оставьте пустым'
+                = f.text_area :html_content, class: 'form-control tinymce', placeholder: 'Html контент', rows: 5, id: 'asdfasdf'
+
+
+          #seo.tab-pane
+            :css
+              textarea { resize: vertical; }
+            .col-lg-12
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                Редактируйте эти поля, только если знаете что делаете! Это прямо влияет на ранжирование сайта в поисковых системах!
+
+              .alert.alert-info
+                %strong К сведению!
+                Поля
+                %i ссылка
+                и
+                %i meta заголовок
+                можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
+
+            .col-xs-12
+              %header.panel-heading Пример
+              = cl_image_tag 'examples/example_seo'
+
+            .col-md-6.form-group
+              = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: portugalija'
+
+            .col-md-6.form-group
+              = f.text_field :meta_title, class: 'form-control', placeholder: 'meta заголовок'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Туры в Португалию'
+
+            .col-md-6.form-group
+              = f.text_area :meta_description, rows: 8, class: 'form-control', placeholder: 'meta описание', id: 'meta_description'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Наша Португалия - не туристическая, она...'
+
+            .col-md-6.form-group
+              = f.text_area :meta_keywords, rows: 8, class: 'form-control', placeholder: 'ключевые слова (через запятую)', id: 'meta_keywords'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: туры, туризм, португалия...'
+
+      .form-group{style: 'margin-top: 15px'}
+        .col-md-4
+          = f.submit 'Сохранить страницу!', class: 'btn btn-info'

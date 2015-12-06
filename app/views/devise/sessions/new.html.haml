@@ -1,0 +1,70 @@
+:css
+  body {
+    background-color: #eee;
+  }
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+  }
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-signin .checkbox {
+    font-weight: normal;
+  }
+  .form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .form-signin .form-control:focus {
+    z-index: 2;
+  }
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  input[type="checkbox"]:not([lt-ie9]), input[type="radio"]:not([lt-ie9]) {
+    display: block;
+    float: left;
+  }
+
+  .checkbox, .radio {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+.container
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'form-signin'})  do |f|
+    %h2.form-signin-heading Log in
+    = f.label 'Логин: ', class: 'sr-only'
+    = f.text_field :login, autofocus: true, id: 'inputEmail', class: 'form-control', placeholder: 'Введите логин', required: true
+    = f.label 'Пароль : ', class: 'sr-only'
+    = f.password_field :password, autofocus: true, id: 'inputPassword', class: 'form-control', placeholder: 'Введите пароль',
+      required: true, autocomplete: 'off'
+    - if devise_mapping.rememberable?
+      .checkbox
+        = f.check_box :remember_me
+        = f.label 'Запомнить меня'
+    = f.submit 'Войти', class: 'btn btn-lg btn-primary btn-block'
+  = render "devise/shared/links"

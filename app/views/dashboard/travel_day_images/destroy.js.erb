@@ -1,0 +1,5 @@
+$("#travel_day_images").on("ajax:success", "li a#destroy_travel_day_image", function(event, data, status, xhr){
+    $(event.target).parent().slideUp("fast", function () {
+        $(this).remove()
+    })
+});

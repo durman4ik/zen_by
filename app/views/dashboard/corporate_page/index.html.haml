@@ -1,0 +1,824 @@
+#contentWrapperWrapper.main-container
+  #contentWrapper.section.main{:role => "main"}
+    .contentArea.contentAreaC
+      .module.margin-collapse.display
+        %h1{:style => "font-size: 1.4375em;"}
+          = @corporate_page.title
+      .module.divider-divider-variable.divider-variable{:style => "height: 15px;"}
+      .module.alignleft.text-left.box.callToAction{style: "background-color: #{@corporate_page.description_background};"}
+        = raw @corporate_page.description
+      .module.margin-collapse.htmlModule
+        %meta{:charset => "utf-8"}/
+        :css
+          .contentArea .columns, .module .columns, .module > .columns:first-child, .footer-content .columns {
+
+          font-size: 14px;
+          color: black;
+
+          }
+          .h2.module.margin-collapse, .cart-container .module.margin-collapse.headline, .carousel figcaption.module.margin-collapse, .product-units .module.margin-collapse.price, .image-text .module.margin-collapse.price, .checkoutArea .module.margin-collapse.h1 {
+          color: rgb(0, 99, 132);
+          }
+          .btn-large, .formbuilder .btn, .checkoutArea .btn, .product-single .btn {
+          font-size: 1em;
+          padding: .5em 1em;
+          }
+           .module.margin-collapse.border.bar h1.h2 {
+          color: #006384;
+          }
+          .module.margin-collapse.border.bar h2.h2 {
+          color: #006384;
+          }
+          .module.margin-collapse.border.bar h3.h2 {
+          color: #006384;
+          }
+          .usp li:before {
+          content: "\0058";
+          color: #FFB32A;
+          }
+          .contentArea .h2 {
+          font-size: 20px;
+          color: #000;
+          line-height: 1;
+          font-style: normal;
+          font-weight: 600;
+          }
+          .btn-call, .btn-email {
+          padding: 2.25em .75em .25em 3em;
+          font-size: 0.985em;
+          height: 90px;
+          }
+          .btn-call:before, .btn-email:before {
+          padding: 2.25em .75em;
+          border-right: 1px dotted white;
+          }
+          .spec{
+          background: #006384;
+          color: #fff;
+          }
+          .to_top{
+          position: fixed;
+          top: 0px;
+          width: 3000px;
+          background: #0099cc;
+          margin-left: -1050px;}
+          #stick_menu{
+
+
+          color:black;
+
+          z-index:1;
+          }
+
+          td{
+          vertical-align:center;
+          background: #0099cc;
+          border: 1px solid white;
+
+          }
+          .active{
+          color:white;
+          background: #FFB32A;
+          }
+          td a{
+          color:white;
+          display: block;
+          text-decoration:none;
+          padding: 12px;
+          padding-left: 0px;
+          padding-right: 0px;
+          }
+          .tdd{
+          font-size:14px;
+          }
+          td:hover{
+          color:white;
+          background: #ffa523;
+          text-decoration:none;
+          }
+          td:focus{
+          color:white;
+          background: #FFB32A;
+          text-decoration:none;
+          }
+          a:hover{text-decoration:none;}
+        %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.82.2/jquery.min.js", :type => "text/javascript"}
+        #stick_menu
+          %table{:align => "center", :border => "0", :width => "900"}
+            %tbody
+              %tr{:align => "center"}
+                %td
+                  %a.tdd{:href => "#1"} Описание
+                %td
+                  %a.tdd{:href => "#2"} Туры: Командообразование
+                %td
+                  %a.tdd{:href => "#3"} Туры: Поощрительные поездки
+                %td
+                  %a.tdd.spec{:href => "#4"} Задать вопрос
+        :javascript
+          $(document).ready(function() {
+          var start_pos=$('#stick_menu').offset().top;
+           $(window).scroll(function(){
+            if ($(window).scrollTop()>=start_pos) {
+                if ($('#stick_menu').hasClass()==false) $('#stick_menu').addClass('to_top');
+            }
+            else $('#stick_menu').removeClass('to_top');
+           });
+          });
+          $(document).ready(function () {
+              $(document).on("scroll", onScroll);
+
+              //smoothscroll
+              $('a[href^="#"]').on('click', function (e) {
+                  e.preventDefault();
+                  $(document).off("scroll");
+
+                  $('a').each(function () {
+                      $(this).removeClass('active');
+                  });
+                  $(this).addClass('active');
+
+                  var target = this.hash,
+                      menu = target;
+                  $target = $(target);
+                  $('html, body').stop().animate({
+                      'scrollTop': $target.offset().top-10
+                  }, 1000, 'swing', function () {
+                      window.location.hash = target;
+                      $(document).on("scroll", onScroll);
+                  });
+              });
+          });
+          function onScroll(event){
+              var scrollPos = $(document).scrollTop();
+              $('#stick_menu a').each(function () {
+                  var currLink = $(this);
+                  var refElement = $(currLink.attr("href"));
+                  if (refElement.position().top <= scrollPos+20 && refElement.position().top + refElement.height() > scrollPos) {
+                      $('#stick_menu ul li a').removeClass("active");
+                      currLink.addClass("active");
+                  }
+                  else{
+                      currLink.removeClass("active");
+                  }
+              });
+          }
+      .module.margin-collapse.htmlModule
+        %section#1{:style => "position: absolute; height: 1000px;"}
+      .module.margin-collapse.htmlModule
+        %section#1{:style => "position: absolute; height: 1930px;"}
+      .module.margin-collapse.divider-divider.divider
+      .module.divider-divider-variable.divider-variable{:style => "height: 9px;"}
+      %h2.module.margin-collapse.h1 Наши основные направления для корпоративных клиентов:
+      .module.divider-divider-variable.divider-variable{:style => "height: 9px;"}
+      .module.margin-collapse.divider-dotted.dotted
+      .module.divider-divider-variable.divider-variable{:style => "height: 9px;"}
+      %article.module.text
+        %p
+          %strong
+            %span{:style => "font-size:14px;"} КОРПОРАТИВНЫЕ МЕРОПРИЯТИЯ  в нашем исполнении не столько развлечение, сколько 
+          %span{:style => "font-size: 14px; line-height: 1.6;"}
+            %strong работа и развитие.
+            Они призваны, как решить задачи отдельно взятой команды и укрепить деловые
+          %span{:style => "font-size: 14px; line-height: 1.6;"} отношения, так и поднять эмоциональный фон всей компании, повысить ощущение принадлежности 
+          %span{:style => "font-size: 14px; line-height: 1.6;"} сотрудников к компании, дать им почувствовать благодарность компании.
+          %br/
+          %br/
+          %strong
+            %span{:style => "font-size: 14px; line-height: 1.6;"} Корпоративные мероприятия мы используем как инструмент решения практических задач 
+            %span{:style => "font-size: 14px; line-height: 1.6;"} наших клиентов:
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} Развитие лидерских качеств у менеджеров
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} Адаптация новых сотрудников в существующем коллективе
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"}  Устранение конфликтных ситуаций в команде
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} Снятие напряжения и психологическая разгрузка
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} Обучение новым компетенциям
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} Выездная стратегическая сессия (выработка стратегии работы на рынке)
+        %p
+          %span{:style => "font-size:14px;"} Кроме того, корпоративные мероприятия могут использоваться как мотивационный и стимулирующий 
+          %span{:style => "font-size: 14px; line-height: 1.6;"} инструмент. Например, поощрительная поездка для лучших сотрудников.
+        %p
+          %span{:style => "font-size:14px;"}
+            %strong Корпоративные мероприятия проводятся для
+            ключевых сотрудников компании, бизнес-
+          %span{:style => "font-size: 14px;"} партнеров, клиентов, дилеров, и может совмещать элементы конференции, тренинга, бизнес-
+          %span{:style => "font-size: 14px; line-height: 1.6;"}
+            сессии,
+            %strong> командообразования, поощрительной поездки
+            , корпоративного похода, мастер-класса, 
+          %span{:style => "font-size: 14px; line-height: 1.6;"} необычной экскурсионной, культурной программы и просто отдыха.
+      %article.module.imagethreecolumn.image-columns.columns
+        %img.column.column-33{"data-srcset" => "upl/website/korporativnym-klientam/102_srcset-small.jpg, upl/website/korporativnym-klientam/101_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/101_srcset-large.jpg"}/
+        %img.column.column-33{"data-srcset" => "upl/website/korporativnym-klientam/21_srcset-small.jpg, upl/website/korporativnym-klientam/20_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/20_srcset-large.jpg"}/
+        %img.column.column-33.last{"data-srcset" => "upl/website/korporativnym-klientam/31_srcset-small.jpg, upl/website/korporativnym-klientam/30_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/30_srcset-large.jpg"}/
+      %article.module.imagethreecolumn.image-columns.columns
+        %img.column.column-33{"data-srcset" => "upl/website/korporativnym-klientam/2147_srcset-small.jpg, upl/website/korporativnym-klientam/2147_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/2147_srcset-large.jpg"}/
+        %img.column.column-33{"data-srcset" => "upl/website/korporativnym-klientam/4weel_srcset-small.jpg, upl/website/korporativnym-klientam/4weel_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/4weel_srcset-large.jpg"}/
+        %img.column.column-33.last{"data-srcset" => "upl/website/korporativnym-klientam/kazbegith26_srcset-small.jpg, upl/website/korporativnym-klientam/kazbegith26_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/kazbegith26_srcset-large.jpg"}/
+      %h3.module.h2 Сегодня мы предлагаем вам:
+      .module.usp.clear
+        %ul.columns.clear
+          %li.column.column-33 Готовые программы по командообразованию (Беларусь, Грузия, Голландия)
+          %li.column.column-33 Готовые программы поощрительных поездок (Италия, Испания)
+          %li.column.column-33 Адаптация существующих программ и создание индивидуальных программ мероприятий под ваш коллектив: задачи, состав, время года, бюджет и даже возраст
+          %li.column.column-33 Бронирование всех услуг согласно программе и помощь в оформлении виз
+          %li.column.column-33 Русскоязычное сопровождение в программе и ее координация
+          %li.column.column-33 Предоставление всех необходимых финансовых документов
+          %li.column.column-33 Педантичный подход к соблюдению технического райдера мероприятия
+          %li.column.column-33 Корпоративное мероприятие как запоминающееся событие с яркими впечатлениями
+      .module.alignleft.text-left.box.callToAction{:style => "background-color: #0099CC;"}
+        %p
+          %span{:style => "color:#FFFFFF;"}
+            %span{:style => "font-size:14px;"} Программа мероприятия может длиться от 1 до 14 дней. Для коротких программ рекомендуем выбирать период  четверг-воскресенье, что позволит затратить минимум рабочих дней. Максимально популярный размер группы — от 5 до 20 человек.
+      %h3.module.h2 Основные принципы построения всех наших программ:
+      %article.module.text
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"}
+                %span{:style => "line-height: 1.6;"} Доступность: программы не требуют от участников специальных знаний навыков и подготовки
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"}
+                ​
+                %span{:style => "line-height: 1.6;"} Активность: в программах используются упражнения, активизирующие групповые процессы
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} Поддержка: с командой работают только опытные тренеры и инструкторы
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} Легенда: каждая программа имеет свою легенду
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} Правила: от участников программы требуется соблюдение четких правил.
+      %article.module.imagethreecolumn.image-columns.columns
+        %img.column.column-33{"data-srcset" => "upl/website/korporativnym-klientam/4_srcset-small.jpg, upl/website/korporativnym-klientam/4_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/4_srcset-large.jpg"}/
+        %img.column.column-33{"data-srcset" => "upl/website/korporativnym-klientam/5_srcset-small.jpg, upl/website/korporativnym-klientam/5_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/5_srcset-large.jpg"}/
+        %img.column.column-33.last{"data-srcset" => "upl/website/korporativnym-klientam/6_srcset-small.jpg, upl/website/korporativnym-klientam/6_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/6_srcset-large.jpg"}/
+      .module.htmlModule
+        %section#2{:style => "position: absolute; height: 1000px;"}
+      .module.margin-collapse.border.bar
+        %h3.h2 Командообразование
+        %hr/
+      %article.module.text
+        %p
+          %span{:style => "color:#000000;"}
+            %span{:style => "font-size:14px;"} Может быть как отдельным событием, так и частью корпоративного мероприятия и поможет Вам улучшить коммуникацию в компании, повысить доверие между сотрудниками и/или подразделениями.
+      %h3.module.h2 С помощью командообразовательных программ решаются следующие задачи:
+      .module.margin-collapse.usp.clear
+        %ul.columns.clear
+          %li.column.column-33 Эмоционально сплотить группу сотрудников, работающих в различных «кабинетах», подразделениях, филиалах
+          %li.column.column-33 Улучшить навыки командной работы и решения нестандартных задач
+          %li.column.column-33 Повысить доверия членов группы друг к другу
+          %li.column.column-33 Развить чувство уверенности в себе и в членах команды
+          %li.column.column-33 Развить чувство уверенности в себе и в членах команды
+          %li.column.column-33 Выработать настойчивость для решения задачи и ответственность за свои решения
+          %li.column.column-33 Улучшить психологический климат в команде
+          %li.column.column-33 Улучшить психологический климат в команде
+      .module.usp.clear
+        %ul.columns.clear
+          %li.column.column-33
+          %li.column.column-33
+          %li.column.column-33
+      .module.alignleft.text-left.box.callToAction{:style => "background-color: #0099CC;"}
+        %p
+          %span{:style => "color:#FFFFFF;"}
+            %span{:style => "font-size: 14px; line-height: 22.3999996185303px;"} Внимание! впервые в Беларуси в программе командообразования появился блок «интеллектуальный тимбилдинг»: 6 тем=6 интеллектуальных игр на понимание важности командной работы для достижения общих целей.
+      %article.module.imagethreecolumn.image-columns.columns
+        %img.column.column-33{"data-srcset" => "upl/website/korporativnym-klientam/7_srcset-small.jpg, upl/website/korporativnym-klientam/7_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/7_srcset-large.jpg"}/
+        %img.column.column-33{"data-srcset" => "upl/website/korporativnym-klientam/8_srcset-small.jpg, upl/website/korporativnym-klientam/8_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/8_srcset-large.jpg"}/
+        %img.column.column-33.last{"data-srcset" => "upl/website/korporativnym-klientam/9_srcset-small.jpg, upl/website/korporativnym-klientam/9_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/9_srcset-large.jpg"}/
+      .module.htmlModule
+        %section#3{:style => "position: absolute; height: 1000px;"}
+      .module.margin-collapse.border.bar
+        %h3.h2 Поощрительные поездки
+        %hr/
+      %article.module.text
+        %p
+          %span{:style => "font-size:14px;"} Также может быть как отдельным событием, так и частью корпоративного мероприятия и поможет Вам отблагодарить сотрудников за отличную работу, премировать лучших сотрудников необычным способом и тем самым повысить лояльность сотрудников к компании.
+      .module.alignleft.text-left.box.callToAction{:style => "background-color: #0099CC;"}
+        %p
+          %span{:style => "color:#FFFFFF;"}
+            %strong 5+ в нашу пользу:
+        %ol
+          %li
+            %span{:style => "color:#FFFFFF;"}
+              %span{:style => "font-size:14px;"} отличные готовые программы корпоративных мероприятий
+          %li
+            %span{:style => "color:#FFFFFF;"}
+              %span{:style => "font-size: 13px; line-height: 1.6;"} адаптация программы под ваши задачи, желания и особенности
+          %li
+            %span{:style => "color:#FFFFFF;"}
+              %span{:style => "font-size: 13px; line-height: 1.6;"} наши ответственность, педантизм и увлеченность при реализации вашего мероприятия
+          %li
+            %span{:style => "color:#FFFFFF;"}
+              %span{:style => "font-size: 13px; line-height: 1.6;"} широкий спектр активностей в каждой программе для достижения нужного вам эффекта
+          %li
+            %span{:style => "color:#FFFFFF;"}
+              %span{:style => "font-size: 13px; line-height: 1.6;"} особенное внимание сохранению вашего бюджета
+      %h3.module.margin-collapse.h1 Туры
+    .contentArea.contentAreaD
+      .module.margin-collapse.htmlModule
+        :css
+          hr {
+           border: none;
+           background-color: #424242;
+           height: 2px;
+           width: 140%;
+          }
+        %hr/
+      %h3.module.margin-collapse.h2 КОМАНДООБРАЗОВАНИЕ. БЕЛАРУСЬ.  ВЕРЕВКИ И/ИЛИ «ИНТЕЛЛЕКТУАЛЬНЫЙ   ТИМБИЛДИНГ»
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.h4.preamble
+        %p
+          %span{:style => "color:#FFA500;"}
+            %span{:style => "font-size:18px;"}
+              %strong> Регион:
+               Европа, Беларусь
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.divider-dotted.dotted
+      %article.module.margin-collapse.text
+        %p
+          %span{:style => "font-size:14px;"}
+            %strong> Маршрут:
+             Минск – Вилейское водохранилище - Минск
+          %br/
+          %br/
+          %span{:style => "font-size:14px;"}
+            %strong> Описание: 
+            «Веревочный курс» – это последовательное выполнение физических динамических ролевых упражнений. «Интеллектуальное командообразование» - это тренинг, каждая тема которого основывается на игре, где участники смогут эмпирическим способом понять важность командной работы для достижения общих целей.
+          %br/
+          %br/
+          %span{:style => "color: rgb(0, 0, 0); font-size: 14px;"}
+            %strong В ПРОГРАММЕ:
+        %p
+          %strong{:style => "color: rgb(0, 0, 0); font-size: 14px; line-height: 1.6;"} командная работа:
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} упражнения построены таким образом, что общий УСПЕХ ЗАВИСИТ ОТ УСИЛИЙ КАЖДОГО
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} команда вместе в течение целого дня выполняет различные упражнения на специально оборудованной площадке
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} некоторые упражнения могут проводиться на высоте 7-15 метров со специальным страховочным снаряжением - возможность испытать себя, осознать свои возможности и открыть новые черты друг в друге
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} !!! впервые в программе «интеллектуальное» командообразование: 6 тем=6 интеллектуальных игр на понимание важности командной работы для достижения общих целей
+        %p
+          %span{:style => "color:#000000;"}
+            %span{:style => "font-size:14px;"}
+              %strong яркие впечатления:
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} приключение, в котором участники получают опыт создания команд
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"}
+                %span{:style => "color:#000000;"}
+                  %span{:style => "font-size:14px;"} все участники реально переживают экстремальные ощущения и чувствуют вкус победы, когда НЕВОЗМОЖНОЕ СТАНОВИТСЯ ВОЗМОЖНЫМ!
+      .module.margin-collapse.htmlModule
+        :css
+          hr {
+           border: none;
+           background-color:#424242;
+           height: 2px;
+           width: 100%;
+          }
+        %hr/
+      %h3.module.margin-collapse.h2 КОМАНДООБРАЗОВАНИЕ. НИДЕРЛАНДЫ.   СЕВЕРНОЕ МОРЕ
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.h4.preamble
+        %p
+          %span{:style => "color:#FFA500;"}
+            %span{:style => "font-size:18px;"}
+              %strong> Регион:
+               Европа, Нидерланды
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.divider-dotted.dotted
+      %article.module.margin-collapse.text
+        %p
+          %span{:style => "font-size:14px;"}
+            %strong>
+              %span{:style => "color:#000000;"} Маршрут
+            \: Минск – Амстердам – о.Маркен – побережье Северного моря – Амстердам – Минск
+          %br/
+          %br/
+          %span{:style => "font-size:14px;"}
+            %span{:style => "color:#000000;"}>
+              %strong Описание: 
+            В чем главный результат этой программы для Вас? Три в одном – и повышение эффективности командной работы, и эмоциональное объединение от совместных приключений, и яркие впечатления от путешествия.
+          %br/
+          %br/
+          %span{:style => "color:#000000;"}
+            %strong{:style => "font-size: 14px; line-height: 1.6;"} В ПРОГРАММЕ:
+        %p
+          %span{:style => "color:#000000;"}
+            %strong{:style => "font-size: 14px; line-height: 1.6;"} командная работа
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} учение азам мореплавания и плавание в команде под парусом
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} квест-игра на одном из островов Северного моря
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} парусные гонки по морским пляжам - Блокартинг (Blokarting)
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} подготовка воздушного шара к полету и сам полет с вручением сертификата каждому члену команды
+        %p
+          %span{:style => "color:#000000;"}
+            %span{:style => "font-size:14px;"}
+              %strong яркие впечатления
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} 3-4 часовая пешеходная прогулка по Амстердаму
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} vip-прогулка по каналам Амстердама на корабле-ресторане с ужином на нем
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"}
+                %span{:style => "color:#000000;"}
+                  %span{:style => "font-size:14px;"} дегустация голландских сыров, копченого угря и селедочки
+      .module.margin-collapse.htmlModule
+        :css
+          hr {
+           border: none;
+           background-color: #626262;
+           height: 2px;
+           width: 140%;
+          }
+          a{
+             color:#006384;
+          }
+        %hr/
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      %h3.module.margin-collapse.h2 КОМАНДООБРАЗОВАНИЕ. ГРУЗИЯ.   ГОРЫ И ВИНО
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.h4.preamble
+        %p
+          %span{:style => "font-size:18px;"}
+            %span{:style => "color:#FFA500;"}
+              %strong> Регион:
+               Закавказье, Грузия
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.divider-dotted.dotted
+      %article.module.margin-collapse.text
+        %p
+          %span{:style => "font-size:14px;"}
+            %strong>
+              %span{:style => "color:#000000;"} Маршрут
+            \: Минск – Тбилиси – Кахетия – горы Тушетии – Телави - Минск
+          %br/
+          %br/
+          %span{:style => "font-size:14px;"}
+            %span{:style => "color:#000000;"}
+              %strong> Описание: 
+              Почему Грузия? Потому что, это практически идеальная страна для выездного корпоративного мероприятия – многогранная, красивая, колоритная, излучающая природную мощь и свежесть, так необходимую для психологической разгрузки. Вы окунетесь своим привычным коллективом в максимально непривычные условия и сделаете это легко и динамично.
+          %br/
+          %br/
+          %span{:style => "color:#000000;"}
+            %strong{:style => "line-height: 1.6;"}
+              %span{:style => "font-size:14px;"} В ПРОГРАММЕ
+        %p
+          %span{:style => "color:#000000;"}
+            %span{:style => "font-size:14px;"}
+              %strong{:style => "line-height: 1.6;"} командная работа
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} подъем на джипах в горы Тушетии на высоту 3 000 метров
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} трекинг в горах Тушетии с умопомрачительной красоты панорамами
+        %p
+          %span{:style => "color:#000000;"}
+            %span{:style => "font-size:14px;"}
+              %strong яркие впечатления:
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} историко-культурная прогулка по Тбилиси с ужином в стиле традиционного грузинского застолья
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} дегустация лучшего в Грузии вина – из погреба монастыря Алаверд
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"}
+                %span{:style => "color:#000000;"}
+                  %span{:style => "font-size:14px;"} дегустация тушинского овечьего сыра «гуда», шашлыка по-тушински и чачи
+      .module.htmlModule
+        %section#3{:style => "position: absolute; height: 930px;"}
+      .module.margin-collapse.htmlModule
+        :css
+          hr {
+           border: none;
+           background-color: #626262;
+           height: 2px;
+           width: 140%;
+          }
+          a{
+             color:#006384;
+          }
+        %hr/
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      %h3.module.margin-collapse.h2 ПООЩРИТЕЛЬНАЯ ПОЕЗДКА. ИТАЛИЯ.  ПОД СОЛНЦЕМ ТОСКАНЫ
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.h4.preamble
+        %p
+          %span{:style => "color:#FFA500;"}
+            %span{:style => "font-size:18px;"}
+              %strong> Регион:
+               Европа, Италия
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.divider-dotted.dotted
+      %article.module.margin-collapse.text
+        %p
+          %span{:style => "font-size:14px;"}
+            %strong>
+              %span{:style => "color:#000000;"} Маршрут
+            \: Минск – Флоренция – Кьянти – Сан Джиминьяно – Сиена – Монтальчино  –Минск 
+          %br/
+          %br/
+          %span{:style => "font-size:14px;"}
+            %span{:style => "color:#000000;"}
+              %strong Описание: 
+            %span{:style => "line-height: 1.6;"} Эта поощрительная поездка придумана для лучших сотрудников компании и проводится в самом колоритном и красивом регионе Италии — Тоскана. Пребывание в этом прекрасном месте будет насыщено интересными и необычными экскурсиями и совместными активностями.
+        %p
+          %span{:style => "font-size:14px;"}
+            %strong
+              Яркие впечатления в программе (
+              %em> подробная программа предоставляется по запросу
+              ):
+        %ul
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} 3-х часовая пешеходная прогулка по старому городу Флоренции
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} винный район Кьянти с дегустациями самых лучших и самых известных вин Тосканы
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} посещение средневековых городов Сан-Джиминьяно, Сиена, Монтальчино
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"} охота на редкий гриб трюфель вместе с труфолайо и поисковой собакой
+          %li
+            %span{:style => "color:#000000;"}
+              %span{:style => "font-size:14px;"}
+                %span{:style => "font-size:14px;"} фантастические виды Тосканы «с открытки»
+      .module.divider-divider-variable.divider-variable{:style => "height: 85px;"}
+      .module.margin-collapse.htmlModule
+        :css
+          hr {
+           border: none;
+           background-color: #626262;
+           height: 2px;
+           width: 140%;
+          }
+          a{
+             color:#006384;
+          }
+        %hr/
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      %h3.module.margin-collapse.h2 ПООЩРИТЕЛЬНАЯ ПОЕЗДКА. ИСПАНИЯ.   ЗАГАДОЧНАЯ СТРАНА БАСКОВ
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.h4.preamble
+        %p
+          %strong{:style => "font-size: 18px; color: rgb(255, 165, 0); line-height: 1.6;"} Регион:
+          %span{:style => "font-size: 18px; color: rgb(255, 165, 0); line-height: 1.6;"}  Европа, Испания
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.margin-collapse.divider-dotted.dotted
+      %article.module.margin-collapse.text
+        %p
+          %span{:style => "font-size:14px;"}
+            %strong>
+              %span{:style => "color:#000000;"} Маршрут
+            \: 
+            %span{:style => "color:#000000;"} Минск – Бильбао – Сан-Хуан-де-Гастелугаче – Герника –Витория-Гастейс – Риоха Алавеса – Лагуардия – Бильбао – Минск
+            %br/
+            %br/
+            = succeed "\u{41c}\u{44b}" do
+              %span{:style => "color:#000000;"}
+                %strong Описание: 
+          %br/
+          %br/
+          %strong{:style => "line-height: 1.6;"}
+            %span{:style => "font-size:14px;"}
+              %span{:style => "color:#000000;"}
+                Яркие впечатления в программе (
+                %em> подробная программа предоставляется по запросу
+                ):
+        %ul
+          %li
+            %span{:style => "font-size:14px;"}
+              %span{:style => "color:#000000;"} 3-х часовая пешеходная прогулка по городу Бильбао
+          %li
+            %span{:style => "font-size:14px;"}
+              %span{:style => "color:#000000;"} поездка по побережью Атлантики к знаменитой скале Сан-Хуан-де-Гастелугаче (пройдут 237 ступенек, ведущих от материка на остров-скалу через океан)
+          %li
+            %span{:style => "font-size:14px;"}
+              %span{:style => "color:#000000;"} посещение традиционной сыроварни с дегустацией двух видов местного овечьего сыра с местным мёдом  и местным белым вином
+          %li
+            %span{:style => "font-size:14px;"}
+              %span{:style => "color:#000000;"} пешеходная историко-гастрономическая экскурсия по столице Витория-Гастейс с дегустацией лучших пинчос в городе
+          %li
+            %span{:style => "font-size:14px;"}
+              %span{:style => "color:#000000;"}
+                %span{:style => "font-size:14px;"}
+                  %span{:style => "color:#000000;"} экскурсия по винодельческому региону Риоха Алавеса с посещением 3 виноделен с дегустациями
+      .module.margin-collapse.htmlModule
+        :css
+          hr {
+           border: none;
+           background-color: #626262;
+           height: 2px;
+           width: 140%;
+          }
+          a{
+             color:#006384;
+          }
+        %hr/
+      .module.htmlModule
+        %section#4{:style => "position: absolute; height: 930px;"}
+      .module.margin-collapse.htmlModule
+        %section#4{:style => "position: absolute; height: 930px;"}
+      #contentArea_2_-module_44_.module.formbuilder.normal
+        %h3.h2 Заказать обратный звонок
+        %form#form-contentArea_2_-module_44_{:action => "korporativnym-klientam", "data-track-action" => "custom_form", "data-track-event" => "submit", :method => "post", :onsubmit => "disableSubmit(this);return submitForm(this);"}
+          %fieldset
+            %label{:for => "form_contentArea_2_-module_44__0"}
+              Компания
+              %span#error_contentArea_2_-module_44__form_contentArea_2_-module_44__0.error
+            .text-container
+              %input.text{:name => "form_contentArea_2_-module_44__0", :type => "text", :value => ""}/
+            %label{:for => "form_contentArea_2_-module_44__1"}
+              Имя
+              %span#error_contentArea_2_-module_44__form_contentArea_2_-module_44__1.error
+            .text-container
+              %input.text{:name => "form_contentArea_2_-module_44__1", :type => "text", :value => ""}/
+            %label{:for => "form_contentArea_2_-module_44__2"}
+              Телефон
+              %span#error_contentArea_2_-module_44__form_contentArea_2_-module_44__2.error
+            .text-container
+              %input.text{:name => "form_contentArea_2_-module_44__2", :type => "text", :value => ""}/
+            %label{:for => "form_contentArea_2_-module_44__3"}
+              Сообщение
+              %span#error_contentArea_2_-module_44__form_contentArea_2_-module_44__3.error
+            .textarea-container
+              %textarea.textarea{:name => "form_contentArea_2_-module_44__3"}
+          %span#error-contentArea_2_-module_44_.error
+          .width-container
+            .button-container
+              %input.button{:name => "contentArea_2_-module_44_", :type => "submit", :value => "Отправить"}/
+              %button.btn{:type => "submit"} Отправить
+    .contentArea.contentAreaB
+      .module.divider-divider-variable.divider-variable{:style => "height: 25px;"}
+      %img.module.margin-collapse.image{"data-srcset" => "upl/website/korporativnym-klientam/11_srcset-small.jpg, upl/website/korporativnym-klientam/11_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/11_srcset-large.jpg"}/
+      .module.alignleft.text-left.box.callToAction{:style => "background-color: #626262;"}
+        %p{:style => "text-align: center;"}
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);"} от 
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 165, 0);"} 190 $ 
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);"}
+            \/ 1 человек
+            %br/
+            %span{:style => "line-height: 1.6;"} (для группы 15 чел)
+            %br/
+            %span{:style => "line-height: 17.6000003814697px; font-size: 10px;"} ......................................................
+            %br/
+            %span{:style => "font-size: 14px; line-height: 17.6000003814697px;"}  1 полный  днень
+          %br{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"}/
+          %br{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"}/
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);"}
+            %span{:style => "font-size: 14px;"} ПОДРОБНАЯ ПРОГРАММА,РАСЧЕТ НА ВАШИ ДАТЫ И КОЛИЧЕСТВО ПУТЕШЕСТВЕННИКОВ ПРЕДОСТАВЛЯЕТСЯ ПО ЗАПРОСУ
+      .module.divider-divider-variable.divider-variable{:style => "height: 150px;"}
+      %img.module.margin-collapse.image{"data-srcset" => "upl/website/korporativnym-klientam/100_srcset-small.jpg, upl/website/korporativnym-klientam/100_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/100_srcset-large.jpg"}/
+      .module.alignleft.text-left.box.callToAction{:style => "background-color: #626262;"}
+        %p{:style => "text-align: center;"}
+          %span{:style => "color:#FFFFFF;"}
+            %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"} от 
+          %span{:style => "color:#FF8C00;"}
+            %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"} 900 € 
+          %span{:style => "color:#FFFFFF;"}
+            %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"}
+              \/ 1 человек
+              %br/
+              %span{:style => "line-height: 1.6;"} (для группы 10 чел)
+              %br/
+              %span{:style => "font-size: 10px; line-height: 17.6000003814697px;"} ......................................................
+              %br/
+              %span{:style => "font-size: 14px; line-height: 17.6000003814697px;"} 3 полных дня
+            %br/
+            %br/
+            %span{:style => "font-size: 14px; line-height: 20.7999992370605px; text-align: -webkit-center;"} ПОДРОБНАЯ ПРОГРАММА,РАСЧЕТ НА ВАШИ ДАТЫ И КОЛИЧЕСТВО ПУТЕШЕСТВЕННИКОВ ПРЕДОСТАВЛЯЕТСЯ ПО ЗАПРОСУ
+      %img.module.margin-collapse.image{"data-srcset" => "upl/website/korporativnym-klientam/110_srcset-small.jpg, upl/website/korporativnym-klientam/110_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/110_srcset-large.jpg"}/
+      .module.alignleft.text-left.box.callToAction{:style => "background-color: #626262;"}
+        %p{:style => "text-align: center;"}
+          %span{:style => "color:#FFFFFF;"}
+            %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"} от 
+          %span{:style => "color:#FF8C00;"}
+            %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"} 400 $ 
+          %span{:style => "color:#FFFFFF;"}
+            %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"}
+              \/ 1 человек
+              %br/
+              %span{:style => "line-height: 1.6;"} (для группы 10 чел)
+              %br/
+              %span{:style => "line-height: 17.6000003814697px; font-size: 10px;"} ......................................................
+              %br/
+              %span{:style => "font-size: 14px; line-height: 17.6000003814697px;"}  3 полных дня
+            %br/
+            %br/
+            %span{:style => "font-size: 14px; line-height: 20.7999992370605px; text-align: -webkit-center;"} ПОДРОБНАЯ ПРОГРАММА,РАСЧЕТ НА ВАШИ ДАТЫ И КОЛИЧЕСТВО ПУТЕШЕСТВЕННИКОВ ПРЕДОСТАВЛЯЕТСЯ ПО ЗАПРОСУ
+      .module.divider-divider-variable.divider-variable{:style => "height: 85px;"}
+      %img.module.margin-collapse.image{"data-srcset" => "upl/website/korporativnym-klientam/120_srcset-small.jpg, upl/website/korporativnym-klientam/120_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/120_srcset-large.jpg"}/
+      .module.alignleft.text-left.box.callToAction{:style => "background-color: #626262;"}
+        %p{:style => "text-align: center;"}
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);"} от 
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 165, 0);"} 520 € 
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);"}
+            \/ 1 человек
+            %br/
+            %span{:style => "line-height: 1.6;"} (для группы 7 человек)
+            %br/
+            %span{:style => "line-height: 17.6000003814697px; font-size: 10px;"} ......................................................
+            %br/
+            %span{:style => "font-size: 14px; line-height: 17.6000003814697px;"}  4 полных дня
+          %br/
+          %br/
+          %span{:style => "color: rgb(255, 255, 255); font-size: 14px; line-height: 20.7999992370605px; text-align: -webkit-center;"} ПОДРОБНАЯ ПРОГРАММА,РАСЧЕТ НА ВАШИ ДАТЫ И КОЛИЧЕСТВО ПУТЕШЕСТВЕННИКОВ ПРЕДОСТАВЛЯЕТСЯ ПО ЗАПРОСУ
+      .module.divider-divider-variable.divider-variable{:style => "height: 20px;"}
+      %img.module.margin-collapse.image{"data-srcset" => "upl/website/korporativnym-klientam/13_srcset-small.jpg, upl/website/korporativnym-klientam/13_srcset-large.jpg", :src => "/upl/website/korporativnym-klientam/13_srcset-large.jpg"}/
+      .module.alignleft.text-left.box.callToAction{:style => "background-color: #626262;"}
+        %p{:style => "text-align: center;"}
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);"} от
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 165, 0);"}  500 € 
+          %span{:style => "line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);"}
+            \/ 1 человек
+            %br/
+            %span{:style => "line-height: 1.6;"} (для группы 7 человек)
+            %br/
+            %span{:style => "line-height: 17.6000003814697px; font-size: 10px;"} ......................................................
+          %br{:style => "line-height: 20.7999992370605px; text-align: -webkit-center;"}/
+          %span{:style => "text-align: -webkit-center; font-size: 14px; line-height: 17.6000003814697px; color: rgb(255, 255, 255);"} 4 полных дня
+          %br/
+          %br/
+          %span{:style => "color: rgb(255, 255, 255); font-size: 14px; line-height: 20.7999992370605px; text-align: -webkit-center;"} ПОДРОБНАЯ ПРОГРАММА,РАСЧЕТ НА ВАШИ ДАТЫ И КОЛИЧЕСТВО ПУТЕШЕСТВЕННИКОВ ПРЕДОСТАВЛЯЕТСЯ ПО ЗАПРОСУ
+      .module.divider-divider-variable.divider-variable{:style => "height: 15px;"}
+      .module.divider-divider-variable.divider-variable{:style => "height: 190px;"}
+      .module.contact
+        %h3.h2 Контакты
+        %ul.columns.clear
+          %li.column.column-33
+            %strong Адрес
+            %ul
+              %li{:itemprop => "address", :itemscope => "", :itemtype => "http://schema.org/PostalAddress"}
+                %span{:itemprop => "streetAddress"} ул. Мележа 1, 10 этаж, офис 1010
+                %span{:itemprop => "postalCode"}
+                %span{:itemprop => "addressLocality"} г. Минск
+                %span{:itemprop => "addressRegion"}
+                %span{:itemprop => "addressCountry"} БЦ Парус
+          %li.column.column-33
+            %strong Телефон
+            %ul
+              %li
+                %a{"data-track-action" => "tapToCall", "data-track-event" => "click", :href => "tel:+375296621909", :itemprop => "telephone"} +375 (29) 662-19-09
+          %li.column.column-33
+            %strong E-mail
+            %ul
+              %li
+                %a.piwik_ignore{"data-track-action" => "email_link", "data-track-event" => "click", :href => "mailto:welcome@zen.by", :itemprop => "email"} welcome@zen.by
+    .contentArea.contentAreaC
+      .module.margin-collapse.htmlModule
+        :css
+          #follow11 {
+          margin: 0px;
+          background: e6eeee;
+          z-index: 2;
+          position: fixed;
+          bottom: 0px;
+          right: 10px;
+          width: 208px;
+          height: 47px;
+          }
+        #follow11
+          %a{:href => "http://www.zen.by/podpiska", :target => "_blank"}
+            %img{:alt => "", :border => "0", :height => "47", :src => "http://u584271.website.185.by/uploads/website/images/1444389257.png?1444389265", :title => "", :width => "208"}/

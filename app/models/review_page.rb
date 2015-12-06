@@ -1,0 +1,3 @@
+class ReviewPage < Page
+
+end

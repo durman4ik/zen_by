@@ -1,0 +1,48 @@
+!!!
+/[if lt IE 7] <html lang="ru"  class="no-js lt-ie9 lt-ie8 lt-ie7">
+/[if IE 7] <html lang="ru"  class="no-js lt-ie9 lt-ie8">
+/[if IE 8] <html lang="ru"  class="no-js lt-ie9">
+/[if IE 9] <html lang="ru"  class="no-js ie9" >
+/ [if gt IE 9]><!
+%html.no-js{lang: 'ru'}
+  / <![endif]
+  %head
+    %meta{content: 'noindex, nofollow', name: 'robots'}
+    = stylesheet_link_tag  'dashboard/dashboard', media: 'all'
+    = javascript_include_tag 'application', 'dashboard/dashboard'
+    = csrf_meta_tags
+    %meta{content: 'IE=edge', 'http-equiv': 'X-UA-Compatible'}/
+    %title ИСКАТЕЛИ ВПЕЧАТЛЕНИЙ | Панель администратора
+    %meta{content: 'width=device-width,initial-scale=1.0', :name => 'viewport'}/
+    %meta{content: 'ИСКАТЕЛИ ВПЕЧАТЛЕНИЙ | Панель администратора', property: 'og:title'}/
+  %body.skin-black
+    - unless flash.empty?
+      - flash.each do |f|
+        - type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info')
+        :javascript
+          toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: true,
+              progressBar: true,
+              positionClass: "toast-bottom-right",
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: "300",
+              hideDuration: "1000",
+              timeOut: "6000",
+              extendedTimeOut: "2000",
+              showEasing: "swing",
+              hideEasing: "linear",
+              showMethod: "fadeIn",
+              hideMethod: "fadeOut"
+          };
+          toastr.#{type}('#{f[1]}');
+    = render 'dashboard/header'
+    .wrapper.row-offcanvas.row-offcanvas-left
+      = render 'dashboard/side_menu'
+      %aside.right-side
+        %section.content
+          = yield
+      .footer-main{style: 'margin-top: 100px;'}
+        Copyright  Director, 2014

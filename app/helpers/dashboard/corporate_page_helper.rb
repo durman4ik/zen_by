@@ -1,0 +1,2 @@
+module Dashboard::CorporatePageHelper
+end

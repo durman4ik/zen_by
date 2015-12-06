@@ -1,0 +1,22 @@
+.row{style: 'padding-bottom: 15px;'}
+  .col-md-6
+    %h3 Управление валютами
+  .col-md-2.col-md-offset-4{style: 'padding-top: 25px;'}
+    = link_to 'Создать валюту', new_dashboard_currency_path, class: 'btn btn-success'
+.row
+  .col-xs-12
+    %section.panel
+      %header.panel-heading
+        Все валюты
+      .panel-body.table-responsive
+        %table.table.table-hover
+          %thead
+            %tr
+              %th #
+              %th Валюта
+              %th.text-center Название
+              %th.text-center Аббревиатура
+              %th.text-center Курс
+              %th
+          %tbody#hotels
+            = render 'dashboard/currencies/index'

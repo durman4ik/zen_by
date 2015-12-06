@@ -1,0 +1,24 @@
+.row{style: 'padding-bottom: 15px;'}
+  .col-md-6
+    %h3 Управление отелями
+  .col-md-2.col-md-offset-4{style: 'padding-top: 25px;'}
+    = link_to 'Новый отель', new_dashboard_hotel_path, class: 'btn btn-success'
+.row
+  .col-xs-12
+    %section.panel
+      %header.panel-heading
+        Все отели
+      .panel-body.table-responsive
+        %table.table.table-hover
+          .col-md-12#hotels_pagination{style: 'text-align:center;'}
+            = paginate @hotels
+          %thead
+            %tr
+              %th #
+              %th Название отеля
+              %th.text-center Звезд
+              %th.text-center Страна
+              %th.text-center Туров
+              %th Progress
+          %tbody#hotels
+            = render 'dashboard/hotels/index'

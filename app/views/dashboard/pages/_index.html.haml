@@ -1,0 +1,18 @@
+- @pages.each_with_index do |page, index|
+  %tr#page_row
+    %td= index.succ
+    %td= page.title
+    %td
+      = page.menu_item.present? ? page.menu_item.name : 'Нет'
+      = '/'
+      = page.sub_menu_item.present? ? page.sub_menu_item.name : 'Нет'
+    %td
+    %td
+    %td
+      = link_to edit_dashboard_page_path(slug: page.slug), class: 'btn btn-default btn-xs' do
+        %i.fa.fa-pencil
+      -#= link_to '#', class: 'btn btn-default btn-xs', remote: true do
+      -#  %i.fa.fa-file-text-o
+      = link_to dashboard_page_path(page), method: :delete, class: 'btn btn-default btn-xs', id: 'delete_page',
+        data: {confirm: 'Вы уверены что хотите удалить эту страницу}'} do
+        %i.fa.fa-times

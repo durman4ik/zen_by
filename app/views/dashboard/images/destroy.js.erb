@@ -1,0 +1,5 @@
+$('#images_list').on('ajax:success', 'a#destroy_this_image', function(event, data, status, xhr){
+    $(event.target).closest('#this_image').fadeOut('fast', function () {
+        $(this).remove()
+    })
+});

@@ -1,0 +1,420 @@
+.col-md-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#main'} Основная
+        %li
+          %a{'data-toggle': 'tab', href: '#slider'} Слайдер
+        %li
+          %a{'data-toggle': 'tab', href: '#photo_gallery'} Галерея
+        %li
+          %a{'data-toggle': 'tab', href: '#video_galery'} Видео
+        %li
+          %a{'data-toggle': 'tab', href: '#details'} Подробное описание
+        %li
+          %a{'data-toggle': 'tab', href: '#days'} Программа тура
+        %li
+          %a{'data-toggle': 'tab', href: '#hotels'} Отели
+        %li
+          %a{'data-toggle': 'tab', href: '#prices'} Цены
+        %li
+          %a{'data-toggle': 'tab', href: '#dates'} Даты
+        %li
+          %a{'data-toggle': 'tab', href: '#faq'} FAQ
+        %li
+          %a{'data-toggle': 'tab', href: '#seo'} СЕО
+
+    = nested_form_for [:dashboard, @tour], html: { multipart: true, id: 'tour_form' } do |f|
+      .panel-body
+        .tab-content
+          #main.tab-pane.active
+            - if @tour.errors.any?
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                - @tour.errors.messages.each_with_index do |error, index|
+                  = "#{index+1}) #{error[1].join}"
+                  %br
+            .col-md-9
+              = f.label :name, 'Название тура'
+              = f.text_field :name, class: 'form-control validate[required]', placeholder: 'Название тура'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: От энергичной Барселоны до пляжного отдыха на Гран Канарии'
+
+            .col-md-3
+              = f.label :city, 'Город'
+              = f.text_field :city, class: 'form-control', placeholder: 'Город'
+
+            .col-md-9
+              = f.label :route, 'Маршрут тура'
+              = f.text_field :route, class: 'form-control', placeholder: 'Маршрут тура'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Минск – Гран Канария - Барселона - Минск'
+
+            .col-md-3
+              = f.label :country, 'Страна'
+              = f.collection_select :country_id, Country.all, :id, :name,
+                  { selected: @tour.country_id }, class: 'form-control'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Создайте страну если ее нет в списке'
+
+            .col-md-2
+              = f.label :price, 'Цена: '
+              = f.text_field :price, class: 'form-control validate[required]', placeholder: 'Цена'
+            .col-md-2
+              = f.label 'Валюта'
+              = f.collection_select :currency_id, Currency.all, :id, :name,
+                  { selected: @tour.currency_id}, class: 'form-control', placeholder: 'Валюта'
+            .col-md-3
+              = f.label 'Тип'
+              .onoffswitch
+                = f.check_box :group_tour, class: 'onoffswitch-checkbox', id: 'onoffswitch'
+                %label.onoffswitch-label{for: 'onoffswitch'}
+                  %span.onoffswitch-inner
+                  %span.onoffswitch-switch
+            .col-md-2
+              = f.label :days, 'Количество дней'
+              = f.text_field :days, class: 'form-control validate[required]', placeholder: 'Количество дней'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: 14 дней'
+
+            .col-md-3
+              = f.label :category, 'Принадлежность к категории'
+              = f.collection_select :category_ids, Category.all, :id, :name,
+                  { selected: @tour.categories.map {|a| a.id.to_s} },
+                  class: 'form-control validate[required]', placeholder: 'Стоимость', multiple: true, rows: 8
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Удерживая Ctrl, можно выбрать несколько'
+
+            .col-md-12.form-group
+              = f.label :map_link, 'Ссылка на карту Яндекс'
+              = f.text_field :map_link, class: 'form-control validate[required]', placeholder: 'Ссылка на карту'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = '1) Создайте карту тура на сайте: '
+                = link_to 'maps.yandex.ru', 'https://tech.yandex.ru/maps/tools/constructor/', target: '_blank'
+                = ', указав'
+                %strong
+                  %u размер карты 670x300
+                %br
+                = '2) Вставьте код скрипта для сайта вместе с тегами <script>'
+                %br
+                = '3) Например: <script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru..."></script>'
+
+            .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
+              - if action_name == 'edit' && @tour.image
+                = image_tag @tour.image(:preview), width: 400
+
+            .col-md-8.form-group
+              = f.label 'Фоновое изображение'
+              = f.file_field :image
+              %span.help-block{style: 'font-style: italic;font-size: small;'}
+                = 'Ширина должна быть не менее 1024px'
+                = 'Будет отображаться на странице тура в самом верху, а так же использоваться для более мелких изображений'
+              %br
+              - if action_name == 'edit'
+                %p
+                  %label
+                    = hidden_field_tag 'remove_image', 'false'
+                    = check_box_tag 'remove_image', true
+                    Удалить изображение
+                  %span.help-block{style: 'font-style: italic;font-size: small;'}
+                    = 'Поставьте галку и сохраните для сброса на стандартное изображение'
+
+            .col-md-12.form-group
+              %header.panel-heading Краткое описание
+              = f.text_area :description, class: 'tinymce', placeholder: 'Описание', id: 'short_description'
+
+
+          #slider.tab-pane
+            #sliders.col-md-12
+              = render 'dashboard/sliders/form', f: f
+
+          #photo_gallery.tab-pane
+            .images#images_list.row{style: 'padding-bottom: 20px;'}
+              - if @tour.images.present?
+                .col-md-12#images_list{style: 'height: 140px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;'}
+                  - @tour.images.each do |image|
+                    %div#this_image{style: 'display:inline-block;'}
+                      .stat
+                        .stat-icon{style: 'height:90px;max-height:90px;overflow:hidden;'}
+                          = image_tag image.uploaded_file(:thumb)
+                        .stat-info
+                          = link_to 'Удалить', dashboard_image_path(image), method: :delete, remote: true,
+                                    id: 'destroy_this_image', data: {confirm: 'Вы уверены?'}
+
+            .col-md-12
+              %label
+                = 'Добавить изображения в галерею'
+                = file_field_tag('tour_images_attributes_file', multiple: true, name: 'tour[gallery_images][]')
+
+          #video_galery.tab-pane
+            #videos.col-md-12
+              = f.fields_for :videos do |video_builder|
+                .row
+                  .col-md-7
+                    = video_builder.label :video_id, 'ID видео'
+                    = video_builder.text_field :video_id, class: 'form-control', placeholder: 'ID видео'
+                    %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                      = '1) Загрузите видео на сайт'
+                      = link_to 'vimeo.com', 'http://vimeo.com', target: '_blank'
+                      %br
+                      = '2) Введите в поле только id видео, после того как оно загрузится'
+                  .col-md-2.col-md-offset-3{style: 'padding-top: 25px;'}
+                    = video_builder.link_to_remove 'Удалить видео', class: 'btn btn-danger'
+            .row
+              .col-md-2.col-md-offset-10
+                = f.link_to_add 'Добавить видео', :videos, class: 'btn btn-success', data: { target: '#videos' }
+
+
+          #details.tab-pane
+            .col-md-12
+              = f.label 'Детальное описание'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Загрузите изображения на сайт с помощью кнопки в правом верхнем углу'
+                = 'После этого, вы можете использовать их для вставки в описание'
+              = f.text_area :details, class: 'tinymce', id: 'full_details'
+              = tinymce
+
+          #days.tab-pane
+            #travel_days.col-md-12
+              = f.fields_for :travel_days, f.object.travel_days.sort { |a, b| a.day_number.to_i <=> b.day_number.to_i } do |days_builder|
+                .row{style: 'border-bottom: 1px solid #ddd;padding: 25px 0;list-style:none'}
+                  .col-md-2.form-group
+                    = days_builder.label :day_number, 'День №'
+                    = days_builder.text_field :day_number, class: 'form-control validate[required]', placeholder: 'День №'
+                  .col-md-8.form-group
+                    = days_builder.label :title, 'Заголовок дня'
+                    = days_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок дня'
+                  .col-md-2.form-group{style: 'padding-top: 25px;'}
+                    = days_builder.link_to_remove 'Удалить день', class: 'btn btn-danger'
+                  .col-md-12
+                    = days_builder.label :description, 'Описание дня'
+                    = days_builder.text_area :description, class: 'editor tinyeditor form-control', rows: 8
+                  :css
+                    #images_list .fields {
+                      display:inline-block;
+                    }
+
+                    img {
+                      padding-right: 10px;
+                    }
+                  .col-md-12#images_list{style: 'height: 140px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;padding-top: 20px;'}
+
+                    = days_builder.fields_for :images do |travel_day_image_builder|
+                      - if travel_day_image_builder.object.new_record?
+                        = travel_day_image_builder.file_field :uploaded_file
+                        = travel_day_image_builder.link_to_remove 'Удалить'
+                      - else
+                        %div#this_image
+                        .stat
+                          .stat-icon{style: 'height:90px;max-height:90px;overflow:hidden;'}
+                            = image_tag(travel_day_image_builder.object.uploaded_file(:thumb))
+                          .stat-info
+                            = travel_day_image_builder.link_to_remove 'Удалить'
+                  .col-md-12
+                    = days_builder.link_to_add 'Добавить изображение', :images
+            .row
+              .col-md-2.col-md-offset-10
+                = f.link_to_add 'Добавить день', :travel_days, class: 'btn btn-success', data: { target: '#travel_days' }
+
+          #hotels.tab-pane
+            .row.col-md-12.form-group
+              %label
+                = f.check_box :show_hotels_with_date, id: 'show_field_days_in_hotels_checkbox'
+                = 'Указать количество дней проживания в каждом отеле'
+
+            .col-md-12#days_in_hotels
+              = f.fields_for :days_in_hotels do |days_in_hotel_builder|
+                .row.form-group
+                  .col-md-2.show_field_days_in_hotels
+                    = days_in_hotel_builder.label 'Дней в отеле'
+                    = days_in_hotel_builder.text_field :days, class: 'form-control'
+                  .col-md-5
+                    = days_in_hotel_builder.label 'Выберите отель'
+                    = days_in_hotel_builder.collection_select :hotel_id, Hotel.all, :id, :title_for_select,
+                      { include_blank: 'Выберите отель...', selected: days_in_hotel_builder.object.hotel_id }, { class: 'form-control'}
+                  .col-md-2{style: 'padding-top: 25px;'}
+                    = days_in_hotel_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+            .row
+              .col-md-12
+                .col-md-2.col-md-offset-10
+                  = f.link_to_add 'Добавить отель', :days_in_hotels, class: 'btn btn-success', data: { target: '#days_in_hotels' }
+            .row
+              .col-md-12
+                = f.label :hotels_remark, 'Заметка к отелям'
+                = f.text_area :hotels_remark, class: 'form-control', rows: 7
+
+          #prices.tab-pane
+            .col-md-12.row{style: 'padding-bottom: 15px;'}
+              = f.label :price_description, 'Подробное описание цены'
+              = f.text_area :price_description, class: 'editor form-control', rows: 12
+            :css
+              #price_includes .fields, #price_not_includes .fields {
+                padding-top: 10px;
+              }
+            %div{style: 'width: 50%; float:left;'}
+              %h3
+                Цена включает:
+              #price_includes
+                = f.fields_for :price_includes do |price_includes_builder|
+                  .row
+                    .col-md-10
+                      = price_includes_builder.text_field :title, class: 'form-control', placeholder: 'Цена не включает'
+                    .col-md-1
+                      = price_includes_builder.link_to_remove 'X', class: 'btn btn-danger'
+              .col-md-12{style: 'padding: 15px 0;'}
+                .col-md-2.col-md-offset-7
+                  = f.link_to_add 'Добавить "включает"', :price_includes, class: 'btn btn-success', data: { target: '#price_includes' }
+
+            %div{style: 'width: 50%; float:left;'}
+              %h3
+                Цена НЕ включает:
+              #price_not_includes
+                = f.fields_for :price_not_includes do |price_not_includes_builder|
+                  .row
+                    .col-md-10
+                      = price_not_includes_builder.text_field :title, class: 'form-control', placeholder: 'Цена не включает'
+                    .col-md-1
+                      = price_not_includes_builder.link_to_remove 'X', class: 'btn btn-danger'
+              .col-md-12{style: 'padding: 15px 0;'}
+                .col-md-3.col-md-offset-7
+                  = f.link_to_add 'Добавить "НЕ включает"', :price_not_includes, class: 'btn btn-success', data: { target: '#price_not_includes' }
+
+
+
+          #dates.tab-pane
+            :css
+              #departure .fields {
+                    padding-bottom: 30px;
+              }
+            #departure
+              = f.fields_for :departures do |departure_builder|
+                .row
+                  .col-md-4.form-group
+                    .input-group
+                      .input-group-addon Вылет из:
+                      = departure_builder.text_field :from, class: 'form-control'
+                  .col-md-3.form-group.col-md-offset-5
+                    = departure_builder.link_to_remove 'Удалить страну вылета', class: 'btn btn-danger'
+                #travel_group_nested_form
+                  = departure_builder.fields_for :travel_groups do |travel_group_builder|
+                    .row
+                      .col-md-offset-1.col-md-2.form-group
+                        = travel_group_builder.label :start_date, 'Начало тура'
+                        = travel_group_builder.text_field :start_date, class: 'datepicker_start form-control', placeholder: 'Начало тура'
+                      .col-md-2.form-group
+                        = travel_group_builder.label :finish_date, 'Окончание тура'
+                        = travel_group_builder.text_field :finish_date,class: 'datepicker_finish form-control', placeholder: 'Окончание тура'
+                      .col-md-2.form-group{style: 'text-align:center;'}
+                        = travel_group_builder.label :active, 'Идет набор', style: 'margin-bottom: 10px'
+                        %br
+                        = travel_group_builder.check_box :active, id: 'is_active_travel_group'
+                      .col-md-2.form-group{style: 'padding-top: 25px;'}
+                        = travel_group_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+                  = departure_builder.link_to_add 'Добавить группу', :travel_groups, class: 'btn btn-success'
+            .row
+              .col-md-3.col-md-offset-9
+                = f.link_to_add 'Добавить страну вылета', :departures, class: 'btn btn-success', data: { target: '#departure' }
+
+            .row
+              .col-md-12
+                = f.label :days_remark, 'Дополнительная информация, касающаяся дат отправления'
+                = f.text_area :days_remark, class: 'form-control editor', rows: 10
+
+          #faq.tab-pane
+            #faqs
+              = f.fields_for :faqs do |faq_builder|
+                .row
+                  .col-md-3.form-group
+                    = faq_builder.label :title, 'Заголовок'
+                    = faq_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок'
+                  .col-md-2.col-md-offset-7.form-group{style: 'padding-top: 25px;'}
+                    = faq_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+                  .col-md-12
+                    = faq_builder.label :description, 'Описание'
+                    = faq_builder.text_area :description, class: 'editor tinyeditor form-control', rows: 8
+            .row
+              .col-md-3.col-md-offset-9
+                = f.link_to_add  'Добавить пункт FAQ', :faqs, class: 'btn btn-success', data: { target: '#faqs' }
+
+          #seo.tab-pane
+            :css
+              textarea { resize: vertical; }
+            .col-lg-12
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                Редактируйте эти поля, только если знаете что делаете! Это прямо влияет на ранжирование сайта в поисковых системах!
+
+              .alert.alert-info
+                %strong К сведению!
+                Поля
+                %i ссылка
+                и
+                %i meta заголовок
+                можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
+
+            .col-xs-12
+              %header.panel-heading Пример
+              = cl_image_tag 'examples/example_seo'
+
+            .col-md-6.form-group
+              = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: portugalija'
+
+            .col-md-6.form-group
+              = f.text_field :meta_title, class: 'form-control', placeholder: 'meta заголовок'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Туры в Португалию'
+
+            .col-md-6.form-group
+              = f.text_area :meta_description, rows: 8, class: 'form-control', placeholder: 'meta описание', id: 'meta_description'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Наша Португалия - не туристическая, она...'
+
+            .col-md-6.form-group
+              = f.text_area :meta_keywords, rows: 8, class: 'form-control', placeholder: 'ключевые слова (через запятую)', id: 'meta_keywords'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: туры, туризм, португалия...'
+        .row
+          %hr
+          .col-md-12{style: 'padding-top: 15px;'}
+            = f.submit 'Сохранить тур!', class: 'btn btn-info pull-left'
+
+
+-##modalAddTravelDayImages.modal.fade{'aria-hidden': 'true', 'aria-label': 'modalAddTravelDayImagesLabel', role: 'dialog', style: 'display: none;', tabindex: '-1'}
+-#  .modal-dialog
+-#    :css
+-#      .modal-dialog {
+-#          width: 790px;
+-#          margin: 30px auto;
+-#        }
+-#      .modal-dialog, .modal-content {
+-#        height: 85%;
+-#      }
+-#
+-#      .modal-body {
+-#        height: calc(100% - 78px);
+-#        overflow-y: scroll;
+-#      }
+-#
+-#      .modal-body img {
+-#        max-height: 115px;
+-#        max-width: 230px !important ;
+-#        padding: 5px 3px;
+-#      }
+-#    .modal-content
+-#      .modal-header
+-#        %button.close{'aria-hidden': 'true', 'data-dismiss': 'modal', type: 'button'} ×
+-#        %div{style: 'width:50%'}
+-#          = form_for @tour.travel_day_images.new, url: dashboard_travel_day_images_path, html: { multipart: true } do |t|
+-#            = t.label :uploaded_file, 'Загрузите файл'
+-#            = t.file_field :uploaded_file, multiple: true, name: 'travel_day_image[uploaded_file]'
+-#        %div{style: 'width:49%;float:right;margin-top: -17px;'}
+-#          #progress.progress-striped.progress-sm
+-#            .progress-bar.progress-bar-success.progress-bar-striped
+-#      .modal-body
+-#        .panel
+-#          %ul.list-group.teammates#travel_day_images
+-#            = render 'dashboard/travel_day_images/images'
+-#

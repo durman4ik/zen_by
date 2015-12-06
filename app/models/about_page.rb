@@ -1,0 +1,3 @@
+class AboutPage < Page
+
+end

@@ -1,0 +1,3 @@
+class SelfTravelPage < Page
+
+end

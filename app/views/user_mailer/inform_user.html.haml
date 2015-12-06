@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
+  %body
+    %h1
+      = 'Здравствуйте '
+      - if @order.name
+        = ", #{@order.name}"
+    %p
+      Вы получили это письмо в связи с тем, что оставили заказ на сайте #{link_to @url, @url, target: '_blank' }
+      %br/
+    %p
+      Спасибо, что выбрали "Искателей впечатлений"! Наш менеджер свяжется с Вами в самое ближайшее время!

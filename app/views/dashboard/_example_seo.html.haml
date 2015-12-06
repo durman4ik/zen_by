@@ -1,0 +1,8 @@
+#example_seo.modal.fade{"aria-labelledby" => "example_countriesLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4#example_countriesLabel.modal-title Пример СЕО
+        = cl_image_tag 'examples/example_seo'

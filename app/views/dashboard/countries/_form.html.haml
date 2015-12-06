@@ -1,0 +1,108 @@
+.col-md-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#main'} Основная информация
+        %li
+          %a{'data-toggle': 'tab', href: '#seo'} СЕО
+    = form_for [:dashboard, @country], html: { id: 'country_form' } do |f|
+      .panel-body
+        .tab-content
+          #main.tab-pane.active
+            - if @country.errors.any?
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                - @country.errors.messages.each_with_index do |error, index|
+                  = "#{index+1}) #{error[1].join}"
+                  %br
+            .col-md-4.form-group
+              = f.label :name, 'Название страны'
+              = f.text_field :name, class: 'form-control validate[required]', placeholder: 'Название страны'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Германия'
+            .col-md-5.form-group
+              = f.label :title, 'Заголовок для страницы'
+              = f.text_field :title, class: 'form-control validate[required]', placeholder: 'Заголовок страницы'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Отдых в Германии'
+            .col-md-3.form-group
+              = f.label :region, 'Принадлежность к региону'
+              = f.select :region, Country::REGIONS, { prompt: 'Выберите регион...' }, class: 'validate[required] form-control m-b-10'
+
+            .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
+              = image_tag @country.image(:preview), width: 400
+
+            .col-md-4.form-group
+              = f.label 'Изображение'
+              = f.file_field :image
+              %span.help-block{style: 'font-style: italic;font-size: small;'}
+                = 'Будет отображаться на странице всех стран'
+              %br
+              - if action_name == 'edit'
+                %p
+                  %label
+                    = hidden_field_tag 'remove_image', 'false'
+                    = check_box_tag 'remove_image', true
+                    Удалить изображение
+                  %span.help-block{style: 'font-style: italic;font-size: small;'}
+                    = 'Поставьте галку и сохраните для сброса на стандартное изображение'
+            .col-md-4.form-group
+              = f.label 'Цвет фона'
+              .bfh-colorpicker{'data-color': "#{f.object.background_color}", 'data-align': 'left', 'data-name': 'colorpicker'}
+                .input-group.bfh-colorpicker-toggle{'data-toggle':'bfh-colorpicker'}
+                  %span.input-group-addon
+                    %span.bfh-colorpicker-icon
+                  = f.text_field :background_color, class: 'form-control colorpicker validate[required]', placeholder: 'Цвет фона'
+
+            .col-md-12.form-group
+              %header.panel-heading Описание
+              = f.text_area :description, class: 'tinymce', placeholder: 'Описание'
+              = tinymce
+
+          #seo.tab-pane
+            .col-lg-12
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                Редактируйте эти поля, только если знаете что делаете! Это прямо влияет на ранжирование сайта в поисковых системах!
+
+              .alert.alert-info
+                %strong К сведению!
+                Поля
+                %i ссылка
+                и
+                %i meta заголовок
+                можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
+
+            .col-md-12
+              %header.panel-heading Пример
+              = cl_image_tag 'examples/example_seo'
+
+            .col-md-6.form-group
+              = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: portugalija'
+
+            .col-md-6.form-group
+              = f.text_field :meta_title, maxlength: 50, class: 'form-control', placeholder: 'meta заголовок'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Туры в Португалию'
+                %br
+                = 'Максимум 50 знаков'
+
+            .col-md-6.form-group
+              = f.text_area :meta_description, rows: 4, class: 'form-control', placeholder: 'meta описание'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Наша Португалия - не туристическая, она...'
+                %br
+                = 'Будет использовано первых 150 знаков'
+
+            .col-md-6.form-group
+              = f.text_area :meta_keywords, rows: 4, class: 'form-control', placeholder: 'ключевые слова (через запятую)'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: туры, туризм, португалия...'
+
+        .row
+          %hr
+          .col-md-12{style: 'padding-top: 15px;'}
+            = f.submit 'Сохранить страну!', class: 'btn btn-info pull-left'

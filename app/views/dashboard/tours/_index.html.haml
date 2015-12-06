@@ -1,0 +1,12 @@
+- @tours.each_with_index do |tour, index|
+  %tr
+    %td= index.succ
+    %td= tour.name
+    %td.text-center= tour.country.name
+    %td.text-center= tour.categories.pluck(:name).join(',')
+    %td
+      = link_to edit_dashboard_tour_path(tour), class: 'btn btn-default btn-xs' do
+        %i.fa.fa-pencil
+      = link_to dashboard_tour_path(tour, page: params[:page]), method: :delete, class: 'btn btn-default btn-xs',
+              data: {confirm: "Вы уверены что хотите удалить тур #{tour.name}"} do
+        %i.fa.fa-times

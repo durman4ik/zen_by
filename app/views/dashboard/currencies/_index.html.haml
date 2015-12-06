@@ -1,0 +1,13 @@
+- @currencies.each_with_index do |currency, index|
+  %tr#country_row
+    %td= index.succ
+    %td= currency.name
+    %td= currency.abbr
+    %td= currency.sym
+    %td= currency.value
+    %td
+      = link_to edit_dashboard_currency_path(currency), class: 'btn btn-default btn-xs' do
+        %i.fa.fa-pencil
+      = link_to dashboard_country_path(currency), method: :delete, class: 'btn btn-default btn-xs',
+          id: 'delete_currency', data: {confirm: 'Вы уверены что хотите удалить эту валюту?'} do
+        %i.fa.fa-times

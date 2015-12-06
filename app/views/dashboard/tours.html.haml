@@ -1,0 +1,23 @@
+.row{style: 'padding-bottom: 15px;'}
+  .col-md-6
+    %h3 Управление турами
+  .col-md-2.col-md-offset-4{style: 'padding-top: 20px;'}
+    = link_to 'Новый тур', new_dashboard_tour_path, class: 'btn btn-success'
+.row
+  .col-md-12
+    %section.panel
+      %header.panel-heading
+        Все туры
+      .panel-body.table-responsive
+        %table.table.table-hover
+          .col-md-12#tours_pagination{style: 'text-align:center;'}
+            = paginate @tours
+          %thead
+            %tr
+              %th #
+              %th Тур
+              %th.text-center Страна
+              %th.text-center Категории
+              %th
+          %tbody
+            = render 'dashboard/tours/index'

@@ -1,0 +1,12 @@
+- @countries.each_with_index do |country, index|
+  %tr#country_row
+    %td= index.succ
+    %td= country.name
+    %td= country.tours.length
+    %td= country.hotels.length
+    %td
+      = link_to dashboard_edit_countries_path(slug: country.slug), class: 'btn btn-default btn-xs' do
+        %i.fa.fa-pencil
+      = link_to dashboard_country_path(country, page: params[:page]), method: :delete, class: 'btn btn-default btn-xs',
+          id: 'delete_country', data: {confirm: "Вы уверены что хотите удалить страну #{country.name.humanize}"} do
+        %i.fa.fa-times

@@ -1,0 +1,403 @@
+
+.row{:style => "margin-bottom:5px;"}
+  .col-md-3
+    .sm-st.clearfix
+      %span.sm-st-icon.st-red
+        %i.fa.fa-dollar
+      .sm-st-info
+        %span
+          =Order.count
+        Всего заказов
+  .col-md-3
+    .sm-st.clearfix
+      %span.sm-st-icon.st-violet
+        %i.fa.fa-envelope-o
+      .sm-st-info
+        %span
+          = Review.count
+        Всего отзывов
+  .col-md-3
+    .sm-st.clearfix
+      %span.sm-st-icon.st-blue
+        %i.fa.fa-check-square-o
+      .sm-st-info
+        %span
+          = Tour.count
+        Всего туров
+  .col-md-3
+    .sm-st.clearfix
+      %span.sm-st-icon.st-green
+        %i.fa.fa-paperclip
+      .sm-st-info
+        %span 4567
+        Всего подписок
+/ Main row
+.row
+  .col-md-8
+    / earning graph start
+    %section.panel
+      %header.panel-heading
+        Earning Graph
+      .panel-body
+        %canvas#linechart{:height => "330", :width => "600"}
+  / earning graph end
+  .col-lg-4
+    / chat start
+    %section.panel
+      %header.panel-heading
+        Notifications
+      #noti-box.panel-body
+        .alert.alert-block.alert-danger
+          %button.close.close-sm{"data-dismiss" => "alert", :type => "button"}
+            %i.fa.fa-times
+          %strong Oh snap!
+          Change a few things up and try submitting again.
+        .alert.alert-success
+          %button.close.close-sm{"data-dismiss" => "alert", :type => "button"}
+            %i.fa.fa-times
+          %strong Well done!
+          You successfully read this important alert message.
+        .alert.alert-info
+          %button.close.close-sm{"data-dismiss" => "alert", :type => "button"}
+            %i.fa.fa-times
+          %strong Heads up!
+          This alert needs your attention, but it's not super important.
+        .alert.alert-warning
+          %button.close.close-sm{"data-dismiss" => "alert", :type => "button"}
+            %i.fa.fa-times
+          %strong Warning!
+          Best check yo self, you're not looking too good.
+        .alert.alert-block.alert-danger
+          %button.close.close-sm{"data-dismiss" => "alert", :type => "button"}
+            %i.fa.fa-times
+          %strong Oh snap!
+          Change a few things up and try submitting again.
+        .alert.alert-success
+          %button.close.close-sm{"data-dismiss" => "alert", :type => "button"}
+            %i.fa.fa-times
+          %strong Well done!
+          You successfully read this important alert message.
+        .alert.alert-info
+          %button.close.close-sm{"data-dismiss" => "alert", :type => "button"}
+            %i.fa.fa-times
+          %strong Heads up!
+          This alert needs your attention, but it's not super important.
+        .alert.alert-warning
+          %button.close.close-sm{"data-dismiss" => "alert", :type => "button"}
+            %i.fa.fa-times
+          %strong Warning!
+          Best check yo self, you're not looking too good.
+.row
+  .col-md-8
+    %section.panel
+      %header.panel-heading
+        Work Progress
+      .panel-body.table-responsive
+        %table.table.table-hover
+          %thead
+            %tr
+              %th #
+              %th Project
+              %th Manager
+              / <th>Client</th>
+              %th Deadline
+              / <th>Price</th>
+              %th Status
+              %th Progress
+          %tbody
+            %tr
+              %td 1
+              %td Facebook
+              %td Mark
+              / <td>Steve</td>
+              %td 10/10/2014
+              / <td>$1500</td>
+              %td
+                %span.label.label-danger in progress
+              %td
+                %span.badge.badge-info 50%
+            %tr
+              %td 2
+              %td Twitter
+              %td Evan
+              / <td>Darren</td>
+              %td 10/8/2014
+              / <td>$1500</td>
+              %td
+                %span.label.label-success completed
+              %td
+                %span.badge.badge-success 100%
+            %tr
+              %td 3
+              %td Google
+              %td Larry
+              / <td>Nick</td>
+              %td 10/12/2014
+              / <td>$2000</td>
+              %td
+                %span.label.label-warning in progress
+              %td
+                %span.badge.badge-warning 75%
+            %tr
+              %td 4
+              %td LinkedIn
+              %td Allen
+              / <td>Rock</td>
+              %td 10/01/2015
+              / <td>$2000</td>
+              %td
+                %span.label.label-info in progress
+              %td
+                %span.badge.badge-info 65%
+            %tr
+              %td 5
+              %td Tumblr
+              %td David
+              / <td>HHH</td>
+              %td 01/11/2014
+              / <td>$2000</td>
+              %td
+                %span.label.label-warning in progress
+              %td
+                %span.badge.badge-danger 95%
+            %tr
+              %td 6
+              %td Tesla
+              %td Musk
+              / <td>HHH</td>
+              %td 01/11/2014
+              / <td>$2000</td>
+              %td
+                %span.label.label-info in progress
+              %td
+                %span.badge.badge-success 95%
+            %tr
+              %td 7
+              %td Ghost
+              %td XXX
+              / <td>HHH</td>
+              %td 01/11/2014
+              / <td>$2000</td>
+              %td
+                %span.label.label-info in progress
+              %td
+                %span.badge.badge-success 95%
+  / end col-6
+  .col-md-4
+    %section.panel
+      %header.panel-heading
+        Twitter Feed
+      .panel-body
+        .twt-area
+          %form{:action => "#", :method => "post"}
+            %textarea.form-control{:name => "profile-tweet", :placeholder => "Share something on Twitter..", :rows => "3"}
+            .clearfix
+              %button.btn.btn-sm.btn-primary.pull-right{:type => "submit"}
+                %i.fa.fa-twitter
+                Tweet
+              %a.btn.btn-link.btn-icon.fa.fa-location-arrow{"data-original-title" => "Add Location", "data-placement" => "bottom", "data-toggle" => "tooltip", :href => "#", :style => "text-decoration:none;", :title => ""}
+              %a.btn.btn-link.btn-icon.fa.fa-camera{"data-original-title" => "Add Photo", "data-placement" => "bottom", "data-toggle" => "tooltip", :href => "#", :style => "text-decoration:none;", :title => ""}
+        %ul.media-list
+          %li.media
+            %a.pull-left{:href => "#"}
+              %img.img-circle{:alt => "Avatar", :height => "64", :src => "img/26115.jpg", :width => "64"}
+              .media-body
+                %span.text-muted.pull-right
+                  %small
+                    %em 30 min ago
+                %a{:href => "page_ready_user_profile.php"}
+                  %strong John Doe
+                %p
+                  In hac
+                  %a{:href => "#"} habitasse
+                  platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend.
+                  %a.text-danger{:href => "#"}
+                    %strong #dev
+            %li.media
+              %a.pull-left{:href => "#"}
+                %img.img-circle{:alt => "Avatar", :height => "64", :src => "img/26115.jpg", :width => "64"}
+                .media-body
+                  %span.text-muted.pull-right
+                    %small
+                      %em 30 min ago
+                  %a{:href => "page_ready_user_profile.php"}
+                    %strong John Doe
+                  %p
+                    In hac
+                    %a{:href => "#"} habitasse
+                    platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend.
+                    %a.text-danger{:href => "#"}
+                      %strong #design
+.row
+  .col-md-5
+    .panel
+      %header.panel-heading
+        Teammates
+      %ul.list-group.teammates
+        %li.list-group-item
+          %a{:href => ""}
+            %img{:height => "50", :src => "img/26115.jpg", :width => "50"}/
+            %span.pull-right.label.label-danger.inline.m-t-15 Admin
+            %a{:href => ""} Damon Parker
+          %li.list-group-item
+            %a{:href => ""}
+              %img{:height => "50", :src => "img/26115.jpg", :width => "50"}/
+              %span.pull-right.label.label-info.inline.m-t-15 Member
+              %a{:href => ""} Joe Waston
+            %li.list-group-item
+              %a{:href => ""}
+                %img{:height => "50", :src => "img/26115.jpg", :width => "50"}/
+                %span.pull-right.label.label-warning.inline.m-t-15 Editor
+                %a{:href => ""} Jannie Dvis
+              %li.list-group-item
+                %a{:href => ""}
+                  %img{:height => "50", :src => "img/26115.jpg", :width => "50"}/
+                  %span.pull-right.label.label-warning.inline.m-t-15 Editor
+                  %a{:href => ""} Emma Welson
+                %li.list-group-item
+                  %a{:href => ""}
+                    %img{:height => "50", :src => "img/26115.jpg", :width => "50"}/
+                    %span.pull-right.label.label-success.inline.m-t-15 Subscriber
+                    %a{:href => ""} Emma Welson
+                .panel-footer.bg-white
+                  / <span class="pull-right badge badge-info">32</span>
+                  %button.btn.btn-primary.btn-addon.btn-sm
+                    %i.fa.fa-plus
+                    Add Teammate
+  .col-md-7
+    %section.panel.tasks-widget
+      %header.panel-heading
+        Todo list
+      .panel-body
+        .task-content
+          %ul.task-list
+            %li
+              .task-checkbox
+                / <input type="checkbox" class="list-child" value=""  />
+                %input.flat-grey.list-child{:type => "checkbox"}/
+              / <input type="checkbox" class="square-grey"/>
+              .task-title
+                %span.task-title-sp Director is Modern Dashboard
+                %span.label.label-success 2 Days
+                .pull-right.hidden-phone
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-check
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-pencil
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-times
+            %li
+              .task-checkbox
+                / <input type="checkbox" class="list-child" value=""  />
+                %input.flat-grey{:type => "checkbox"}/
+              .task-title
+                %span.task-title-sp Fully Responsive  Bootstrap 3.0.2 Compatible
+                %span.label.label-danger Done
+                .pull-right.hidden-phone
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-check
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-pencil
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-times
+            %li
+              .task-checkbox
+                / <input type="checkbox" class="list-child" value=""  />
+                %input.flat-grey{:type => "checkbox"}/
+              .task-title
+                %span.task-title-sp Latest Design Concept
+                %span.label.label-warning Company
+                .pull-right.hidden-phone
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-check
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-pencil
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-times
+            %li
+              .task-checkbox
+                / <input type="checkbox" class="list-child" value=""  />
+                %input.flat-grey{:type => "checkbox"}/
+              .task-title
+                %span.task-title-sp Write well documentation for this theme
+                %span.label.label-primary 3 Days
+                .pull-right.hidden-phone
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-check
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-pencil
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-times
+            %li
+              .task-checkbox
+                / <input type="checkbox" class="list-child" value=""  />
+                %input.flat-grey{:type => "checkbox"}/
+              .task-title
+                %span.task-title-sp Don't bother to download this Dashbord
+                %span.label.label-inverse Now
+                .pull-right
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-check
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-pencil
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-times
+            %li
+              .task-checkbox
+                / <input type="checkbox" class="list-child" value=""  />
+                %input.flat-grey{:type => "checkbox"}/
+              .task-title
+                %span.task-title-sp Give feedback for the template
+                %span.label.label-success 2 Days
+                .pull-right.hidden-phone
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-check
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-pencil
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-times
+            %li
+              .task-checkbox
+                / <input type="checkbox" class="list-child" value=""  />
+                %input.flat-grey{:type => "checkbox"}/
+              .task-title
+                %span.task-title-sp Tell your friends about this admin template
+                %span.label.label-danger Now
+                .pull-right.hidden-phone
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-check
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-pencil
+                  %button.btn.btn-default.btn-xs
+                    %i.fa.fa-times
+        .add-task-row
+          %a.btn.btn-success.btn-sm.pull-left{:href => "#"} Add New Tasks
+          %a.btn.btn-default.btn-sm.pull-right{:href => "#"} See All Tasks
+-#
+-#
+-#
+-#
+-##newPhoneModal.modal.hide.fade
+-#= render 'phones/new'
+-##editPhoneModal.modal.hide.fade
+-#= render 'phones/edit'
+-#
+-#= form_tag({}, {:method => :get}) do
+-#= select_tag :controller_name, options_for_select(@templates, @template)
+-#= submit_tag 'Submit'
+-#%ul
+-#- @phones.each do |p|
+-#  %li
+-#    = '+375 '
+-#    = p.code
+-#    = p.number
+-#    = link_to 'Edit', edit_phone_path(p), remote: true, class: 'edit-phone', data: { toggle: 'modal', target: '.modal'}
+-#    = link_to 'Delete', phone_path(p), method: :delete, data: { confirm: 'Are u sure?'}, remote: true, class: 'delete_phone'
+-#%p
+-#= link_to 'Add phone', new_phone_path
+-#%p
+-#= link_to 'Add category', new_category_path
+-#
+-#
+-#
+-#= link_to('Logout', destroy_admin_session_path, :method => :delete)

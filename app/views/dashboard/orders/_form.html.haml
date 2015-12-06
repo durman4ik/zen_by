@@ -1,0 +1,35 @@
+%section.panel
+  %header.panel-heading{style: 'padding-bottom: 25px'}
+  .panel-body
+    - if @order.errors.any?
+      .alert.alert-block.alert-danger
+        %strong Внимание!
+        - @order.errors.messages.each_with_index do |error, index|
+          = "#{index+1}) #{error[1].join}"
+          %br
+    = form_for [:dashboard, @order], html: { id: 'form-contentArea_5_-module_59_' } do |f|
+      .col-md-6.col-md-offset-3.form-group
+        = f.label :status, 'Статус заказа'
+        = f.select :status, Order::STATUSES, {}, class: 'form-control'
+      .col-md-6.col-md-offset-3.form-group
+        = f.label :name, 'Вас зовут'
+        = f.text_field :name, class: 'text form-control'
+      .col-md-6.col-md-offset-3.form-group
+        = f.label :phone, 'Телефон'
+        = f.text_field :phone, class: 'text form-control'
+      .col-md-6.col-md-offset-3.form-group
+        = f.label :email, 'Email'
+        = f.text_field :email, class: 'text form-control'
+      .col-md-6.col-md-offset-3.form-group
+        = f.label :city, 'Город'
+        = f.text_field :city, class: 'text form-control'
+      .col-md-6.col-md-offset-3.form-group
+        = f.label :message, 'Сообщение'
+        = f.text_area :message, class: 'text form-control', rows: 5
+      .col-md-6.col-md-offset-3.form-group
+        = f.label :tour_id, 'Название путешествия'
+        = f.collection_select :tour_id, Tour.all, :id, :title_for_orders, { include_blank: 'Выберите путешествие...'}, class: 'text form-control'
+      .col-md-6.col-md-offset-3.form-group
+        .button-container
+          = f.text_field :anti_spam, class: 'hidden form-control'
+          = f.submit 'Сохранить заказ!', class: 'btn btn-info', id: 'place_new_order'

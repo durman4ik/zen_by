@@ -1,0 +1,27 @@
+.row{style: 'padding-bottom: 15px;'}
+  .col-md-6
+    %h3 Управление заказами
+  .col-md-2.col-md-offset-4{style: 'padding-top: 20px;'}
+    = link_to 'Новый заказ', new_dashboard_order_path, class: 'btn btn-success'
+.row
+  .col-md-12{style: 'min-height: 500px;'}
+    %section.panel
+      %header.panel-heading
+        Все заказы
+      .panel-body.table-responsive
+        %table.table.table-hover
+          .col-md-12#orders_pagination{style: 'text-align:center;'}
+            = paginate @orders
+          %thead
+            %tr
+              %th Дата
+              %th Имя
+              %th.text-center Email
+              %th.text-center Телефон
+              %th.text-center Город
+              %th.text-center Сообщение
+              %th.text-center Выбранный тур
+              -#%th.text-center Статус
+              %th
+          %tbody#orders
+            = render 'dashboard/orders/index'

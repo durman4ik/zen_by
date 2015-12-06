@@ -1,0 +1,22 @@
+- if @images.present?
+  :css
+    .image {
+      max-width: 200px;
+      min-width: 130px;
+      width: auto;
+      height: 130px;
+      overflow: hidden;
+    }
+    img {
+      max-width: 220px;
+      max-height: 145px;
+    }
+  - @images.each do |image|
+    %div{style: 'float:left;text-align: center;padding: 5px 7px;'}
+      .image
+        = image_tag(cl_image_path (image.public_id), size: '150x100')
+      %p
+        = link_to 'Удалить', dashboard_image_path(image.id), method: :delete, remote: true
+- else
+  = 'У этого тура нету изображений в галерее'
+

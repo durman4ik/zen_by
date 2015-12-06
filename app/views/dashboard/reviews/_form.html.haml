@@ -1,0 +1,51 @@
+.row
+  .col-md-12
+    %section.panel
+      .panel-body
+        - if @review.errors.any?
+          .alert.alert-block.alert-danger
+            %strong Внимание!
+            - @review.errors.messages.each_with_index do |error, index|
+              = "#{index+1}) #{error[1].join}"
+              %br
+        = form_for [:dashboard, @review], html: { class: 'form', id: 'edit_page_form' } do |f|
+          .col-md-4.form-group
+            = f.label 'Имя автора'
+            = f.text_field :name, class: 'form-control validate[required]'
+          .col-md-4.form-group
+            = f.label 'Город автора'
+            = f.text_field :city, class: 'form-control'
+          .col-md-4.form-group
+            = f.label 'Email'
+            = f.text_field :email, class: 'form-control'
+          .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
+            = image_tag @review.image(:preview), width: 400
+
+          .col-md-4.form-group
+            = f.label 'Фоновое изображение'
+            = f.file_field :image
+            %span.help-block{style: 'font-style: italic;font-size: small;'}
+              = 'Ширина должна быть не менее 1024px'
+              = 'Будет отображаться на странице тура в самом верху, а так же использоваться для более мелких изображений'
+            %br
+            - if action_name == 'edit'
+              %p
+                %label
+                  = hidden_field_tag 'remove_image', 'false'
+                  = check_box_tag 'remove_image', true
+                  Удалить изображение
+                %span.help-block{style: 'font-style: italic;font-size: small;'}
+                  = 'Поставьте галку и сохраните для сброса на стандартное изображени'
+          .col-md-4
+            .form-group
+              = f.label 'Статус отзыва '
+              = f.select :status, Review::STATUSES
+          %br
+          .col-lg-12
+            .form-group
+              = f.label :body, 'Ваш отзыв'
+              = f.text_area :body, class: 'form-control validate[required]', placeholder: 'Описание', rows: 6
+          .col-lg-12
+            .form-group
+              = f.text_field :anti_spam, class: 'hidden'
+              = f.submit 'Готово', class: 'btn btn-success'

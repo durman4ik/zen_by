@@ -1,0 +1,60 @@
+%aside.left-side.sidebar-offcanvas
+  / sidebar: style can be found in sidebar.less
+  %section.sidebar
+    / Sidebar user panel
+    .user-panel
+      .pull-left.info
+        %p{style: 'float:left; padding-right:7px;'}
+          = Time.now.to_date.strftime('%d.%m.%Y')
+        %p#live_time{style: 'float:left;'}
+        %p
+          = l Date.today, format: '%A'
+
+    / sidebar menu: : style can be found in sidebar.less
+    %ul.sidebar-menu
+      %li{class: "#{'active' if current_page?(dashboard_path)}" }
+        = link_to dashboard_path do
+          %i.fa.fa-dashboard
+          %span Панель управления
+      %li{class: "#{'active' if request.fullpath.include?('orders')}" }
+        = link_to dashboard_orders_path do
+          %i.fa.fa-paper-plane
+          %span Заказы
+      %li{class: "#{'active' if request.fullpath.include?('reviews')}" }
+        = link_to dashboard_reviews_path do
+          %i.fa.fa-newspaper-o
+          %span Отзывы
+      %li{class: "#{'active' if request.fullpath.include?('countries')}" }
+        = link_to dashboard_countries_path do
+          %i.fa.fa-gavel
+          %span Страны
+      %li{class: "#{'active' if request.fullpath.include?('categories')}" }
+        = link_to dashboard_categories_path do
+          %i.fa.fa-globe
+          %span Категории
+      %li{class: "#{'active' if request.fullpath.include?('hotels')}" }
+        = link_to dashboard_hotels_path do
+          %i.fa.fa-globe
+          %span Отели
+      %li{class: "#{'active' if request.fullpath.include?('tours')}" }
+        = link_to dashboard_tours_path do
+          %i.fa.fa-globe
+          %span Туры
+      %li{class: "#{'active' if request.fullpath.include?('pages')}" }
+        = link_to dashboard_pages_path do
+          %i.fa.fa-glass
+          %span Страницы
+-#      %span{style: 'float:right;width: 40px;', "aria-controls" => "collapseListGroup1", "aria-expanded" => "true", "data-toggle" => "collapse", :href => "#collapseListGroup1"}
+-#        >
+-#  #collapseListGroup1.panel-collapse.collapse{"aria-expanded" => "true", "aria-labelledby" => "collapseListGroupHeading1", :role => "tabpanel"}
+-#    %ul.sidebar-menu.accordion
+-#      %li
+-#        = link_to '#' do
+-#          %i.fa.fa-university
+-#          %span Главная
+-#      - Page.all.each do |page|
+-#        %li
+-#          = link_to edit_dashboard_page_path(slug: page.slug) do
+-#            %i.fa.fa-binoculars
+-#            %span
+-#              = page.title

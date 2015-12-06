@@ -1,0 +1,52 @@
+.col-xs-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#home'} Основная информация
+
+    = form_for [:dashboard, @hotel], html: { id: 'edit_form', multipart: true} do |f|
+      .panel-body
+        .tab-content
+          #home.tab-pane.active
+            - if @hotel.errors.any?
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                - @hotel.errors.messages.each_with_index do |error, index|
+                  = "#{index+1}) #{error[1].join}"
+                  %br
+            .col-md-4.form-group
+              = f.label :title, 'Название отеля'
+              = f.text_field :title, class: 'form-control validate[required]', placeholder: 'Название отеля'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Туры по Европе'
+            .col-md-3.form-group
+              = f.label :stars, 'Количество звезд'
+              = f.text_field :stars, class: 'form-control', placeholder: 'Количество звезд'
+            .col-md-5.form-group
+              = f.label 'Страна'
+              = f.collection_select :country_id, Country.all, :id, :name,
+                    { selected: @hotel.country },  {class: 'form-control'}
+            -if action_name == 'edit' && @hotel.images.present?
+              .col-md-12#images_list{style: 'height: 140px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;'}
+                - @hotel.images.each do |image|
+                  %div#this_image{style: 'display:inline-block;'}
+                    .stat
+                      .stat-icon{style: 'height:90px;max-height:90px;overflow:hidden;'}
+                        = image_tag image.uploaded_file(:thumb)
+                      .stat-info
+                        = link_to 'Удалить', dashboard_image_path(image), method: :delete, remote: true,
+                                  id: 'destroy_this_image', data: {confirm: 'Вы уверены?'}
+
+            .col-md-12.form-group
+              = f.label 'Добавить фото отеля'
+              = file_field_tag 'hotel[hotel_images][]', multiple: true
+
+            .col-md-12.form-group
+              %header.panel-heading Описание
+              = f.text_area :description, class: 'tinymce', placeholder: 'Описание'
+              = tinymce
+
+      = f.submit 'Готово', class: 'btn btn-info'
+
+

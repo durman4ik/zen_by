@@ -1,0 +1,30 @@
+.col-md-4.form-group
+  = f.label :info_email, 'Email для клиентов'
+  = f.text_field :info_email, class: 'form-control', placeholder: 'Email для клиентов'
+.col-md-4.form-group
+  = f.label :order_email, 'Email для заказов'
+  = f.text_field :order_email, class: 'form-control', placeholder: 'Email для заказов'
+.col-md-4.form-group
+  = f.label :phone, 'Телефон'
+  = f.text_field :phone, class: 'form-control', placeholder: 'Телефон'
+  %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+    = 'Пример: +375 (29) 662-19-09'
+.col-md-8.form-group
+  = f.label :address, 'Адрес'
+  = f.text_field :address, class: 'form-control', placeholder: 'Адрес'
+.col-md-2.form-group
+  = f.label 'Цены на сайте в:'
+  = f.collection_select :currency_id, Currency.all, :id, :name,
+                            { selected: f.object.currency_id }, class: 'form-control'
+.col-md-2.form-group
+  = f.label :unp, 'УНП'
+  = f.text_field :unp, class: 'form-control', placeholder: 'УНП компании'
+.col-md-8.form-group
+  = f.label :map_link, 'Ссылка на карту'
+  = f.text_field :map_link, class: 'form-control', placeholder: 'Карта с указанием офиса'
+.col-md-4.form-group
+  = f.label :facebook, 'Ссылка на страницу в Facebook'
+  = f.text_field :facebook, class: 'form-control', placeholder: 'Ссылка на страницу в Facebook'
+.col-md-12.form-group
+  = f.label :requisites, 'Реквизиты компании'
+  = f.text_area :requisites, class: 'form-control', placeholder: 'Реквизиты компании', rows: 10

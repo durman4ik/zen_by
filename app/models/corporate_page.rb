@@ -1,0 +1,3 @@
+class CorporatePage < Page
+
+end

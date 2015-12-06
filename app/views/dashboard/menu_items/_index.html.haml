@@ -1,0 +1,23 @@
+- @menu_items.each_with_index do |menu_item, index|
+  %tr#page_row
+    %td= index.succ
+    %td= menu_item.name
+    %td
+    %td= menu_item.position
+    %td= menu_item.sub_menu_items.count
+    %td
+      = link_to edit_dashboard_menu_item_path(menu_item), class: 'btn btn-default btn-xs' do
+        %i.fa.fa-pencil
+          -#= link_to '#', class: 'btn btn-default btn-xs', remote: true do
+          -#  %i.fa.fa-file-text-o
+      = link_to dashboard_menu_item_path(menu_item), method: :delete, class: 'btn btn-default btn-xs', id: 'delete_page',
+        data: {confirm: "Вы уверены, что хотите удалить этот пункт меню?"} do
+        %i.fa.fa-times
+    - menu_item.sub_menu_items.each do |sub_item|
+      %tr#page_row
+        %td
+        %td
+        %td= sub_item.name
+        %td= sub_item.position
+        %td
+        %td

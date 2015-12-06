@@ -1,0 +1,69 @@
+#contentWrapperWrapper.main-container
+  #contentWrapper.section.main{:role => "main"}
+    .contentArea.contentAreaC
+      .module.hidden-large.call
+        %a.btn.btn-call.piwik_ignore{"data-track-action" => "tapToCall", "data-track-event" => "click", :href => "tel:+375296621909", :itemprop => "telephone", :title => ""} +375 (29) 662-19-09
+      %h1.module.h1 Контакты
+      .module.divider-divider-variable.divider-variable{:style => "height: 10px;"}
+      .module.divider-divider.divider
+      .contentArea.contentAreaF
+      %article.module.text
+        %p
+          %strong{:style => "line-height: 20.7999992370605px;"} Адрес:
+          %br{:style => "line-height: 20.7999992370605px;"}/
+          %span{:style => "line-height: 20.7999992370605px;"}
+            %span{:itemprop => "addressLocality"} г. Минск
+            = succeed "," do
+              %span{:itemprop => "addressRegion"}
+            = succeed "," do
+              %span{:itemprop => "addressCountry"} БЦ Парус
+            %span{:itemprop => "streetAddress"} ул. Мележа 1, 10 этаж, офис 1010
+            = succeed "\u{a0}" do
+              %span{:itemprop => "postalCode"}
+          %br/
+          %br/
+          %strong Телефоны:
+          %br/
+          %span{:style => "color:#000000;"}
+            %a{"data-track-action" => "tapToCall", "data-track-event" => "click", :href => "tel:+375296621909", :itemprop => "telephone"} +375 (29) 662-19-09
+            %br/
+            %br/
+            %span{:style => "line-height: 20.7999992370605px;"}
+              %strong Email:
+              %br/
+              %a{"data-track-action" => "tapToEmail", "data-track-event" => "click", :href => "mailto:welcome@zen.by", :itemprop => "email"} welcome@zen.by
+      %article.module.intro.image-text.image-text-small.small.alignleft.clear
+        %img{"data-srcset" => "upl/website/kontakty1/kjuj_srcset-small.png, upl/website/kontakty1/kjuj_srcset-large.png", :src => "/upl/website/kontakty1/kjuj_srcset-large.png"}/
+        %p.small
+        %h2.h2
+        %p
+          %span{:style => "font-size:18px;"}
+            %strong
+              %span{:style => "line-height: 1.6;"}
+                %a{:href => "https://www.facebook.com/iskatelivpechatlenii?fref=pb&hc_location=profile_browser", :target => "_blank"}
+                  %span{:style => "color:#23599b;"} Мы в Facebook
+    .contentArea.contentAreaE
+      #contentArea_3_-module_1_.module.formbuilder.normal
+        %h3.h2 Заказать обратный звонок
+        %form#form-contentArea_3_-module_1_{:action => "kontakty1", "data-track-action" => "custom_form", "data-track-event" => "submit", :method => "post", :onsubmit => "disableSubmit(this);return submitForm(this);"}
+          %fieldset
+            %label{:for => "form_contentArea_3_-module_1__0"}
+              Имя
+              %span#error_contentArea_3_-module_1__form_contentArea_3_-module_1__0.error
+            .text-container
+              %input.text{:name => "form_contentArea_3_-module_1__0", :type => "text", :value => ""}/
+            %label{:for => "form_contentArea_3_-module_1__1"}
+              Телефон
+              %span#error_contentArea_3_-module_1__form_contentArea_3_-module_1__1.error
+            .text-container
+              %input.text{:name => "form_contentArea_3_-module_1__1", :type => "text", :value => ""}/
+            %label{:for => "form_contentArea_3_-module_1__2"}
+              Сообщение
+              %span#error_contentArea_3_-module_1__form_contentArea_3_-module_1__2.error
+            .textarea-container
+              %textarea.textarea{:name => "form_contentArea_3_-module_1__2"}
+          %span#error-contentArea_3_-module_1_.error
+          .width-container
+            .button-container
+              %input.button{:name => "contentArea_3_-module_1_", :type => "submit", :value => "Отправить"}/
+              %button.btn{:type => "submit"} Отправить

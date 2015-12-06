@@ -1,0 +1,22 @@
+= f.fields_for :sliders do |slide_builder|
+  .row{style: 'border-bottom: 1px solid #ddd;padding: 25px 0;list-style:none'}
+    .col-md-5
+      .form-group
+        = slide_builder.label :title, 'Заголовок'
+        = slide_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок слайда'
+      .form-group
+        = slide_builder.label :description, 'Краткое описание'
+        = slide_builder.text_area :description, class: 'form-control', rows: 10
+
+    .col-md-4{class: "#{ 'col-md-offset-4' unless action_name == 'edit' && slide_builder.object.image}"}
+      .form-group
+        = slide_builder.label 'Картинка слайда'
+        = slide_builder.file_field :image
+      .form-group{style: 'max-height: 180px; overflow: hidden;padding-top: 24px;'}
+      - if action_name == 'edit' && slide_builder.object.image
+        = image_tag slide_builder.object.image(:preview), width: 400
+    .col-md-1{style: 'padding-top: 25px;'}
+      = slide_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+.row
+  .col-md-2.col-md-offset-10
+    = f.link_to_add 'Добавить слайд', :sliders, class: 'btn btn-success', data: { target: '#sliders' }
