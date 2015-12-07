@@ -1,0 +1,30 @@
+.module.divider-divider-variable.divider-variable{style: 'height: 10px;'}
+.module.divider-divider.divider
+%article.module.text
+  %p
+    %strong{:style => 'line-height: 20.7999992370605px;'} Адрес:
+    %br{:style => 'line-height: 20.7999992370605px;'}/
+    %span{:style => 'line-height: 20.7999992370605px;'}
+      = @config.address
+    %br/
+    %br/
+    %strong Телефоны:
+    %br/
+    %span{:style => 'color:#000000;'}
+      = @config.phone
+      %br/
+      %br/
+      %span{:style => 'line-height: 20.7999992370605px;'}
+        %strong Email:
+        %br/
+        %a{'data-track-action': 'tapToEmail', 'data-track-event': 'click', :href => "mailto:#{@config.info_email}"}
+          = @config.info_email
+%article.module.intro.image-text.image-text-small.small.alignleft.clear
+  = image_tag 'facebook.png'
+  %p.small
+  %h2.h2
+  %p
+    %span{:style => 'line-height: 1.6;font-size:18px;'}
+      %strong
+        %a{style: 'color:#23599b;', href: "#{@config.facebook}", target: '_blank'}
+          Мы в Facebook

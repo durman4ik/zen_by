@@ -1,0 +1,50 @@
+.col-md-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#main'} Основная информация
+        %li
+          %a{'data-toggle': 'tab', href: '#four_causes'} Почему нас выбирают
+    .panel-body
+      = nested_form_for [:dashboard, @about] do |f|
+        .tab-content
+          #main.tab-pane.active
+            - if @about.errors.any?
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                - @about.errors.messages.each_with_index do |error, index|
+                  = "#{index+1}) #{error[1].join}"
+                  %br
+            .col-md-3.form-group
+              = f.label :info_email, 'Email для клиентов'
+              = f.text_field :info_email, class: 'form-control', placeholder: 'Email для клиентов'
+            .col-md-3.form-group
+              = f.label :order_email, 'Email для заказов'
+              = f.text_field :order_email, class: 'form-control', placeholder: 'Email для заказов'
+            .col-md-3.form-group
+              = f.label :subscribe_email, 'Email для подписок'
+              = f.text_field :subscribe_email, class: 'form-control', placeholder: 'Email для заказов'
+            .col-md-3.form-group
+              = f.label :phone, 'Телефон'
+              = f.text_field :phone, class: 'form-control', placeholder: 'Телефон'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Пример: +375 (29) 662-19-09'
+            .col-md-8.form-group
+              = f.label :address, 'Адрес'
+              = f.text_field :address, class: 'form-control', placeholder: 'Адрес'
+            .col-md-3.col-md-offset-1.form-group
+              = f.label :unp, 'УНП'
+              = f.text_field :unp, class: 'form-control', placeholder: 'УНП компании'
+            .col-md-8.form-group
+              = f.label :map_link, 'Ссылка на карту'
+              = f.text_field :map_link, class: 'form-control', placeholder: 'Карта с указанием офиса'
+            .col-md-4.form-group
+              = f.label :facebook, 'Ссылка на страницу в Facebook'
+              = f.text_field :facebook, class: 'form-control', placeholder: 'Ссылка на страницу в Facebook'
+            .col-md-12.form-group
+              = f.label :requisites, 'Реквизиты компании'
+              = f.text_area :requisites, class: 'form-control', placeholder: 'Реквизиты компании', rows: 10
+            .col-md-12.form-group
+              = f.submit 'Сохранить информацию!', class: 'btn btn-info'
+          #four_causes

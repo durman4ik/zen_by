@@ -1,13 +1,10 @@
 = render 'dashboard/pages/meta', page: @page
-
 #contentWrapperWrapper.main-container
   #contentWrapper.section.main{:role => "main"}
     .contentArea.contentAreaC
       = render 'page_header'
-      - if @page.stick_to_body == 'страны'
-        = render 'dashboard/pages/stick_templates/country_page'
-      - if @page.stick_to_body == 'категории'
-        = render 'dashboard/pages/stick_templates/catalog_page'
-      - if @page.stick_to_body == 'отзывы'
-        = render 'dashboard/pages/stick_templates/review_page'
+      - if @page.page_attachments.present?
+        - @page.page_attachments.each do |attachment|
+          = render "dashboard/pages/stick_templates/#{attachment.template}"
+
       = raw @page.html_content

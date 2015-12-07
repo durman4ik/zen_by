@@ -7,10 +7,7 @@ class Country
 
   REGIONS = ['Австралия и Океания', 'Азия', 'Антарктида', 'Африка', 'Европа', 'Северная Америка', 'Южная Америка']
 
-  before_validation :create_slug
-
-  validates :region, inclusion: { in: REGIONS }
-  validates_uniqueness_of :slug, { message: 'Такая сео ссылка уже существует. Создайте уникальную ссылку!' }
+  attr_accessor :remove_image
 
   field :name, type: String
   field :title, type: String
@@ -38,6 +35,13 @@ class Country
   has_one  :sub_menu_item,      dependent: :destroy
   has_many :tours,              dependent: :destroy
   has_many :hotels,             dependent: :destroy
+
+  before_validation :create_slug
+
+  validates :region, inclusion: { in: REGIONS }
+  validates_uniqueness_of :slug, { message: 'Такая сео ссылка уже существует. Создайте уникальную ссылку!' }
+
+
 
   def create_country(params)
     assign_attributes(params)

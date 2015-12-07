@@ -22,7 +22,6 @@ gem 'devise'
 
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
-gem 'cloudinary'
 
 gem 'mongoid-paperclip', require: 'mongoid_paperclip'
 gem 'jquery-fileupload-rails'

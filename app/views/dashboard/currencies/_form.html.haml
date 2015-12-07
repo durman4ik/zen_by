@@ -1,1 +1,35 @@
-= ' '
+.row
+  .col-md-12
+    %section.panel
+      .panel-body
+        - if @currency.errors.any?
+          .alert.alert-block.alert-danger
+            %strong Внимание!
+            - @currency.errors.messages.each_with_index do |error, index|
+              = "#{index+1}) #{error[1].join}"
+              %br
+        = form_for [:dashboard, @currency], html: { class: 'form', id: 'edit_page_form' } do |f|
+          .col-md-3.form-group
+            = f.label 'Название в родительном падеже'
+            = f.text_field :name, class: 'form-control validate[required]'
+            %span.help-block{style: 'font-style: italic;font-size: small;'}
+              = 'Например: рублей'
+          .col-md-3.form-group
+            = f.label :abbr, 'Аббревиатура'
+            = f.text_field :abbr, class: 'form-control validate[required]'
+            %span.help-block{style: 'font-style: italic;font-size: small;'}
+              = 'Например: USD'
+          .col-md-3.form-group
+            = f.label 'Символ'
+            = f.text_field :sym, class: 'form-control validate[required]'
+            %span.help-block{style: 'font-style: italic;font-size: small;'}
+              = 'Например: $'
+          .col-md-3.form-group
+            = f.label 'Курс'
+            = f.text_field :value, class: 'form-control validate[required]'
+            %span.help-block{style: 'font-style: italic;font-size: small;'}
+              = 'Например: 18700'
+              = 'Чтобы задать основную валюту, установите занчение 1.'
+          .col-lg-12
+            .form-group
+              = f.submit 'Готово', class: 'btn btn-success'

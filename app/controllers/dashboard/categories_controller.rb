@@ -66,6 +66,7 @@ class Dashboard::CategoriesController < ApplicationController
                                        :meta_description,
                                        :slug,
                                        :meta_keywords,
+                                       :remove_image,
                                        sliders_attributes:[:id, :_destroy, :title, :image, :description])
     end
   end

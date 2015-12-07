@@ -10,6 +10,8 @@ class Category
 
   validates_uniqueness_of :slug, { message: 'Такая сео ссылка уже существует. Создайте уникальную ссылку!' }
 
+  attr_accessor :remove_image
+
   field :name,                  type: String
   field :title,                 type: String
   field :description,           type: String

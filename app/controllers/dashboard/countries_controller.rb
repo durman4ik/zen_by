@@ -62,6 +62,7 @@ class Dashboard::CountriesController < ApplicationController
                                         :background_color,
                                         :image,
                                         :region,
+                                        :remove_image,
                                         :meta_title,
                                         :meta_description,
                                         :slug,

@@ -1,8 +1,7 @@
 class Dashboard::PagesController < ApplicationController
+  layout 'dashboard', except: :show
   before_action :set_page, only: [:update, :destroy]
   before_action :set_page_by_slug, only: [:show, :edit]
-  before_action :set_collection_for_select, only: [:new, :edit]
-  layout 'dashboard', except: :show
 
   def index
     @pages = Page.with_position.all
@@ -20,6 +19,7 @@ class Dashboard::PagesController < ApplicationController
 
   def create
     @page = Page.new(page_params)
+    @page.set_meta(page_params)
     if @page.save
       flash[:success] = "Страница '#{@page.title}' успешно создана!"
       redirect_to dashboard_pages_path
@@ -30,7 +30,9 @@ class Dashboard::PagesController < ApplicationController
   end
 
   def update
-    if @page.update(page_params)
+    @page.assign_attributes(page_params)
+    @page.set_meta(page_params)
+    if @page.save
       flash[:success] = 'Страница успешно обновлена!'
       redirect_to dashboard_pages_path
     else
@@ -51,10 +53,6 @@ class Dashboard::PagesController < ApplicationController
 
   private
 
-    def set_collection_for_select
-      @pages_for_select = Page.all.or({parent: nil}, {parent: ''})
-    end
-
     def set_page
       @page = Page.find(params[:id])
     end
@@ -73,11 +71,9 @@ class Dashboard::PagesController < ApplicationController
                                    :meta_title,
                                    :meta_description,
                                    :meta_keywords,
-                                   :parent,
-                                   :menu_position,
                                    :description_background,
-                                   :enabled,
-                                   :slug                     )
+                                   :slug,
+                                   page_attachments_attributes: [:id, :_destroy, :template])
 
     end
 end

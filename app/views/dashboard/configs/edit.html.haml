@@ -1,20 +1,13 @@
+.row
+  .col-md-12
+    %h3 Изменение настроек сайта
 .col-md-12
   %section.panel.general
     %header.panel-heading.tab-bg-dark-navy-blue
       %ul.nav.nav-tabs
         %li.active
           %a{'data-toggle': 'tab', href: '#main'} Основные настройки
-        %li
-          %a{'data-toggle': 'tab', href: '#about'} Информация о нас
-        %li
-          %a{'data-toggle': 'tab', href: '#currency'} Настройка валют
     .panel-body
       .tab-content
-        = nested_form_for [:dashboard, @config] do |f|
-          #main.tab-pane.active
-            = render 'dashboard/configs/form', f: f
-          #about.tab-pane
-          .tab-footer
-            = f.submit 'Сохранить настройки!', class: 'btn btn-info'
-        #currency.tab-pane
-          = render 'dashboard/currencies/form'
+        #main.tab-pane.active
+          = render 'dashboard/configs/form'

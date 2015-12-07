@@ -21,9 +21,9 @@ module ApplicationHelper
   def show_price(tour)
     @tour_currency = tour.currency
     if @tour_currency == @config.currency
-      "#{tour.price } #{tour.currency.name}"
+      "#{tour.price } #{tour.currency.sym}"
     else
-      "#{number_with_delimiter(tour.price * @config.currency.value)} #{@config.currency.sym}"
+      "#{number_with_delimiter((tour.price.to_f * @config.currency.value.to_f).ceil)} #{@config.currency.sym}"
     end
   end
 end

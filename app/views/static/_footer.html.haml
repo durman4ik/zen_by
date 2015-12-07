@@ -10,7 +10,7 @@
           %span{:style => 'color:#FFFFFF;font-size:14px;'}
             - @menu_items.each do |item|
               - if item.page.present?
-                = link_to item.name, "/#{item.page.slug}", style: 'text-transform:uppercase;'
+                = link_to item.name, "/#{item.page.slug}"
               - else
                 = link_to item.name, item.external_link
               %br
@@ -22,12 +22,12 @@
             Адрес
         %p
           %span{:style => 'color:#FFFFFF;font-size:14px;line-height: 23.1111106872559px;'}
-            = @config.address
+            = @about.address
         %p
           %span{:style => 'color:#FFFFFF;font-size:16px;line-height: 23.1111106872559px;'}
             УНП 
             %span{:style => 'font-size: 14px;'}
-              = @config.unp
+              = @about.unp
         %div  
       .column.column-25
         %p
@@ -35,19 +35,21 @@
             Телефоны
             %br/
             %span{:style => 'line-height: 23.1111106872559px; font-size: 14px;'}
-              = @config.phone
+              = @about.phone
             %br/
         %p
           %span{:style => 'color:#FFFFFF;font-size:20px;'}
             E-mai
             %br/
             %span{:style => 'font-size:14px;'}
-              = link_to @config.info_email, "mailto:#{@config.info_email}"
+              = link_to @about.info_email, "mailto:#{@about.info_email}"
         %p  
         %p  
-  #follow
-    %a{:href => "#{@config.facebook}", :target => '_blank'}
-      = image_tag 'facebook.png', height: 47
-  #follow11
-    = link_to subscribe_page_path, target: '_blank' do
-      = image_tag 'sunscribe.png', height: 47
+  - if @config.facebook_enabled
+    #follow
+      %a{:href => "#{@about.facebook}", :target => '_blank'}
+        = image_tag 'facebook.png', height: 47
+  - if @config.subscribe_enabled
+    #follow11
+      = link_to subscribe_page_path, target: '_blank' do
+        = image_tag 'sunscribe.png', height: 47

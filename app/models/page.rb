@@ -2,10 +2,15 @@ class Page
   include Mongoid::Document
   include ActionView::Helpers
 
-  scope :with_position,     -> { order_by(menu_position: 'OSC') }
-  scope :parents,   -> { where(is_parent: true) }
-
-  FOR_BODY_STICKING = %w(категории страны отзывы)
+  FOR_BODY_STICKING =
+          %w(Категории categories_page),
+          %w(Страны countries_page),
+          %w(Отзывы reviews_page),
+          ['Информация о нас', 'about_page'],
+          ['Наши контакты', 'contacts_page'],
+          %w(Вакансии vacancies_page),
+          ['Причины путешествовать с нами', 'causes_page'],
+          ['Форма подписки', 'subscribe_form']
 
   before_validation       :create_slug
   validates_uniqueness_of :slug, message: 'Такая сео ссылка уже существует. Создайте уникальную сео ссылку!'
@@ -24,42 +29,18 @@ class Page
 
   index slug: 1
 
-  has_one :menu_item,                 dependent: :destroy
-  has_one :sub_menu_item,             dependent: :destroy
+  has_one  :menu_item,                 dependent: :destroy
+  has_one  :sub_menu_item,             dependent: :destroy
+  has_many :page_attachments,          dependent: :destroy
 
-  def update_page(page_params)
-    self.assign_attributes(page_params)
-    self.assign_attributes(parent: nil) if page_params[:is_parent]
-    set_position(page_params)
-    save
-  end
-
-  def set_position(page_params)
-    if page_params[:top_level] && page_params[:menu_position] && (page_params[:menu_position] != self.menu_position)
-      update_position(page_params[:menu_position])
-    end
-  end
-
-  def update_position(position)
-    pages = Page.parents.positioned
-    pages.each_with_index do |page, index|
-    end
-  end
+  accepts_nested_attributes_for        :page_attachments, allow_destroy: true,
+                                       reject_if: ->(a) { a['template'].blank? }
 
   def set_meta(params)
-    self.meta_description = strip_tags(params[:description]).delete("\n") unless params[:meta_description].present?
-    self.meta_title = strip_tags(params[:title]).delete("\n") unless params[:meta_title].present?
-  end
-
-  def subpages
-    Page.where(parent: self.title)
-  end
-
-  def stickers
-    case self.stick_to_menu
-      when 'категории' then Category.all
-      when 'страны' then Country.all
+    if params[:description].present?
+      self.meta_description = strip_tags(params[:description]).delete("\n") unless params[:meta_description].present?
     end
+    self.meta_title = strip_tags(params[:title]).delete("\n") unless params[:meta_title].present?
   end
 
   private

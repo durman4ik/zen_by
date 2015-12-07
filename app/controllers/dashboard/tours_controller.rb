@@ -83,6 +83,7 @@ class Dashboard::ToursController < ApplicationController
           :slug,
           :country_id,
           :currency_id,
+          :remove_image,
           category_ids:                   [],
           gallery_images:                 [],
           price_includes_attributes:      [:id, :_destroy, :title],

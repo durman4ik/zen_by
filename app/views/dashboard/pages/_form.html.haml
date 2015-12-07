@@ -5,10 +5,12 @@
         %li.active
           %a{'data-toggle': 'tab', href: '#main'} Основная информация
         %li
-          %a{'data-toggle': 'tab', href: '#add_html'} HTML
+          %a{'data-toggle': 'tab', href: '#attachments'} Тело страницы
+        %li
+          %a{'data-toggle': 'tab', href: '#add_html'} Свой HTML
         %li
           %a{'data-toggle': 'tab', href: '#seo'} СЕО
-    = form_for [:dashboard, @page], html: { id: 'edit_page_form' } do |f|
+    = nested_form_for [:dashboard, @page], html: { id: 'edit_page_form' } do |f|
       .panel-body
         .tab-content
           #main.tab-pane.active
@@ -33,17 +35,13 @@
               .form-group.row
                 .col-md-4.form-group
                   = f.label 'Цвет фона'
-                  .bfh-colorpicker{'data-color': "#{f.object.description_background}", 'data-align': 'left', 'data-name': 'colorpicker'}
+                  .bfh-colorpicker{'data-color': "#{f.object.description_background}", 'data-align': 'left',
+                  'data-name': 'page[description_background]'}
                     .input-group.bfh-colorpicker-toggle{'data-toggle':'bfh-colorpicker'}
                       %span.input-group-addon
                         %span.bfh-colorpicker-icon
-                      = f.text_field :description_background, class: 'form-control validate[required]', placeholder: 'Цвет фона'
+                      = f.text_field :description_background, class: 'form-control', placeholder: 'Цвет фона'
 
-
-                .col-md-4.form-group
-                  = f.label :stick_to_body, 'Прикрепить контент для страницы'
-                  = f.select :stick_to_body, Page::FOR_BODY_STICKING, {include_blank: 'Нет'}, class: 'form-control',
-                              id: 'stick_to_body_select'
               .form-group.row
                 .col-md-12#description_field.form-group
                   = f.label 'Описание'
@@ -51,6 +49,21 @@
                   = tinymce
                   %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                     = 'Например: Большое количество наших клиентов остались довольны нашими..."'
+
+          #attachments.tab-pane
+            #attachment.col-md-12
+              = f.fields_for :page_attachments do |attachment_build|
+                .row.form-group
+                  .col-md-4.col-md-offset-3
+                    = attachment_build.label :template, 'Шаблон'
+                    = attachment_build.select :template, Page::FOR_BODY_STICKING, {include_blank: 'Нет'}, class: 'form-control'
+                  .col-md-2{style: 'padding-top: 25px;'}
+                    = attachment_build.link_to_remove 'Удалить', class: 'btn btn-danger'
+            .row
+              .col-md-2.col-md-offset-9
+                = f.link_to_add 'Добавить прикрепление', :page_attachments, class: 'btn btn-success',
+                  data: { target: '#attachment' }
+
           #add_html.tab-pane
             .form-group.row
               .col-md-12#html_content_field.form-group
@@ -76,7 +89,7 @@
 
             .col-xs-12
               %header.panel-heading Пример
-              = cl_image_tag 'examples/example_seo'
+              = image_tag 'examples/seo-example.png'
 
             .col-md-6.form-group
               = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'

@@ -5,14 +5,22 @@ class Dashboard::ConfigsController < ApplicationController
   end
 
   def update
-    @config.update(admins_params)
-    redirect_to edit_dashboard_config_path(@config)
+    if @config.update(config_params)
+      flash[:success] = 'Настройки сайта успешно обновлены!'
+      redirect_to dashboard_path
+    else
+      flash[:error] = 'Ошибка! Настройки сайта не были обновлены!'
+      render :edit, layout: 'dashboard'
+    end
   end
 
   private
 
-  def admins_params
-    params.require(:config).permit(:id, :info_email, :order_email, :phone, :address, :unp,
-                                                      :requisites, :map_link, :currency_id, :facebook)
+  def config_params
+    params.require(:config).permit(:currency_id,
+                                   :slider_enabled,
+                                   :facebook_enabled,
+                                   :subscribe_enabled,
+                                   :logo)
   end
 end

@@ -1,3 +1,0 @@
-class AboutPage < Page
-
-end

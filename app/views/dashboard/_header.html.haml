@@ -22,6 +22,9 @@
               = link_to edit_dashboard_admin_path(current_admin) do
                 %i.fa.fa-user.fa-fw.pull-right
                 Профиль
+              = link_to edit_dashboard_about_path(@about) do
+                %i.fa.fa-info.fa-fw.pull-right
+                %span Информация о компании
               = link_to dashboard_currencies_path do
                 %i.fa.fa-money.fa-fw.pull-right
                 %span Настройка валют

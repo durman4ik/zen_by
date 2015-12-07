@@ -1,17 +1,18 @@
 class Config
   include Mongoid::Document
+  include Mongoid::Paperclip
 
-  field :info_email,         type: String, default: 'welcome@zen.by'
-  field :order_email,        type: String, default: 'welcome@zen.by'
-  field :phone,              type: String, default: '+375 (29) 662-19-09'
-  field :address,            type: String
-  field :unp,                type: String, default: '691485760'
-  field :requisites,         type: String
-  field :map_link,           type: String
-  field :facebook,           type: String
-  field :facebook_enabled,   type: String, default: true
-  field :subscribe_enabled?, type: String, default: true
+  field :slider_enabled,     type: Boolean, default: true
+  field :facebook_enabled,   type: Boolean, default: true
+  field :subscribe_enabled,  type: Boolean, default: true
 
-  belongs_to :admin
+  has_mongoid_attached_file :logo,
+                            styles: {
+                              thumb:   ['150x'],
+                              preview: ['400x']
+                            },
+                            default_url: 'logo.png'
+  do_not_validate_attachment_file_type :logo
+
   belongs_to :currency
 end

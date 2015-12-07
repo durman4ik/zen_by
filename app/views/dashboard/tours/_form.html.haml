@@ -114,8 +114,8 @@
               - if action_name == 'edit'
                 %p
                   %label
-                    = hidden_field_tag 'remove_image', 'false'
-                    = check_box_tag 'remove_image', true
+                    = hidden_field_tag 'tour[remove_image]', 'false'
+                    = check_box_tag 'tour[remove_image]', true
                     Удалить изображение
                   %span.help-block{style: 'font-style: italic;font-size: small;'}
                     = 'Поставьте галку и сохраните для сброса на стандартное изображение'
@@ -355,7 +355,7 @@
 
             .col-xs-12
               %header.panel-heading Пример
-              = cl_image_tag 'examples/example_seo'
+              = image_tag 'examples/seo-example.png'
 
             .col-md-6.form-group
               = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'

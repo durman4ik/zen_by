@@ -7,7 +7,7 @@ class DashboardController < ApplicationController
   end
 
   def currencies
-    @currencies = Currency.all.order_by(value: :asc)
+    @currencies = Currency.all.order_by(value: :desc)
   end
 
   def pages

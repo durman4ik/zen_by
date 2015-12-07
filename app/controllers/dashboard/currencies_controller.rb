@@ -46,6 +46,6 @@ class Dashboard::CurrenciesController < ApplicationController
     end
 
     def currency_params
-      params.require(:currency).permit(:abbr, :sym, :name, :title)
+      params.require(:currency).permit(:abbr, :sym, :name, :value)
     end
 end

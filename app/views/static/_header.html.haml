@@ -9,8 +9,8 @@
       #contact.header-subline.hgroup.hidden-small
         #actionLine.h1
         #phoneNumber.h2
-          %a{"data-track-action" => "tapToCall", "data-track-event" => "click", :href => "tel:#{@config.phone}", :itemprop => "telephone"}
-            = @config.phone
+          %a{"data-track-action" => "tapToCall", "data-track-event" => "click", :href => "tel:#{@about.phone}", :itemprop => "telephone"}
+            = @about.phone
       .header-title.hidden-large
         %span.h1
           %span{:itemprop => "name"} Искатели впечатлений
@@ -18,25 +18,26 @@
   %nav#topNav.nav.nav-primary.hidden-small{:role => "navigation"}
     %ul.clear
       - @menu_items.each do |item|
-        %li{style: 'text-transform: uppercase;'}
+        - @path = item.external_link.present? ? item.external_link : "/#{eval('item.'+ item.attachment_type + '.slug')}"
+        %li{style: 'text-transform: uppercase;', class: "#{'active' if request.path == @path}"}
           - if item.external_link.present? || !item.attachment_type.present?
             = link_to item.name, item.external_link
           - else
-            = link_to item.name, "/#{item.page.slug}", style: 'text-transform:uppercase;'
+            = link_to item.name, eval("show_#{item.attachment_type.downcase}_path(slug: item.#{item.attachment_type}.slug)"), style: 'text-transform:uppercase;'
           - if item.sub_menu_items.present? || item.stick_to_menu.present?
             %ul
-              - item.sub_menu_items.each do |sub_item|
-                %li
+              - item.sub_menu_items.order_by(position: :asc).each do |sub_item|
+                %li{style: 'text-transform: none;'}
                   - if sub_item.external_link.present? || !sub_item.attachment_type.present?
                     = link_to sub_item.name, sub_item.external_link
                   - else
                     = link_to sub_item.name, eval("show_#{sub_item.attachment_type.downcase}_path(slug: sub_item.#{sub_item.attachment_type}.slug)")
               - if item.stick_to_menu == 'категории'
                 - Category.all.each do |category|
-                  %li
+                  %li{style: 'text-transform: none;'}
                     = link_to category.name, show_category_path(slug: category.slug)
               - if item.stick_to_menu == 'страны'
                 - @countries.each do |country|
-                  %li
+                  %li{style: 'text-transform: none;'}
                     = link_to country.name, show_country_path(slug: country.slug)
 

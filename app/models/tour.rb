@@ -5,6 +5,7 @@ class Tour
   include Mongoid::Paperclip
 
   attr_accessor :gallery_images
+  attr_accessor :remove_image
 
   field :name,                                        type: String
   field :city,                                        type: String
@@ -81,7 +82,7 @@ class Tour
   end
 
   def update_tour(params)
-    image = nil if params[:remove_image].present?
+    self.image = nil if params[:remove_image].present?
     add_images_to_tour_gallery(params)
     update(params)
   end

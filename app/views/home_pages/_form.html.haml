@@ -1,0 +1,143 @@
+.col-xs-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#main'} Основная информация
+        %li
+          %a{'data-toggle': 'tab', href: '#left_block'} Блок слева
+        %li
+          %a{'data-toggle': 'tab', href: '#seo'} СЕО
+    = nested_form_for @home_page, html: { id: 'edit_page_form' } do |f|
+      .panel-body
+        .tab-content
+          #main.tab-pane.active
+            - if @home_page.errors.any?
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                - @home_page.errors.messages.each_with_index do |error, index|
+                  = "#{index+1}) #{error[1].join}"
+                  %br
+            .col-md-12
+              .form-group.row
+                .col-md-5
+                  = f.label 'Заголовок тексотового блока'
+                  = f.text_field :title_on_main, class: 'form-control validate[required]', placeholder: 'Заголовок'
+                  %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                    = 'Например: Кто мы?'
+
+                .col-md-2{style: 'padding-top:30px;'}
+                  %label
+                    = f.check_box :show_title
+                    Отображать?
+                .col-md-3.form-group
+                  = f.label 'Цвет фона'
+                  .bfh-colorpicker{'data-color': "#{f.object.description_background}", 'data-align': 'left',
+                    'data-name': 'home_page[description_background]'}
+                    .input-group.bfh-colorpicker-toggle{'data-toggle':'bfh-colorpicker'}
+                      %span.input-group-addon
+                        %span.bfh-colorpicker-icon
+                      = f.text_field :description_background, class: 'form-control'
+              .form-group.row
+                .col-md-4#configs_form
+                  .onoffswitch
+                    = f.check_box :slider_enabled, class: 'page_enabled_checkbox onoffswitch-checkbox', id: 'onoffswitch2'
+                    %label.onoffswitch-label{for: 'onoffswitch2'}
+                      %span.onoffswitch-inner.default
+                  = f.label :slider_enabled, 'Слайдер на главной включен', class: 'the_label'
+                  :css
+                    #configs_form .onoffswitch-label {
+                      float: left;
+                    }
+
+                    #configs_form .the_label {
+                      padding: 7px;
+                    }
+              .form-group.row
+                .col-md-12#description_field.form-group
+                  = f.label 'Текст блока'
+                  = f.text_area :description, class: 'form-control tinymce', placeholder: 'Описание', rows: 5
+                  = tinymce
+                  %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                    = 'Например: Большое количество наших клиентов остались довольны нашими..."'
+
+          #left_block.tab-pane
+            .col-md-12
+              .form-group.row
+                .col-md-6
+                  = f.label 'Заголовок блока'
+                  = f.text_field :left_side_title, class: 'form-control', placeholder: 'Заголовок блока слева'
+                .col-md-2{style: 'padding-top:30px;'}
+                  %label
+                    = f.check_box :show_title
+                    Отображать?
+                .col-md-3.col-md-offset-1
+                  = f.label 'Ссылка'
+                  = f.text_field :left_side_link, class: 'form-control', placeholder: 'Ссылка блока'
+
+              .form-group.row
+                .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
+                  = image_tag @home_page.left_image(:main)
+
+                .col-md-8.form-group
+                  = f.label 'Изображение блока.'
+                  = f.file_field :left_image
+                  %span.help-block{style: 'font-style: italic;font-size: small;'}
+                    = 'Ограничение по ширине 204px'
+                    %br
+                    = 'Можно вставить только картинку оставив другие поля пустыми.'
+                  %br
+                  - if action_name == 'edit'
+                    %p
+                      %label
+                        = hidden_field_tag 'remove_image', 'false'
+                        = check_box_tag 'remove_image', true
+                        Удалить изображение
+                      %span.help-block{style: 'font-style: italic;font-size: small;'}
+                        = 'Поставьте галку и сохраните для сброса на стандартное изображение'
+
+              .form-group.row
+                .col-md-12#description_field.form-group
+                  = f.label 'Текст блока'
+                  = f.text_area :left_side_text, class: 'form-control', placeholder: 'Текст блока слева', rows: 5, id: 'qwer'
+                  %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                    = 'Например: Большое количество наших клиентов остались довольны нашими..."'
+
+          #seo.tab-pane
+            :css
+              textarea { resize: vertical; }
+            .col-lg-12
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                Редактируйте эти поля, только если знаете что делаете! Это прямо влияет на ранжирование сайта в поисковых системах!
+
+              .alert.alert-info
+                %strong К сведению!
+                Поля
+                %i ссылка
+                и
+                %i meta заголовок
+                можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
+
+            .col-xs-12
+              %header.panel-heading Пример
+              = image_tag 'examples/seo-example.png'
+
+            .col-md-12.form-group
+              = f.text_field :meta_title, class: 'form-control', placeholder: 'meta заголовок'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Туры в Португалию'
+
+            .col-md-6.form-group
+              = f.text_area :meta_description, rows: 8, class: 'form-control', placeholder: 'meta описание', id: 'meta_description'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: Наша Португалия - не туристическая, она...'
+
+            .col-md-6.form-group
+              = f.text_area :meta_keywords, rows: 8, class: 'form-control', placeholder: 'ключевые слова (через запятую)', id: 'meta_keywords'
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                = 'Например: туры, туризм, португалия...'
+
+      .form-group{style: 'margin-top: 15px'}
+        .col-md-4
+          = f.submit 'Сохранить страницу!', class: 'btn btn-info'

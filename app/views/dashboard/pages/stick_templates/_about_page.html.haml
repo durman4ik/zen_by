@@ -1,0 +1,150 @@
+.module.htmlModule
+  :css
+    .contentArea .columns, .module .columns, .module > .columns:first-child, .footer-content .columns {
+    font-size: 14px;
+    color: black;
+    }
+    .h2.module.margin-collapse, .cart-container .module.margin-collapse.headline, .carousel figcaption.module.margin-collapse, .product-units .module.margin-collapse.price, .image-text .module.margin-collapse.price, .checkoutArea .module.margin-collapse.h1 {
+    color: rgb(0, 99, 132);
+    }
+    .btn-large, .formbuilder .btn, .checkoutArea .btn, .product-single .btn {
+    font-size: 1em;
+    padding: .5em 1em;
+    }
+     .module.margin-collapse.border.bar h1.h2 {
+    color: #006384;
+    }
+    .module.margin-collapse.border.bar h2.h2 {
+    color: #006384;
+    }
+    .module.margin-collapse.border.bar h3.h2 {
+    color: #006384;
+    }
+    .usp li:before {
+    content: "\0058";
+    color: #FFB32A;
+    }
+    .contentArea .h2 {
+    font-size: 20px;
+    color: #000;
+    line-height: 1;
+    font-style: normal;
+    font-weight: 600;
+    }
+    .btn-call, .btn-email {
+    padding: 2.25em .75em .25em 3em;
+    font-size: 0.985em;
+    height: 90px;
+    }
+    .btn-call:before, .btn-email:before {
+    padding: 2.25em .75em;
+    border-right: 1px dotted white;
+    }
+    .spec{
+    background: #006384;
+    color: #fff;
+    }
+    .to_top{
+    position: fixed;
+    top: 0px;
+    width: 3000px;
+    background: #0099cc;
+    margin-left: -1050px;}
+    #stick_menu{
+    color:black;
+    z-index:1;
+    }
+    td{
+    vertical-align:center;
+    background: #0099cc;
+    border: 1px solid white;
+    }
+    .active{
+    color:white;
+    background: #FFB32A;
+    }
+    td a{
+    color:white;
+    display: block;
+    text-decoration:none;
+    padding: 12px;
+    padding-left: 0px;
+    padding-right: 0px;
+    }
+    .tdd{
+    font-size:14px;
+    }
+    td:hover{
+    color:white;
+    background: #ffa523;
+    text-decoration:none;
+    }
+    td:focus{
+    color:white;
+    background: #FFB32A;
+    text-decoration:none;
+    }
+    a:hover{text-decoration:none;}
+  .module.margin-collapse.border.bar
+    %h2.h2 Контактная информация
+    %hr/
+  %article.module.text
+    %p
+      Адрес: Бизнес-центр «Парус», ул.Мележа 1, офис 1010
+      %br/
+      %span{:style => "line-height: 1.6;"}
+        Телефон:
+        %a{"data-track-action" => "tapToCall", "data-track-event" => "click", :href => "tel:+375296621909", :itemprop => "telephone"} +375 (29) 662-19-09
+      %br/
+      %span{:style => "line-height: 1.6;"}
+        Почта:
+        %a{"data-track-action" => "tapToEmail", "data-track-event" => "click", :href => "mailto:welcome@zen.by", :itemprop => "email"} welcome@zen.by
+  .module.htmlModule
+    %script{:charset => "utf-8", :src => "https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=_AAjYqqUp4bhilwIAGzjQdJDMSLIAMHh&width=900&height=450&lang=ru_RU&sourceType=constructor", :type => "text/javascript"}
+    %article.module.text
+    %p
+      %strong Реквизиты:
+    %p
+      %span{:style => "line-height: 1.6;"} Название компании ООО «Развитие будущего»
+      %br/
+      %span{:style => "line-height: 1.6;"} Юридический адрес: г.Минск, ул.Мележа 1-1010, 220113
+      %br/
+      %span{:style => "line-height: 1.6;"} Почтовый адрес: Минск-113, а/я 147
+      %br/
+      %span{:style => "line-height: 1.6;"} УНП: 191754508
+    %p
+      Банковские реквизиты:
+      %br/
+      р/сч: 3012061993018 (мультивалютный)
+      %br/
+      в РКЦ №1 ЗАО "БелСвиссБанк", БИК 153001175
+      %br/
+      Адрес банка: г. Минск, пл. Свободы, 4
+  .module.margin-collapse.border.bar
+    %h3.h2 4 причины путешествавать с нами
+    %hr/
+  %article.module.text
+    %p
+      %span{:style => "box-sizing: border-box; font-weight: 600; color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 21px;"} 1.Впечатления, а не турпакеты!
+      %br/
+      %span{:style => "color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 22.3999996185303px;"} Множество туристических компаний предлагают различные места для отдыха. Но настоящим путешественникам нужен не просто билет на самолет, номер в гостинице или место на пляже. Мы создаем для Вас впечатления, потому что уверены, каждое путешествие – это чья-то мечта, и наша задача – воплотить ее в реальность!
+    %p
+      %span{:style => "box-sizing: border-box; font-weight: 600; color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 1.6;"} 2.Надежные партнеры и проверенные маршруты.
+      %br/
+      %span{:style => "color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 22.3999996185303px;"} Мы выбираем только надежных партнеров. Мы тщательно продумываем каждую деталь маршрута с партнерами в стране. Изучив наши маршруты и форматы поездок, вы увидите, что наши путешествия – это всегда интересно, но не всегда просто. Поэтому  мы делаем ставку на надежность, уверенность и ответственность.
+      %br/
+      %br/
+      %span{:style => "box-sizing: border-box; font-weight: 600; color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 21px;"} 3.Небольшие группы-это хорошая компания.
+      %br/
+      %span{:style => "color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 22.3999996185303px;"} Мир открывается намного больше для небольших групп, чем для соло-путешественников или массовых заездов. В наших группах максимум 10 человек - и это индивидуальные путешественники, друзья и семейные пары, которые заводят новые знакомства по интересам и получают много позитива от общения в пути.
+    %p
+      %span{:style => "color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; font-weight: 600; line-height: 21px;"} 4.Тур-гид в каждом путешествии.
+      %br/
+      %span{:style => "color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 22.3999996185303px;"} Наших путешественников сопровождает опытный гид. Именно он знает самые яркие детали региона и продемонстрирует местный уклад жизни во всех его красках. «С этого места открывается самый красивый вид на бухту», «В этом ресторане готовят самую вкусную рыбу» – ни один буклет или путеводитель не расскажет вам об этом.
+  .module.margin-collapse.border.bar
+    %h3.h2 Вакансии
+    %hr/
+  %article.module.text
+    %p Мы всегда открыты для общения, рады новым людям и новым идеям. Присоединяйтесь к команде ИСКАТЕЛИ ВПЕЧАТЛЕНИЙ!
+    %p
+      %em{:style => "line-height: 1.6;"} На текущий момент открытых вакансий нет.

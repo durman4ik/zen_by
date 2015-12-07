@@ -41,7 +41,7 @@ $(document).on('ready', function(){
         });
     }
 
-    $("input[type=checkbox]").not('#onoffswitch').iCheck({
+    $("input[type=checkbox]").not('#onoffswitch').not('#onoffswitch1').not('#onoffswitch2').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         increaseArea: '20%'
     });

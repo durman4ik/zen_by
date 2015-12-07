@@ -1,4 +1,10 @@
-FactoryGirl.define do  factory :upload do
+FactoryGirl.define do  factory :about do
+    
+  end
+  factory :page_attachment do
+    
+  end
+  factory :upload do
     
   end
   factory :sub_menu_item do
@@ -50,27 +56,6 @@ FactoryGirl.define do  factory :upload do
     
   end
   factory :images do
-    
-  end
-  factory :find_tour_page do
-    
-  end
-  factory :self_travel_page do
-    
-  end
-  factory :corporate_page do
-    
-  end
-  factory :contacts_page do
-    
-  end
-  factory :about_page do
-    
-  end
-  factory :review_page do
-    
-  end
-  factory :catalog_page do
     
   end
 

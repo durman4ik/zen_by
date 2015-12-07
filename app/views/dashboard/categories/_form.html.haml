@@ -54,7 +54,8 @@
 
               .col-md-4.form-group
                 = f.label 'Цвет фона'
-                .bfh-colorpicker{'data-color': "#{f.object.background_color}", 'data-align': 'left', 'data-name': 'colorpicker'}
+                .bfh-colorpicker{'data-color': "#{f.object.background_color}", 'data-align': 'left',
+                'data-name': 'category[background_color]'}
                   .input-group.bfh-colorpicker-toggle{'data-toggle':'bfh-colorpicker'}
                     %span.input-group-addon
                       %span.bfh-colorpicker-icon
@@ -86,7 +87,7 @@
 
             .col-xs-12
               %header.panel-heading Пример
-              = cl_image_tag 'examples/example_seo'
+              = image_tag 'examples/seo-example.png'
 
             .col-md-6.form-group
               = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
