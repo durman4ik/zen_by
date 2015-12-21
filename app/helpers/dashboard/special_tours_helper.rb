@@ -1,0 +1,2 @@
+module Dashboard::SpecialToursHelper
+end

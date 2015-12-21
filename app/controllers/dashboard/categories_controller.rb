@@ -60,14 +60,13 @@ class Dashboard::CategoriesController < ApplicationController
                                        :title,
                                        :description,
                                        :background_color,
-                                       :show_on_main,
                                        :image,
                                        :meta_title,
                                        :meta_description,
                                        :slug,
                                        :meta_keywords,
                                        :remove_image,
-                                       sliders_attributes:[:id, :_destroy, :title, :image, :description])
+                                       sliders_attributes:[:id, :_destroy, :title, :image, :description, :type])
     end
   end
 end

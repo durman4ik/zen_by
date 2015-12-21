@@ -1,5 +1,0 @@
-<% if @travel_day_image.new_record? %>
-    alert('Failed');
-<% else %>
-    $('#travel_day_images').append("<%= j render @travel_day_image %>").slideDown('fast');
-<% end %>

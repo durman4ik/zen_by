@@ -1,0 +1,52 @@
+.col-md-6{style:'text-align: right;padding: 15px 30px 0 0;'}
+  = link_to 'Каталог картинок', '#', 'data-toggle': 'modal', 'data-target': '#modalAddImages', class: 'btn btn-warning'
+
+#modalAddImages.modal.fade{'aria-hidden': 'true', 'aria-label': 'modalAddImagesLabel', role: 'dialog', style: 'display: none;', tabindex: '-1'}
+  .modal-dialog
+    :css
+      #modalAddImages .modal-dialog {
+          width: 80%;
+          margin: 30px auto;
+        }
+      #modalAddImages .modal-dialog, #modalAddImages .modal-dialog .modal-content {
+        height: calc(100% - 40px);
+        border-radius: 0;
+      }
+
+      #modalAddImages .modal-dialog .modal-content .modal-body {
+        height: calc(100% - 80px);
+        overflow-y: scroll;
+        padding-top: 0;
+      }
+
+      #modalAddImages .modal-dialog .modal-content .modal-body img {
+        max-height: 115px;
+        max-width: 230px !important ;
+        border-radius: 0;
+        padding: 0;
+        margin: 0;
+      }
+
+      #modalAddImages .modal-dialog .modal-content .modal-body .panel li {
+        padding-top: 15px;
+        border-top: none;
+      }
+
+      #modalAddImages .modal-dialog .modal-content .modal-body .panel li:hover {
+        background-color: #F3F3F3;
+      }
+
+    .modal-content
+      .modal-header
+        %button.close{'aria-hidden': 'true', 'data-dismiss': 'modal', type: 'button'} ×
+        %div{style: 'width:50%'}
+          = form_for Upload.new, url: dashboard_uploads_path, html: { multipart: true } do |t|
+            = t.label :file, 'Загрузите файл'
+            = t.file_field :file, multiple: true, id: 'new_file_upload', name: 'upload[file]'
+        %div{style: 'width:49%;float:right;margin-top: -17px;'}
+          #progress.progress-striped.progress-sm
+            .progress-bar.progress-bar-success.progress-bar-striped
+      .modal-body
+        .panel
+          %ul.list-group.teammates#travel_day_images
+            = render 'dashboard/uploads/images'

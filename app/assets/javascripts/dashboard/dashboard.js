@@ -2,7 +2,6 @@
 //= require 'icheck'
 //= require jquery_nested_form
 //= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
 //= require jquery-ui/datepicker-ru
 //= require_tree ../dashboard/
 //= require_self
@@ -170,8 +169,6 @@ function fix_sidebar() {
         color: "rgba(0,0,0,0.2)"
     });
 }
-
-/*END DEMO*/
 $(window).load(function() {
     /*! pace 0.4.17 */
     (function() {

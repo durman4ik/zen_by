@@ -2,7 +2,7 @@ class Dashboard::AboutsController < ApplicationController
   layout 'dashboard'
 
   def update
-    if @about.update(about_params)
+    if @about.update_about(about_params)
       flash[:success] = 'Информация о компании успешно обновлена!'
       redirect_to dashboard_path
     else
@@ -17,6 +17,7 @@ class Dashboard::AboutsController < ApplicationController
   private
 
     def about_params
+
       params.require(:about).permit(:info_email,
                                     :order_email,
                                     :subscribe_email,
@@ -25,6 +26,8 @@ class Dashboard::AboutsController < ApplicationController
                                     :unp,
                                     :requisites,
                                     :map_link,
-                                    :facebook)
+                                    :facebook,
+                                    why_us_causes_attributes:[:id, :_destroy, :title, :description, :image,
+                                                              :remove_image])
     end
 end

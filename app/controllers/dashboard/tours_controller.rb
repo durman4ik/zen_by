@@ -17,9 +17,11 @@ class Dashboard::ToursController < ApplicationController
 
   def new
     @tour = Tour.new
+    @tour.build_calendar
   end
 
   def edit
+    @tour.build_calendar unless @tour.calendar
   end
 
   def create
@@ -81,9 +83,10 @@ class Dashboard::ToursController < ApplicationController
           :meta_description,
           :meta_keywords,
           :slug,
-          :country_id,
+          :use_hotels_block,
           :currency_id,
           :remove_image,
+          country_ids:                    [],
           category_ids:                   [],
           gallery_images:                 [],
           price_includes_attributes:      [:id, :_destroy, :title],
@@ -91,7 +94,8 @@ class Dashboard::ToursController < ApplicationController
           videos_attributes:              [:id, :video_id, :_destroy],
           days_in_hotels_attributes:      [:id, :hotel_id, :days, :_destroy],
           faqs_attributes:                [:id, :_destroy, :title, :description],
-          sliders_attributes:             [:id, :_destroy, :title, :image, :description],
+          calendar_attributes:            [:jan, :feb, :mar, :apr, :may, :jun, :jul, :aug, :sep, :oct, :nov, :dec],
+          sliders_attributes:             [:id, :_destroy, :title, :image, :description, :type],
           departures_attributes:          [:id, :from, :_destroy,
                                           travel_groups_attributes: [:id, :start_date, :finish_date, :active, :_destroy]],
           travel_days_attributes:         [:id, :day_number, :title, :description, :_destroy,

@@ -1,17 +1,57 @@
 %header.header
   = link_to 'Панель управления', dashboard_path, class: 'logo'
   / Header Navbar: style can be found in header.less
-  %nav.navbar.navbar-static-top{:role => "navigation"}
+  %nav.navbar.navbar-static-top{:role => 'navigation'}
     / Sidebar toggle button
-    %a.navbar-btn.sidebar-toggle{"data-toggle" => "offcanvas", :href => "#", :role => "button"}
+    %a.navbar-btn.sidebar-toggle{'data-toggle' => 'offcanvas', :href => '#', :role => 'button'}
       %span.sr-only Toggle navigation
       %span.icon-bar
       %span.icon-bar
       %span.icon-bar
     .navbar-right
       %ul.nav.navbar-nav
+        - if !@about.subscribe_email || !@about.order_email || !@config.subscribe_enabled || !@config.facebook_enabled
+          %li.dropdown.messages-menu.open
+            %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#'}
+              %i.fa.fa-cog
+              %span.label.label-danger
+                %i.fa.fa-info
+            %ul.dropdown-menu
+              %li.header Обратите внимание!
+              %li
+                .slimScrollDiv{:style => 'position: relative; overflow: hidden; width: auto; height: 200px;'}
+                  %ul.menu{:style => 'overflow: hidden; width: 100%; height: 200px;'}
+                    - if !@about.subscribe_email || !@about.order_email
+                      %li
+                        = link_to edit_dashboard_about_path(@about) do
+                          %h4
+                            Один из email-ов не указан
+                          %p Не указан email адрес для подписок или заказов.
+                    - unless @config.subscribe_enabled
+                      %li{style: 'background-color: #FDFFD9;'}
+                        = link_to edit_dashboard_config_path(@config) do
+                          %h4.pull-left
+                            Страница подписки не активна
+                          %p.pull-left Хотите включить ее?
+                    - unless @about.facebook.present?
+                      %li{style: 'background-color: #FDFFD9;'}
+                        = link_to edit_dashboard_about_path(@about) do
+                          %h4.pull-left
+                            Facebook ссылка не указана
+                          %p.pull-left Хотите указать ее?
+                    - if @about.facebook.present? && !@config.facebook_enabled
+                      %li{style: 'background-color: #FDFFD9;'}
+                        = link_to edit_dashboard_config_path(@config) do
+                          %h4.pull-left
+                            Facebook ссылка указана, но не активна
+                          %p.pull-left Хотите включить ее?
+                  .slimScrollBar{:style => 'width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 5px; z-index: 99; right: 1px; height: 132.89px; background: rgb(0, 0, 0);'}
+                  .slimScrollRail{:style => 'width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 5px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);'}
+              %li.footer
+
+
         %li.dropdown.user.user-menu
-          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          %a.dropdown-toggle{'data-toggle' => 'dropdown', :href => '#'}
             %i.fa.fa-user
             %span
               Админ
@@ -26,13 +66,13 @@
                 %i.fa.fa-info.fa-fw.pull-right
                 %span Информация о компании
               = link_to dashboard_currencies_path do
-                %i.fa.fa-money.fa-fw.pull-right
+                %i.fa.fa-eur.fa-fw.pull-right
                 %span Настройка валют
               = link_to dashboard_menus_path do
-                %i.fa.fa-medkit.fa-fw.pull-right
+                %i.fa.fa-navicon.fa-fw.pull-right
                 %span Настройка меню
               = link_to edit_dashboard_config_path(@config) do
-                %i.fa.fa-cog.fa-fw.pull-right
+                %i.fa.fa-cogs.fa-fw.pull-right
                 Настройки сайта
             %li.divider
             %li

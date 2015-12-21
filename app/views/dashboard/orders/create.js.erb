@@ -1,7 +1,9 @@
 $("div.module.formbuilder.normal#contentArea_5_-module_59_").on("ajax:success", function(event, data, status, xhr){
     $(".button-container input#place_new_order").closest('div.module.formbuilder.normal#contentArea_5_-module_59_').find('h3.h2')
-            .html('Заявка отправлена! Наш менеджер свяжется с Вами в ближайшее время.').addClass('green')
+            .html('Заявка отправлена! Наш менеджер свяжется с Вами в ближайшее время.').addClass('green');
     $('form#form-contentArea_5_-module_59_.new_order').slideUp('slow', function(){
             $('form#form-contentArea_5_-module_59_.new_order').remove();
     });
 });
+
+window.loading_screen.finish();

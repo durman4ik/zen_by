@@ -13,3 +13,4 @@ Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
 Rails.application.config.assets.precompile += %w( jquery-1.7.js )
 Rails.application.config.assets.precompile += %w( application/* dashboard/* )
 Rails.application.config.assets.precompile += %w( icheck/square/* )
+Rails.application.config.assets.precompile += %w( login.css )

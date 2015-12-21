@@ -7,11 +7,11 @@
     .text-container.clear
       %label
         = 'E-mail'
-      = f.text_field :email, class: 'field for_clear'
+      = f.email_field :email, class: 'field for_clear'
     .textarea-container.clear
       %label
         = '*Комментарий'
       = f.text_area :body, class: 'field for_clear validate[required]', rows: 5
   #buttons.buttons
     = f.text_field :anti_spam, class: 'hidden'
-    = f.submit 'Отправить', class: 'btn', id: 'create_review', remote: true
+    = f.button 'Отправить', class: 'btn remote_button', type: 'submit', id: 'create_review', remote: true

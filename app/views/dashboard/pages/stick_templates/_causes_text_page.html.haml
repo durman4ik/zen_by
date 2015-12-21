@@ -1,0 +1,14 @@
+- if @about.why_us_causes.present?
+  .module.margin-collapse.border.bar
+    %h3.h2
+      = @about.why_us_causes.size
+      причины путешествовать с нами
+    %hr/
+    %article.module.text
+      -@about.why_us_causes.each_with_index do |cause, index|
+        %p
+          %span{style: 'box-sizing: border-box; font-weight: 600; color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 21px;'}
+            = "#{index+1}. #{cause.title}"
+          %br/
+          %span{style: 'color: rgb(0, 0, 0); font-family: Ubuntu, sans-serif; font-size: 14px; line-height: 22.3999996185303px;'}
+            = cause.description

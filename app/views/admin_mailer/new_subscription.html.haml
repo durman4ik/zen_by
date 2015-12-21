@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
+  %body
+    %h1
+      = 'Новая подписка с сайта zen.by'
+      %br/
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Email
+      %tbody
+        %tr
+          %td= @subscription.email if @subscription.email.present?
+  %p
+    Чтобы войти в панель администратора перейдите по ссылке: #{link_to @url, @url, target: '_blank' }.

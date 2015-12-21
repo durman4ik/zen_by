@@ -1,0 +1,13 @@
+- if @about.why_us_causes.present?
+  .module.htmlModule
+  %h3.module.h1.aligncenter.text-center{style: 'text-transform:uppercase;'}
+    = @about.why_us_causes.size
+    Причины путешествовать с нами
+  %article.module.imagetextcolumn.image-text-columns.columns.four-column
+    - @about.why_us_causes.each  do |cause|
+      .column.column-25
+        = image_tag cause.image(:why_us_cause)
+        %h3.h2.text-left
+        %p
+          %span{:style => 'line-height: 20.7999992370605px;'}
+            = cause.description

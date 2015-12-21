@@ -1,0 +1,7 @@
+.module.comments
+  %h2.h4
+    %a.btn.review_form_toggle_button{:href => '#'} Нажмите сюда, чтобы добавить отзыв
+    %a.btn.review_form_toggle_button{:href => '#', style: 'display:none;'} Уже не хочу добавлять. Закрыть окно
+  #review_form.formbuilder.hidden
+    %h3.h2
+    = render 'dashboard/reviews/form_new'

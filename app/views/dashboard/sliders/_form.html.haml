@@ -1,22 +1,58 @@
-= f.fields_for :sliders do |slide_builder|
-  .row{style: 'border-bottom: 1px solid #ddd;padding: 25px 0;list-style:none'}
-    .col-md-5
-      .form-group
-        = slide_builder.label :title, 'Заголовок'
-        = slide_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок слайда'
-      .form-group
-        = slide_builder.label :description, 'Краткое описание'
-        = slide_builder.text_area :description, class: 'form-control', rows: 10
+:css
+  #slider .fields {
+    border-bottom: 1px solid #ddd;
+    padding: 25px 0;
+    list-style:none;
+  }
+#sliders
+  = f.fields_for :sliders do |slide_builder|
+    .row
+      .col-md-5
+        .form-group
+          = slide_builder.label :title, 'Заголовок'
+          = slide_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок слайда'
+        .form-group
+          = slide_builder.label :description, 'Краткое описание'
+          = slide_builder.text_area :description, class: 'form-control', rows: 10
 
-    .col-md-4{class: "#{ 'col-md-offset-4' unless action_name == 'edit' && slide_builder.object.image}"}
-      .form-group
-        = slide_builder.label 'Картинка слайда'
-        = slide_builder.file_field :image
-      .form-group{style: 'max-height: 180px; overflow: hidden;padding-top: 24px;'}
-      - if action_name == 'edit' && slide_builder.object.image
-        = image_tag slide_builder.object.image(:preview), width: 400
-    .col-md-1{style: 'padding-top: 25px;'}
-      = slide_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
-.row
-  .col-md-2.col-md-offset-10
-    = f.link_to_add 'Добавить слайд', :sliders, class: 'btn btn-success', data: { target: '#sliders' }
+      .col-md-4
+        .form-group
+          = slide_builder.label 'Картинка слайда'
+          = slide_builder.file_field :image
+        .form-group{style: 'max-height: 180px; overflow: hidden;padding-top: 24px;'}
+        - if action_name == 'edit' && slide_builder.object.image
+          = image_tag slide_builder.object.image(:preview), width: 400
+      .col-md-offset-1.col-md-2{style: 'padding-top: 25px;'}
+        = slide_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+    - if controller_name == 'home_pages'
+      .row
+        .col-md-4
+          = slide_builder.radio_button :type, '', checked: true, class: 'attach_checkbox checkbox_created'
+          = slide_builder.label :type_, 'Без ссылки'
+
+          = slide_builder.radio_button :type, 'country', class: 'attach_checkbox checkbox_created'
+          = slide_builder.label :type_country, 'Страна'
+
+          = slide_builder.radio_button :type, 'category', class: 'attach_checkbox checkbox_created'
+          = slide_builder.label :type_category, 'Категория'
+
+          = slide_builder.radio_button :type, 'tour', class: 'attach_checkbox checkbox_created'
+          = slide_builder.label :type_tour, 'Тур'
+      .row
+        .col-md-4
+          .form-group#category_fields
+            = slide_builder.label ' '
+            = slide_builder.collection_select :category_id, Category.all, :id, :title, {include_blank: 'Нет'},
+                                  class: 'form-control attach_select'
+          .form-group#country_fields.hidden
+            = slide_builder.label ' '
+            = slide_builder.collection_select :country_id, Country.all, :id, :title, {include_blank: 'Нет'},
+                                  class: 'form-control attach_select'
+          .form-group#tour_fields.hidden
+            = slide_builder.label ' '
+            = slide_builder.collection_select :tour_id, Tour.all, :id, :name, {include_blank: 'Нет'},
+                                  class: 'form-control attach_select'
+    - else
+      = slide_builder.hidden_field :type, value: f.object.class.to_s.downcase
+
+= f.link_to_add 'Добавить слайд', :sliders, class: 'btn btn-success pull-right', style: 'margin-top: 15px;'

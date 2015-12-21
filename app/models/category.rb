@@ -16,7 +16,6 @@ class Category
   field :title,                 type: String
   field :description,           type: String
   field :background_color,      type: String, default: '#D0EAF5'
-  field :show_on_main,          type: Boolean
 
   field :meta_title,            type: String
   field :meta_description,      type: String
@@ -28,6 +27,8 @@ class Category
   has_one  :menu_item,          dependent: :destroy
   has_one  :sub_menu_item,      dependent: :destroy
   has_many :sliders,            dependent: :destroy
+
+  has_many :page_attachments
 
   has_and_belongs_to_many       :tours
   accepts_nested_attributes_for :sliders, allow_destroy: true, reject_if: :all_blank
@@ -50,7 +51,7 @@ class Category
   end
 
   def update_category(params)
-    self.image = nil if params[:remove_image].present?
+    self.image = nil if params[:remove_image] == 'true'
     update(params)
   end
 

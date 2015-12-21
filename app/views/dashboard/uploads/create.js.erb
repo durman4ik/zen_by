@@ -1,0 +1,5 @@
+<% if @upload.new_record? %>
+    alert('Failed');
+<% else %>
+    $('#travel_day_images').append("<%= j render 'dashboard/uploads/upload', upload: @upload %>").slideDown('fast');
+<% end %>

@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
+  %body
+    %h1
+      = 'Новая заявка на рассчет стоимости с сайта zen.by'
+      %br/
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Имя
+          %th.text-center Email
+          %th.text-center Телефон
+          %th.text-center Страна
+          %th.text-center Даты
+          %th.text-center Количество дней
+          %th.text-center Количество людей
+          %th.text-center Сообщение/конкретный отель
+      %tbody
+        %tr
+          %td= @pre_count.name if @pre_count.name.present?
+          %td= @pre_count.email if @pre_count.email.present?
+          %td= @pre_count.phone if @pre_count.phone.present?
+          %td= @pre_count.country if @pre_count.country.present?
+          %td= @pre_count.date if @pre_count.date.present?
+          %td= @pre_count.days if @pre_count.days.present?
+          %td= @pre_count.group if @pre_count.group.present?
+          %td= @pre_count.message if @pre_count.message.present?
+  %p
+    Чтобы войти в панель администратора перейдите по ссылке: #{link_to @url, @url, target: '_blank' }.

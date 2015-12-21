@@ -9,6 +9,8 @@
         %li
           %a{'data-toggle': 'tab', href: '#add_html'} Свой HTML
         %li
+          %a{'data-toggle': 'tab', href: '#sticky_menu'} Sticky меню
+        %li
           %a{'data-toggle': 'tab', href: '#seo'} СЕО
     = nested_form_for [:dashboard, @page], html: { id: 'edit_page_form' } do |f|
       .panel-body
@@ -46,22 +48,21 @@
                 .col-md-12#description_field.form-group
                   = f.label 'Описание'
                   = f.text_area :description, class: 'form-control tinymce', placeholder: 'Описание', rows: 5, id: 'qwer'
-                  = tinymce
                   %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                     = 'Например: Большое количество наших клиентов остались довольны нашими..."'
 
           #attachments.tab-pane
             #attachment.col-md-12
-              = f.fields_for :page_attachments do |attachment_build|
+              = f.fields_for :templates do |attachment_build|
                 .row.form-group
                   .col-md-4.col-md-offset-3
-                    = attachment_build.label :template, 'Шаблон'
-                    = attachment_build.select :template, Page::FOR_BODY_STICKING, {include_blank: 'Нет'}, class: 'form-control'
+                    = attachment_build.label :name, 'Шаблон'
+                    = attachment_build.select :name, Page::FOR_BODY_STICKING, {include_blank: 'Нет'}, class: 'form-control'
                   .col-md-2{style: 'padding-top: 25px;'}
                     = attachment_build.link_to_remove 'Удалить', class: 'btn btn-danger'
-            .row
-              .col-md-2.col-md-offset-9
-                = f.link_to_add 'Добавить прикрепление', :page_attachments, class: 'btn btn-success',
+            .row.col-md-12
+              .col-md-2.col-md-offset-10
+                = f.link_to_add 'Добавить шаблон', :templates, class: 'btn btn-success',
                   data: { target: '#attachment' }
 
           #add_html.tab-pane
@@ -70,6 +71,42 @@
                 = f.label 'Если вы хотите вставить собственный html/css/js код, то вставьте его сюда или же оставьте пустым'
                 = f.text_area :html_content, class: 'form-control tinymce', placeholder: 'Html контент', rows: 5, id: 'asdfasdf'
 
+
+          #sticky_menu.tab-pane
+            #sticky.col-md-12
+              = f.fields_for :sticky_items do |sticky_builder|
+                .form-group.row
+                  .col-md-2
+                    = sticky_builder.link_to_remove 'Удалить', class: 'btn btn-danger', style: 'width: 140px;'
+                  .col-md-7
+                    .input-group
+                      .input-group-addon Заголовок меню:
+                      = sticky_builder.text_field :title, class: 'form-control', placeholer: 'Заголовок'
+                .form-group.row
+                  .col-md-12
+                    #html_contents
+                      = sticky_builder.fields_for :html_contents do |html_builder|
+                        .form-group.row
+                          .col-md-12
+                            = html_builder.label :content, 'HTML контент'
+                            = html_builder.text_area :content, class: 'tinyeditor editor form-control', rows: 8
+                          .col-md-2.col-md-offset-10
+                            = html_builder.link_to_remove 'Удалить HTML контент'
+                      = sticky_builder.link_to_add 'Добавить HTML', :html_contents, class: 'btn btn-success',
+                        style: 'width: 140px;margin-bottom:10px;'
+                    = sticky_builder.fields_for :templates do |attachment_builder|
+                      .row.form-group
+                        .col-md-4.col-md-offset-3
+                          = attachment_builder.label :name, 'Шаблон'
+                          = attachment_builder.select :name, Page::FOR_BODY_STICKING, {include_blank: 'Нет'}, class: 'form-control'
+                        .col-md-2{style: 'padding-top: 25px;'}
+                          = attachment_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+                    = sticky_builder.link_to_add 'Добавить шаблон', :templates, style: 'float:left;clear:both;',class: 'btn btn-success'
+
+            .form-group.row
+              .col-md-3.col-md-offset-9
+                = f.link_to_add 'Добавить sticky пункт', :sticky_items, class: 'btn btn-success pull-right',
+                  data: { target: '#sticky' }
 
           #seo.tab-pane
             :css
@@ -113,4 +150,5 @@
 
       .form-group{style: 'margin-top: 15px'}
         .col-md-4
+          = tinymce
           = f.submit 'Сохранить страницу!', class: 'btn btn-info'

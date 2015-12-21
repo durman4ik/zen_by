@@ -44,28 +44,79 @@
           %p
             %span{:style => 'color:#000000;font-size:14px;'}
               = raw '<strong>Описание: </strong>' + tour.description
-            %br/
-             
-          %h3
-            %strong
-              %span{:style => 'color:#000000;font-size:14px;'}
+            %br
+          - if tour.group_tour && tour.departures.present?
+            %table{:border => '1', :cellpadding => '0', :cellspacing => '0', :style => 'border: 2px white; '}
+              %tbody
+                %tr
+                  %td{style: 'min-width: 210px;'}
+                    %strong
+                      %span{:style => 'font-size: 14px;color:black;'} Статус тура:
                 - tour.departures.each do |departure|
-                  - @dates = departure.travel_groups.select{|x| x.active }
-                  - @dates = @dates.map(&:start_date).join(',')
-                  = "Даты путешествия из #{departure.from}: #{@dates}"
-                  %br/
-        .module.margin-collapse.htmlModule
-          :css
-            hr {
-             border: none;
-             background-color: #626262;
-             height: 2px;
-             width: 140%;
-            }
-            a{
-               color:#006384;
-            }
-          %hr/
+                  %tr
+                    %td
+                      %strong
+                        %span{:style => 'font-size: 14px;padding-left: 20px;'}
+                          Вылет из
+                          = departure.from
+                  - departure.travel_groups.each do |travel_group|
+                    %tr
+                      %td{:style => 'background-color: rgb(255, 255, 255);padding-left: 20px;'}
+                        %span{:style => 'color:#000000;font-size:12px;'}
+                          = l travel_group.start_date.to_date, format: '%e %B'
+                      %td{:style => 'background-color: rgb(255, 255, 255);width: 65px;'}
+                        %span{:style => 'line-height: 16px;color:#000000;font-size:12px;'}
+                          –
+                      %td{style: 'min-width: 120px;'}
+                        %span{:style => 'color:#000000;font-size:12px;line-height: 20.7999992370605px;'}
+                          = l travel_group.finish_date.to_date, format: '%e %B'
+                      = check_travel_group(travel_group)
+          - if !tour.group_tour && tour.departures.present?
+            %h3
+              %strong
+                %span{:style => 'color:#000000;font-size:14px;'}
+                  - tour.departures.each do |departure|
+                    - @dates = departure.travel_groups.map(&:start_date).map {|x| l x.to_date, format: '%d %B'}.join(', ')
+                    = "Даты путешествия из #{departure.from}: #{@dates}"
+                    %br/
+            - if tour.calendar.present?
+              %p
+                %span{:style => 'color: rgb(0, 0, 0); font-size: 14px;'}
+                  %strong
+                    Когда ехать?
+              :css
+                #calendar > tr td {
+                  background-color: rgb(255, 255, 255);
+                }
+              %div
+                %table{:border => '1', :cellpadding => '1', :cellspacing => '1', :style => 'color: rgb(0, 0, 0); font-size: 13.3333339691162px; line-height: 23.1111106872559px; width: 650px;'}
+                  %tbody#calendar
+                    %tr{:style => 'text-align: center; background-color: rgb(255, 255, 255);'}
+                      %td Янв
+                      %td Фев
+                      %td Мар
+                      %td Апр
+                      %td Май
+                      %td Июн
+                      %td Июл
+                      %td Авг
+                      %td Сен
+                      %td Окт
+                      %td Ноя
+                      %td Дек
+                    %tr{style: 'text-align: center;background-color: rgb(255, 255, 255);'}
+                      %td= tour.calendar.jan
+                      %td= tour.calendar.feb
+                      %td= tour.calendar.mar
+                      %td= tour.calendar.apr
+                      %td= tour.calendar.may
+                      %td= tour.calendar.jun
+                      %td= tour.calendar.jul
+                      %td= tour.calendar.aug
+                      %td= tour.calendar.sep
+                      %td= tour.calendar.oct
+                      %td= tour.calendar.nov
+                      %td= tour.calendar.dec
       .contentArea.contentAreaB
         .module.divider-divider-variable.divider-variable{:style => 'height: 25px;'}
         .module.divider-divider-variable.divider-variable{:style => 'height: 20px;'}
@@ -75,8 +126,12 @@
           .textbox
             %p{:style => 'text-align: center;'}
               %span{:style => 'font-size: 14px;'}
-                %font{:color => '#ffffff'} Стоимость:
-                %span{:style => 'color:#FFA500;'}
+                %font{:color => '#ffffff', style: 'float: left;'} Стоимость:
+                %span{:style => 'color:#FFA500;float: right;'}
+                  %strong
+                    = show_bel_price(tour)
+                %br
+                %span{:style => 'color:#FFA500;padding-left: 80px;float: right;'}
                   %strong
                     = show_price(tour)
               %br/

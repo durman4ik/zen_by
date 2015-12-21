@@ -1,0 +1,33 @@
+%li.list-group-item{style: 'float: left;width:20%'}
+  = link_to dashboard_upload_path(upload), method: :delete, class: 'close close-sm', id: 'destroy_travel_day_image',
+              remote: true, data: {confirm: 'Вы уверены?'}, style: 'top: 0;font-size: 16px;margin: -13px -13px;' do
+    %i.fa.fa-times
+  %div.image_preview_block{style: 'min-height: 115px;max-height: 115px;'}
+    = image_tag upload.file, width: '100%'
+  %div{style: 'padding-top: 5px;'}
+    .input-group.input-group-sm{style: 'clear:both;padding-bottom:3px;'}
+      %span.input-group-addon#basic-addon3{style: 'width: 145px;'}
+        220 x ... &nbsp;&nbsp;
+      %span.input-group-btn
+        %button.btn.btn-white.to_clipboard{'data-toggle': 'tooltip', :title => 'Копировать в буфер!',
+        'data-clipboard-binder': '', 'data-clipboard-action': 'copy',
+        'data-clipboard-text': "#{image_path upload.file(:travel_day_image)}"}
+          %i.fa.fa-paperclip{alt: 'Скопировать в буфер'}
+    .input-group.input-group-sm{style: 'clear:both;padding-bottom:3px;'}
+      %span.input-group-addon#basic-addon4{style: 'width: 145px;'}
+        400 x ... &nbsp;&nbsp;
+      %span.input-group-btn
+        %button.btn.btn-white.to_clipboard{'data-toggle': 'tooltip', :title => 'Копировать в буфер!',
+        'data-clipboard-binder': '', 'data-clipboard-action': 'copy',
+        'data-clipboard-text': "#{image_path upload.file(:privew)}" }
+          %i.fa.fa-paperclip{alt: 'Скопировать в буфер'}
+    .input-group.input-group-sm{style: 'clear:both;padding-bottom:3px;'}
+      %span.input-group-addon#basic-addon5{style: 'width: 145px;'}
+        Оригинал
+      %span.input-group-btn
+        %button.btn.btn-white.to_clipboard{'data-toggle': 'tooltip', :title => 'Копировать в буфер!',
+        'data-clipboard-binder': '', 'data-clipboard-action': 'copy',
+        'data-clipboard-text': "#{image_path upload.file}" }
+          %i.fa.fa-paperclip{alt: 'Скопировать в буфер'}
+:javascript
+  var clipboard = new Clipboard('[data-clipboard-binder]');

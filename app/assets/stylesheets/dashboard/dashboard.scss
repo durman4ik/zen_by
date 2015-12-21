@@ -4,6 +4,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 *= require_tree .
 *= require jquery-ui/datepicker
+*= require please-wait
+*= require validationEngine.jquery
 *= require_self
 */
 @import 'icheck/square/blue';
@@ -32,7 +34,7 @@
 }
 .onoffswitch-label {
   display: block; overflow: hidden; cursor: pointer;
-  border: 1px solid #cccccc; border-radius: 0px;
+  border: 1px solid #cccccc; border-radius: 0;
 }
 .onoffswitch-inner {
   display: block; width: 200%; margin-left: -100%;
@@ -57,7 +59,7 @@
   text-align: right;
 }
 .onoffswitch-switch {
-  display: block; width: 15px; margin: 0px;
+  display: block; width: 15px; margin: 0;
   background: #27A1CA;
   position: absolute; top: 0; bottom: 0;
   right: calc(100% - 15px);
@@ -67,7 +69,7 @@
   margin-left: 0;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px;
+  right: 0;
   background-color: #27A1CA;
 }
 

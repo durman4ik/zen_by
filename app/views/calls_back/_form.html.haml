@@ -1,0 +1,16 @@
+#contentArea_3_-module_1_.module.formbuilder.normal
+  %h3.h2#calls_back Заказать обратный звонок
+  = form_for CallsBack.new, url: calls_back_index_path, remote: true, html: {id: 'new_callback'} do |f|
+    = f.label 'Имя'
+    .text-container
+      = f.text_field :name, class: 'text for_clear', placeholder: 'Имя'
+    = f.label 'Телефон'
+    .text-container
+      = f.phone_field :phone, class: 'text for_clear validate[required]', placeholder: 'Телефон'
+    = f.label 'Сообщение'
+    .textarea-container
+      = f.text_area :message, class: 'textarea for_clear', rows: 5
+    .width-container
+      .button-container
+        = f.text_field :anti_spam, class: 'text hidden'
+        = f.button 'Отправить', class: 'btn remote_button', type: 'submit', remote: true

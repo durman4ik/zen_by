@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
+  %body
+    %h1
+      = 'Просьба перезвонить с сайта zen.by'
+      %br/
+    %table.table.table-hover
+      %thead
+        %tr
+          %th Имя
+          %th Телефон
+          %th Сообщение
+      %tbody
+        %tr
+          %td= @calls_back.name if @calls_back.name.present?
+          %td= @calls_back.phone if @calls_back.phone.present?
+          %td= @calls_back.message if @calls_back.message.present?
+  %p
+    Чтобы войти в панель администратора перейдите по ссылке: #{link_to @url, @url, target: '_blank' }.

@@ -1,0 +1,14 @@
+- meta title: 'Подписка', description: 'Хотите еще больше впечатлений? Подпишитесь на нас и получайте уведомления на ваш e-mail о текущих акциях, скидках и новых турах! Мы заботимся о наших клиентах и делаем рассылку не чаще одного раза в месяц'
+#contentWrapperWrapper.main-container
+  #contentWrapper.section.main{:role => 'main'}
+    .contentArea.contentAreaC
+      .module.hidden-large.call
+        %a.btn.btn-call.piwik_ignore{'data-track-action' => 'tapToCall', 'data-track-event' => 'click', :href => 'tel:+375296621909', :itemprop => 'telephone', :title => ''} +375 (29) 662-19-09
+      %h1.module.h1 Подписка
+      .module.divider-divider-variable.divider-variable{:style => 'height: 10px;'}
+      .module.divider-divider.divider
+      %article.module.text
+        %p{:style => 'text-align: justify;'}
+          %span{:style => 'color:#000000;'}
+            %span{:style => 'font-size:16px;'} Хотите еще больше впечатлений? Подпишитесь на нас и получайте уведомления на ваш e-mail о текущих акциях, скидках и новых турах! Мы заботимся о наших клиентах и делаем рассылку не чаще одного раза в месяц
+      = render 'subscriptions/form'

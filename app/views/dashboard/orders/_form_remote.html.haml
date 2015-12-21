@@ -16,8 +16,8 @@
     = f.text_field :message, class: 'text'
   = f.label :tour_id, 'Название путешествия'
   .text-container
-    = f.collection_select :tour_id, Tour.all, :id, :title_for_orders, {selected: tour.id, include_blank: 'Выберите путешествие...'}, class: 'text'
+    = f.text_field :tour_id, class: 'text', value: "#{tour.name if tour}"
   .width-container
     .button-container
       = f.text_field :anti_spam, class: 'hidden'
-      = f.submit 'Отправить', class: 'btn', remote: true, id: 'place_new_order'
+      = f.submit 'Отправить', class: 'btn remote_button', remote: true, id: 'place_new_order'

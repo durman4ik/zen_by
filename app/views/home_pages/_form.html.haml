@@ -5,7 +5,13 @@
         %li.active
           %a{'data-toggle': 'tab', href: '#main'} Основная информация
         %li
+          %a{'data-toggle': 'tab', href: '#slider'} Слайдер
+        %li
           %a{'data-toggle': 'tab', href: '#left_block'} Блок слева
+        %li
+          %a{'data-toggle': 'tab', href: '#sticky_menu'} Sticky меню
+        %li
+          %a{'data-toggle': 'tab', href: '#bottom_block'} Нижний блок
         %li
           %a{'data-toggle': 'tab', href: '#seo'} СЕО
     = nested_form_for @home_page, html: { id: 'edit_page_form' } do |f|
@@ -18,6 +24,9 @@
                 - @home_page.errors.messages.each_with_index do |error, index|
                   = "#{index+1}) #{error[1].join}"
                   %br
+                - @home_page.sticky_items.map {|x| x.page_attachments.collect {|z| z.errors.messages unless z.errors.messages.blank?}.compact}.each do |message|
+                  - message.each do |m|
+                    = m[:base].join
             .col-md-12
               .form-group.row
                 .col-md-5
@@ -44,7 +53,7 @@
                     = f.check_box :slider_enabled, class: 'page_enabled_checkbox onoffswitch-checkbox', id: 'onoffswitch2'
                     %label.onoffswitch-label{for: 'onoffswitch2'}
                       %span.onoffswitch-inner.default
-                  = f.label :slider_enabled, 'Слайдер на главной включен', class: 'the_label'
+                  = f.label :slider_enabled, 'Слайдер включен', class: 'the_label'
                   :css
                     #configs_form .onoffswitch-label {
                       float: left;
@@ -60,6 +69,9 @@
                   = tinymce
                   %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                     = 'Например: Большое количество наших клиентов остались довольны нашими..."'
+
+          #slider.tab-pane
+            = render 'dashboard/sliders/form', f: f
 
           #left_block.tab-pane
             .col-md-12
@@ -102,6 +114,91 @@
                   = f.text_area :left_side_text, class: 'form-control', placeholder: 'Текст блока слева', rows: 5, id: 'qwer'
                   %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                     = 'Например: Большое количество наших клиентов остались довольны нашими..."'
+
+
+
+          #sticky_menu.tab-pane
+            :css
+              #sticky > .fields {
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 30px;
+                margin-bottom: 25px;
+                display: inline-block;
+                width: 100%;
+              }
+            #sticky.col-md-12
+              = f.fields_for :sticky_items do |sticky_builder|
+                .form-group.row
+                  .col-md-6
+                    = sticky_builder.label 'Заголовок меню'
+                    = sticky_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок'
+                  .col-md-4
+                    = sticky_builder.label 'Ссылка блока'
+                    = sticky_builder.text_field :link, class: 'form-control', placeholder: 'Ссылка'
+                  .col-md-2{style: 'padding-top: 25px;'}
+                    = sticky_builder.link_to_remove 'Удалить', class: 'btn btn-danger pull-right'
+                .form-group.row
+                  .col-md-12
+                    = sticky_builder.label 'Заголовок блока'
+                    = sticky_builder.text_field :full_title, class: 'form-control', placeholder: 'Заголовок'
+                #attachment
+                  = sticky_builder.fields_for :page_attachments do |attachment_builder|
+                    .col-md-4
+                      .row{style: 'padding: 20px 25px 0 0;'}
+                        = attachment_builder.radio_button :type, 'country', checked: true, class: 'attach_checkbox checkbox_created'
+                        = attachment_builder.label :type_country, 'Страна'
+
+                        = attachment_builder.radio_button :type, 'category', class: 'attach_checkbox checkbox_created'
+                        = attachment_builder.label :type_category, 'Категория'
+
+                        = attachment_builder.radio_button :type, 'tour', class: 'attach_checkbox checkbox_created'
+                        = attachment_builder.label :type_tour, 'Тур'
+
+                        = attachment_builder.link_to_remove 'Удалить', class: 'label label-danger pull-right'
+                      .row{style: 'padding: 20px 25px 0 0;'}
+                        .form-group#category_fields
+                          = attachment_builder.label ' '
+                          = attachment_builder.collection_select :category_id, Category.all, :id, :title, {include_blank: 'Нет'},
+                              class: 'form-control attach_select'
+                        .form-group#country_fields.hidden
+                          = attachment_builder.label ' '
+                          = attachment_builder.collection_select :country_id, Country.all, :id, :title, {include_blank: 'Нет'},
+                              class: 'form-control attach_select'
+                        .form-group#tour_fields.hidden
+                          = attachment_builder.label ' '
+                          = attachment_builder.collection_select :tour_id, Tour.all, :id, :name, {include_blank: 'Нет'},
+                              class: 'form-control attach_select'
+                #sticky_attachments.col-md-12
+                  = render 'dashboard/page_attachments/form', f: sticky_builder
+
+                = sticky_builder.link_to_add 'Добавить блок', :page_attachments,
+                  style: ' float: left;clear:both;width:160px;margin-bottom:10px;', class: 'btn btn-success'
+                = sticky_builder.link_to_add 'Добавить шаблон', :templates, style: 'float:left;clear:both;width: 160px;',class: 'btn btn-success'
+            = f.link_to_add 'Добавить sticker', :sticky_items, data: {target: '#sticky'}, class: 'btn btn-success pull-right'
+
+
+          #bottom_block.tab-pane
+            :css
+              #bottom_block .fields {
+                border-bottom: 1px solid #ddd;
+                padding: 25px 0;
+                list-style:none;
+              }
+            #faqs
+              = f.fields_for :faqs do |faq_builder|
+                .row
+                  .col-md-6.form-group
+                    = faq_builder.label :title, 'Заголовок'
+                    = faq_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок'
+                  .col-md-2.col-md-offset-4.form-group{style: 'padding-top: 25px;'}
+                    = faq_builder.link_to_remove 'Удалить', class: 'pull-right btn btn btn-danger'
+                  .col-md-12
+                    = faq_builder.label :description, 'Описание'
+                    = faq_builder.text_area :description, class: 'editor tinyeditor form-control', rows: 8
+            .row
+              .col-md-2.col-md-offset-10{style: 'padding-top: 15px;'}
+                = f.link_to_add  'Добавить блок', :faqs, class: 'pull-right btn btn-success', data: { target: '#faqs' }
+
 
           #seo.tab-pane
             :css

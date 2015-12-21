@@ -16,12 +16,12 @@ class Tour
   field :price_description,                           type: String
   field :days,                                        type: String
   field :days_remark,                                 type: String
-  field :price,                                       type: Integer
+  field :price,                                       type: String
   field :hotels_remark,                               type: String
-  field :show_hotels_with_date,                       type: String, default: true
+  field :show_hotels_with_date,                       type: String,  default: true
   field :group_tour,                                  type: Boolean
   field :use_in_slider,                               type: Boolean, default: false
-
+  field :use_hotels_block,                            type: Boolean, default: false
   # seo
   field :meta_title,                                  type: String
   field :meta_description,                            type: String
@@ -30,24 +30,28 @@ class Tour
 
   index slug: 1
 
-  belongs_to                                          :country
   belongs_to                                          :currency
 
+  has_and_belongs_to_many                             :countries
   has_and_belongs_to_many                             :categories
 
-  has_one  :menu_item,                                dependent: :destroy
-  has_one  :sub_menu_item,                            dependent: :destroy
-  has_many :sliders,                                  dependent: :destroy
-  has_many :images,                                   dependent: :destroy
-  has_many :videos,                                   dependent: :destroy
-  has_many :days_in_hotels,                           dependent: :destroy
-  has_many :travel_days,                              dependent: :destroy
-  has_many :departures,                               dependent: :destroy
-  has_many :faqs,                                     dependent: :destroy
-  has_many :price_includes,                           dependent: :destroy
-  has_many :price_not_includes,                       dependent: :destroy
-  has_many :orders
+  has_one     :menu_item,                             dependent: :destroy
+  has_one     :sub_menu_item,                         dependent: :destroy
+  has_many    :sliders,                               dependent: :destroy
+  has_many    :images,                                dependent: :destroy
+  has_many    :days_in_hotels,                        dependent: :destroy
+  has_many    :travel_days,                           dependent: :destroy
+  has_many    :departures,                            dependent: :destroy
+  has_many    :faqs,                                  dependent: :destroy
+  has_many    :price_includes,                        dependent: :destroy
+  has_many    :price_not_includes,                    dependent: :destroy
+  has_many    :orders
+  has_many    :page_attachments,                      dependent: :destroy
 
+  embeds_many :videos
+  embeds_one  :calendar
+
+  accepts_nested_attributes_for :calendar,            reject_if: :all_blank
   accepts_nested_attributes_for :sliders,             allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :faqs,                allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :travel_days,         allow_destroy: true, reject_if: :all_blank
@@ -82,7 +86,7 @@ class Tour
   end
 
   def update_tour(params)
-    self.image = nil if params[:remove_image].present?
+    self.image = nil if params[:remove_image] == 'true'
     add_images_to_tour_gallery(params)
     update(params)
   end
@@ -105,7 +109,7 @@ class Tour
   end
 
   def title_for_orders
-    "#{country.name} | #{name}"
+    "#{countries.pluck(:name).join(', ')} | #{name}"
   end
 
   private

@@ -1,0 +1,11 @@
+#contentArea_1_-module_6_.module.formbuilder.normal.subscribe_form
+  %h2.h2#subscriptions Подписаться
+  = form_for Subscription.new, url:  subscriptions_path, remote: true, html: {id: 'form-contentArea_1_-module_6_' } do |f|
+    = f.label :email, 'Введите Ваш e-mail'
+    .text-container
+      = f.email_field :email, class: 'text for_clear validate[required]', placeholder: 'Email'
+    .width-container
+      .button-container
+        = f.text_field :anti_spam, class: 'text hidden'
+        = f.button 'подписаться', type: 'submit', class: 'btn remote_button', remote: true
+  .module.divider-divider-variable.divider-variable{:style => 'height: 50px;'}

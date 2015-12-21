@@ -66,7 +66,8 @@ class Dashboard::CountriesController < ApplicationController
                                         :meta_title,
                                         :meta_description,
                                         :slug,
-                                        :meta_keywords)
+                                        :meta_keywords,
+                                        sliders_attributes:             [:id, :_destroy, :title, :image, :description, :type])
       end
     end
 end

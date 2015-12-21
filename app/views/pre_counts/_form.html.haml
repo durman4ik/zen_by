@@ -1,0 +1,31 @@
+#contentArea_4_-module_2_.module.formbuilder.normal
+  %h3.h2#pre_counts Оставить заявку на предварительный расчет
+  = form_for PreCount.new, url: pre_counts_path, remote: true, html: {id: 'form-contentArea_4_-module_2_'} do |f|
+    = f.label 'Имя'
+    .text-container
+      = f.text_field :name , class: 'text'
+    = f.label 'Телефон'
+    .text-container
+      = f.text_field :phone, class: 'text validate[required]'
+    = f.label 'Email'
+    .text-container
+      = f.text_field :email, class: 'text'
+    = f.label 'В какую страну(ы) хотите'
+    .text-container
+      = f.text_field :country, class: 'text'
+    = f.label 'Когда хотите выезжать'
+    .text-container
+      = f.text_field :date, class: 'text'
+    = f.label 'На какое количество дней'
+    .text-container
+      = f.text_field :days, class: 'text'
+    = f.label 'Количество людей'
+    .text-container
+      = f.text_field :group, class: 'text'
+    = f.label 'Сообщение'
+    .textarea-container
+      = f.text_area :message, class: 'textarea', placeholder: 'Если хотите узнать про конкретный отель, Вы можете указать название тут', rows: 3
+    .width-container
+      .button-container
+        = f.text_field :anti_spam, class: 'text hidden'
+        = f.button 'Отправить', type: 'submit', class: 'btn remote_button'

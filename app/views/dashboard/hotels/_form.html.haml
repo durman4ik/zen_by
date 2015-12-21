@@ -4,6 +4,8 @@
       %ul.nav.nav-tabs
         %li.active
           %a{'data-toggle': 'tab', href: '#home'} Основная информация
+        %li
+          %a{'data-toggle': 'tab', href: '#help'} Помощь
 
     = form_for [:dashboard, @hotel], html: { id: 'edit_form', multipart: true} do |f|
       .panel-body
@@ -36,7 +38,7 @@
                         = image_tag image.uploaded_file(:thumb)
                       .stat-info
                         = link_to 'Удалить', dashboard_image_path(image), method: :delete, remote: true,
-                                  id: 'destroy_this_image', data: {confirm: 'Вы уверены?'}
+                            id: 'destroy_this_image', data: {confirm: 'Вы уверены?'}, class: 'label label-danger'
 
             .col-md-12.form-group
               = f.label 'Добавить фото отеля'
@@ -47,6 +49,11 @@
               = f.text_area :description, class: 'tinymce', placeholder: 'Описание'
               = tinymce
 
-      = f.submit 'Готово', class: 'btn btn-info'
+
+          #help.tab-pane
+            = image_tag 'examples/example_hotels.png'
+
+      .col-md-12{style: '    padding-top: 15px;'}
+        = f.submit 'Сохранить отель!', class: 'btn btn-info'
 
 

@@ -5,8 +5,10 @@
         %li.active
           %a{'data-toggle': 'tab', href: '#main'} Основная информация
         %li
+          %a{'data-toggle': 'tab', href: '#slider'} Слайдер
+        %li
           %a{'data-toggle': 'tab', href: '#seo'} СЕО
-    = form_for [:dashboard, @country], html: { id: 'country_form' } do |f|
+    = nested_form_for [:dashboard, @country], html: { id: 'country_form' } do |f|
       .panel-body
         .tab-content
           #main.tab-pane.active
@@ -42,8 +44,8 @@
               - if action_name == 'edit'
                 %p
                   %label
-                    = hidden_field_tag 'remove_image', 'false'
-                    = check_box_tag 'remove_image', true
+                    = hidden_field_tag 'country[remove_image]', 'false'
+                    = check_box_tag 'country[remove_image]', true
                     Удалить изображение
                   %span.help-block{style: 'font-style: italic;font-size: small;'}
                     = 'Поставьте галку и сохраните для сброса на стандартное изображение'
@@ -60,6 +62,9 @@
               %header.panel-heading Описание
               = f.text_area :description, class: 'tinymce', placeholder: 'Описание'
               = tinymce
+
+          #slider.tab-pane
+            = render 'dashboard/sliders/form', f: f
 
           #seo.tab-pane
             .col-lg-12
@@ -104,6 +109,5 @@
                 = 'Например: туры, туризм, португалия...'
 
         .row
-          %hr
           .col-md-12{style: 'padding-top: 15px;'}
             = f.submit 'Сохранить страну!', class: 'btn btn-info pull-left'

@@ -11,8 +11,8 @@ class Dashboard::HotelsController < ApplicationController
   end
 
   def create
-    @hotel = Hotel.new
-    if @hotel.create(hotel_params)
+    @hotel = Hotel.new(hotel_params)
+    if @hotel.save
       @hotel.add_images_to_gallery(hotel_params)
       flash[:success] = 'Отель успешно создан!'
       redirect_to dashboard_hotels_path

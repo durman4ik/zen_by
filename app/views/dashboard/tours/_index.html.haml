@@ -1,9 +1,15 @@
 - @tours.each_with_index do |tour, index|
   %tr
     %td= index.succ
-    %td= tour.name
-    %td.text-center= tour.country.name
-    %td.text-center= tour.categories.pluck(:name).join(',')
+    %td{style: 'width: 45%;'}
+      = tour.name
+    %td.text-center= tour.countries.pluck(:name).join(',<br>').html_safe
+    %td.text-center= tour.categories.pluck(:name).join(',<br>').html_safe
+    %td.text-center
+      = tour.price
+      = tour.currency.sym
+    %td.text-center
+      = convert_boolean tour.sliders.present?
     %td
       = link_to edit_dashboard_tour_path(tour), class: 'btn btn-default btn-xs' do
         %i.fa.fa-pencil

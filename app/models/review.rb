@@ -20,17 +20,6 @@ class Review
   field :status,          type: String
   field :ip_address,      type: String
 
-  has_mongoid_attached_file :image,
-                            styles: {
-                                thumb:     ['150x'],
-                                average:   ['204x203#'],
-                                preview:   ['400x'],
-                                fix_height:['x230#']
-
-                            },
-                            default_url: ':style/default_tour_background.jpg'
-  do_not_validate_attachment_file_type :image
-
   def set_city_and_ip(location)
     self.city = location.city
     self.ip_address = location.ip

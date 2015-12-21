@@ -1404,7 +1404,7 @@
 				do {
 					digit = parseInt(cardNumber.charAt(i));
 					luhn += (pos++ % 2 == 0) ? digit * 2 : digit;
-				} while (--i >= 0)
+				} while (--i >= 0);
 
 				for (i = 0; i < luhn.length; i++) {
 					sum += parseInt(luhn.charAt(i));

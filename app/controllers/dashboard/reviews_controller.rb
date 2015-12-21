@@ -18,13 +18,17 @@ class Dashboard::ReviewsController < ApplicationController
           flash[:success] = 'Отзыв успешно создан!'
           redirect_to dashboard_reviews_path
         end
-        format.js { render 'dashboard/reviews/create' }
+        format.js do
+          render 'dashboard/reviews/create'
+        end
       else
         format.html do
           flash[:error] = 'Ошибка! Отзыв не был создан!'
           render :new, layout: 'dashboard'
         end
-        format.js { render 'dashboard/reviews/create_failed' }
+        format.js do
+          render 'dashboard/reviews/create_failed'
+        end
       end
     end
   end
@@ -56,7 +60,7 @@ class Dashboard::ReviewsController < ApplicationController
     end
 
     def review_params
-      def_params = [:name, :city, :body, :email, :image, :anti_spam, :ip_address]
+      def_params = [:name, :city, :body, :email, :anti_spam, :ip_address]
       if admin_signed_in?
         def_params << [:status]
         params.require(:review).permit(def_params)

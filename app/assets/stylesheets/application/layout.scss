@@ -687,7 +687,7 @@ td {
     display: block; }
   .has-dropdown .nav-primary ul ul ul {
     left: 100%;
-    top: 0px;
+    top: 0;
     padding-left: 3px; }
 #bodyEmu .has-dropdown .nav-primary li:hover > ul, #bodyEmu .has-dropdown .nav-primary li ul:hover > ul, .no-js .has-dropdown .nav-primary li:hover > ul, .no-js .has-dropdown .nav-primary li ul:hover > ul {
   display: block; }
@@ -1881,7 +1881,7 @@ img.module {
   display: block;
   height: 22px;
   width: 22px;
-  margin: 0px auto;
+  margin: 0 auto;
   margin-bottom: 5px;
   background-image: url("//maps.gstatic.com/tactile/omnibox/reveal-entity-icons-20131112.png"); }
 
@@ -2363,7 +2363,7 @@ div.callToAction.box {
   display: block;
   height: 22px;
   width: 22px;
-  margin: 0px auto;
+  margin: 0 auto;
   margin-bottom: 5px;
   background-image: url("//maps.gstatic.com/tactile/omnibox/reveal-entity-icons-20131112.png"); }
 
@@ -2844,7 +2844,7 @@ div.callToAction.box {
     display: block;
     height: 22px;
     width: 22px;
-    margin: 0px auto;
+    margin: 0 auto;
     margin-bottom: 5px;
     background-image: url("//maps.gstatic.com/tactile/omnibox/reveal-entity-icons-20131112.png"); }
   .fullWidthMapContainer #getDirections {
@@ -5504,7 +5504,7 @@ header.has-btn-language.has-dropdown .nav-language {
   padding-bottom: 20px;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
-  margin-top: 0px; }
+  margin-top: 0; }
   .checkoutArea form .extraConfirmation p {
     color: #999; }
   .checkoutArea form .extraConfirmation .paypalConfirmHeadline {

@@ -3,5 +3,6 @@
 //= require jquery-ui
 //= require jquery.validationEngine
 //= require jquery.validationEngine-ru
+//= require please-wait
 
 

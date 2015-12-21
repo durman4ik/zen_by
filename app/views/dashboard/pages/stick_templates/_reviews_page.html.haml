@@ -1,20 +1,12 @@
 .module.comments
-  %span.small.right
-    = Review.all.approved.count
-    Комментариев (-ия)
-  %h2.h4
-    %a.btn.review_form_toggle_button{:href => '#'} Нажмите сюда, чтобы добавить отзыв
-    %a.btn.review_form_toggle_button{:href => '#', style: 'display:none;'} Уже не хочу добавлять. Закрыть окно
-  #review_form.formbuilder.hidden
-    = render 'dashboard/reviews/form_new'
   %dl#result
-    - if Review.all.approved.count == 0
-      = 'Пока никто не оставил отзыв! Будте первыми!'
+    - if Review.approved.count == 0
+      = 'Пока никто не оставял отзывы!'
     -else
-      - @reviews.each do |review|
+      - Review.approved.each do |review|
         %dt.small
           = 'Автор: '
           %a{:href => "mailto:#{review.email}", title: 'Написать сообщение автору отзыва'}
-            = "#{review.author_name}, #{review.author_city}"
+            = "#{review.name}, #{review.city}"
         %dd
           = review.body

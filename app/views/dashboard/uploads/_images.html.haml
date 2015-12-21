@@ -1,0 +1,11 @@
+- Upload.all.each do |file|
+  = render 'dashboard/uploads/upload', upload: file
+:javascript
+  var clipboard = new Clipboard('[data-clipboard-binder]');
+
+
+
+
+
+
+

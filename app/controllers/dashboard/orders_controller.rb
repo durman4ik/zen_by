@@ -15,7 +15,7 @@ class Dashboard::OrdersController < ApplicationController
     @order = Order.new(order_params)
     respond_to do |format|
       if @order.save
-        OrderMailer.new_order(@order).deliver_now
+        AdminMailer.new_order(@order).deliver_now
         UserMailer.inform_user(@order).deliver_now
         format.html do
           if current_admin
@@ -25,7 +25,9 @@ class Dashboard::OrdersController < ApplicationController
             render nothing: true
           end
         end
-        format.js render 'dashboard/reviews/create'
+        format.js do
+          render 'dashboard/reviews/create'
+        end
       else
         format.html do
           if current_admin

@@ -8,6 +8,8 @@
               %span{:itemprop => 'name'} Искатели впечатлений
         %p
           %span{:style => 'color:#FFFFFF;font-size:14px;'}
+            = link_to 'Главная', root_path
+            %br
             - @menu_items.each do |item|
               - if item.page.present?
                 = link_to item.name, "/#{item.page.slug}"

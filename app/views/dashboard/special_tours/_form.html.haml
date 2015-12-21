@@ -1,0 +1,126 @@
+.col-md-12
+  %section.panel.general
+    %header.panel-heading.tab-bg-dark-navy-blue
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle': 'tab', href: '#main'} Основная
+        %li
+          %a{'data-toggle': 'tab', href: '#program'} Программа поездки
+        %li
+          %a{'data-toggle': 'tab', href: '#help'} Помощь
+
+    = nested_form_for [:dashboard, @special_tour], html: { multipart: true, id: 'tour_form' } do |f|
+      .panel-body
+        .tab-content
+          #main.tab-pane.active
+            - if @special_tour.errors.any?
+              .alert.alert-block.alert-danger
+                %strong Внимание!
+                - @special_tour.errors.messages.each_with_index do |error, index|
+                  = "#{index+1}) #{error[1].join}"
+                  %br
+            .row.form-group
+              .col-md-12
+                = f.label :name, 'Название тура'
+                = f.text_field :name, class: 'form-control validate[required]', placeholder: 'Название тура'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: От энергичной Барселоны до пляжного отдыха на Гран Канарии'
+            .row.form-group
+              .col-md-12
+                = f.label :route, 'Маршрут тура'
+                = f.text_field :route, class: 'form-control', placeholder: 'Маршрут тура'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: Минск – Гран Канария - Барселона - Минск'
+            .row.form-group
+              .col-md-4
+                = f.label :city, 'Город'
+                = f.text_field :city, class: 'form-control', placeholder: 'Город'
+
+              .col-md-4
+                = f.label :country, 'Страна'
+                = f.text_field :country, class: 'form-control', placeholder: 'Страна'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: Беларусь'
+              .col-md-4
+                = f.label :region, 'Регион'
+                = f.select :region, Country::REGIONS, {}, class: 'form-control validate[required]', placeholder: 'Страна'
+            .row.form-group
+              .col-md-2
+                = f.label :price, 'Цена за 1 человека:'
+                = f.text_field :price, class: 'form-control validate[required]', placeholder: 'Цена'
+              .col-md-2
+                = f.label 'Валюта'
+                = f.collection_select :currency_id, Currency.all, :id, :name,
+                    { selected: @special_tour.currency_id}, class: 'form-control', placeholder: 'Валюта'
+              .col-md-3
+                = f.label 'Тип'
+                = f.select :tour_type, SpecialTour::TYPES, {}, class: 'form-control', id: 'special_tour_types'
+              .col-md-2
+                = f.label :days, 'Количество дней'
+                = f.text_field :days, class: 'form-control validate[required]', placeholder: 'Количество дней'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: 14 дней'
+
+              .col-md-3
+                = f.label :category, 'Человек в группе'
+                = f.text_field :group_size, class: 'form-control', placeholder: 'Количество человек'
+                %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                  = 'Например: 10'
+            = render 'dashboard/calendars/form', f: f
+
+            .row.form-group
+              .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
+                = image_tag @special_tour.image(:preview), width: 400
+
+              .col-md-8.form-group
+                = f.label 'Картинка'
+                = f.file_field :image
+                %span.help-block{style: 'font-style: italic;font-size: small;'}
+                  = 'Ширина будет уменьшена до 204px'
+                %br
+                - if action_name == 'edit'
+                  %p
+                    %label
+                      = hidden_field_tag 'corporate_tour[remove_image]', 'false'
+                      = check_box_tag 'corporate_tour[remove_image]', true
+                      Удалить изображение
+                    %span.help-block{style: 'font-style: italic;font-size: small;'}
+                      = 'Отметьте и сохраните для сброса на стандартное изображение'
+            .row.form-group
+              .col-md-12.form-group
+                %header.panel-heading Краткое описание
+                = f.text_area :description, class: 'form-control', placeholder: 'Описание', id: 'short_description', rows: 10
+
+          #program.tab-pane
+            :css
+              #travel_tasks .fields {
+                    padding-bottom: 30px;
+              }
+            #travel_tasks
+              = f.fields_for :travel_tasks do |tasks_builder|
+                .row
+                  .col-md-10.form-group
+                    .input-group
+                      .input-group-addon Название:
+                      = tasks_builder.text_field :title, class: 'form-control', placeholder: 'Название'
+                  .col-md-2
+                    = tasks_builder.link_to_remove 'Удалить цель', class: 'btn btn-danger pull-right'
+                #travel_group_nested_form
+                  = tasks_builder.fields_for :task_items do |items_builder|
+                    .row
+                      .col-md-offset-1.col-md-8
+                        = items_builder.label :title, 'Заголовок'
+                        = items_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок'
+                      .col-md-2{style: 'padding-top: 25px;'}
+                        = items_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+                  = tasks_builder.link_to_add 'Добавить пункт', :task_items, class: 'btn btn-success'
+            .row
+              .col-md-2.col-md-offset-10
+                = f.link_to_add 'Добавить цель', :travel_tasks, class: 'pull-right btn btn-success',
+                  data: { target: '#travel_tasks' }
+          #help.tab-pane
+
+        .row
+          %hr
+          .col-md-12{style: 'padding-top: 15px;'}
+            = f.submit 'Сохранить тур!', class: 'btn btn-info pull-left'

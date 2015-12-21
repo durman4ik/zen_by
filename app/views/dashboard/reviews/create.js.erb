@@ -1,10 +1,12 @@
-$('.formbuilder').slideToggle(function() {
-    $('a.btn').toggle();
-    $('dl#result').text('Ваш отзыв принят! ').css('color', 'green');
+$('#new_review_form').slideToggle(function() {
+    $('a.btn.review_form_toggle_button').toggle();
+    $('#review_form h3.h2').text('Ваш отзыв принят! ').css('color', 'green');
 });
 
 $('.for_clear').each(function(){
     $(this).val('')
 });
 
+
+window.loading_screen.finish();
 

@@ -1,0 +1,10 @@
+$('form.new_pre_count').slideToggle(function() {
+    $('h3.h2#pre_counts').text('Заявка отправлена. Спасибо!').css('color', 'green');
+});
+
+$('.for_clear').each(function(){
+    $(this).val('')
+});
+
+
+window.loading_screen.finish();

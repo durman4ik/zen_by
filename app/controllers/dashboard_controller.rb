@@ -4,6 +4,17 @@ class DashboardController < ApplicationController
   skip_before_action :verify_authenticy_token, only: [:reviews]
 
   def index
+    query = Message.all.order_by(created_at: :desc)
+    total_pages = get_pages(query, 20)
+    @messages = get_objects(query, 20, total_pages)
+    check_redirect(total_pages)
+  end
+
+  def special_tours
+    query = SpecialTour.all.order_by(country_id: :asc)
+    total_pages = get_pages(query, 15)
+    @special_tours = get_objects(query, 15, total_pages)
+    check_redirect(total_pages)
   end
 
   def currencies
@@ -72,11 +83,5 @@ class DashboardController < ApplicationController
 
   def get_objects(query, per, total_pages)
     query.page(check_page(params[:page], total_pages)).per(per)
-  end
-
-  def check_redirect(total_pages)
-    if params[:page].to_i > total_pages.to_i
-      redirect_to controller: 'dashboard', action: params[:action],  page: check_page(params[:page], total_pages)
-    end
   end
 end

@@ -1,10 +1,9 @@
 class HomePagesController < ApplicationController
-  layout 'dashboard', except: [:index, :subscribe]
+  layout 'dashboard', except: [:index]
   before_action :authenticate_admin!, only: [:edit, :update]
 
   def index
     @sliders = Slider.all
-    @main_categories = Category.showed_on_main
   end
 
   def edit
@@ -20,7 +19,10 @@ class HomePagesController < ApplicationController
     end
   end
 
-  def subscribe
+  def robots
+    @tours = Tour.all
+    @pages = Page.all.includes(:menu_item, :sub_menu_item).find_all {|x| x.sub_menu_item != nil || x.menu_item != nil}
+    redirect_to 'home_pages/robots', format: :text
   end
 
   private
@@ -38,6 +40,13 @@ class HomePagesController < ApplicationController
 
                                         :meta_title,
                                         :meta_description,
-                                        :meta_keywords            )
+                                        :meta_keywords,
+                                        sliders_attributes:      [:id, :_destroy, :title, :description, :image, :type,
+                                                                  :country_id, :tour_id, :category_id],
+                                        faqs_attributes:         [:id, :_destroy, :title, :description],
+                                        sticky_items_attributes: [:id, :_destroy, :title, :full_title, :link,
+                                                                  page_attachments_attributes: [:type, :id, :_destroy, :tour_id,
+                                                                                                :country_id, :page_id, :category_id],
+                                                                  templates_attributes:[:id, :_destroy, :name]] )
     end
 end

@@ -8,6 +8,8 @@
           %a{'data-toggle': 'tab', href: '#slider'} Слайдер
         %li
           %a{'data-toggle': 'tab', href: '#seo'} СЕО
+        %li
+          %a{'data-toggle': 'tab', href: '#help'} Помощь
     = nested_form_for [:dashboard, @category], html: { id: 'category_form' } do |f|
       .panel-body
         .tab-content
@@ -20,18 +22,16 @@
                     %li= msg
 
             .col-md-4.form-group
+              = f.label 'Название'
               = f.text_field :name, class: 'form-control validate[required]', placeholder: 'Название категории'
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: Туры по Европе'
 
-            .col-md-6.form-group
+            .col-md-8.form-group
+              = f.label 'Заголовок'
               = f.text_field :title, class: 'form-control validate[required]', placeholder: 'Заголовок категории'
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: сойти с избитых туристических троп'
-
-            .col-md-2.form-group{style: 'padding-top: 5px;'}
-              = f.check_box :show_on_main, id: 'show_on_main'
-              = f.label 'На главной?', for: 'show_on_main'
 
             .form-group
               .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
@@ -46,8 +46,8 @@
                 - if action_name == 'edit'
                   %p
                     %label
-                      = hidden_field_tag 'remove_image', 'false'
-                      = check_box_tag 'remove_image', true
+                      = hidden_field_tag 'category[remove_image]', 'false'
+                      = check_box_tag 'category[remove_image]', true
                       Удалить изображение
                     %span.help-block{style: 'font-style: italic;font-size: small;'}
                       = 'Поставьте галку и сохраните для сброса на стандартное изображение'
@@ -85,16 +85,18 @@
                 %i meta заголовок
                 можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
 
-            .col-xs-12
+            .col-md-12{style: 'padding-bottom:20px;'}
               %header.panel-heading Пример
               = image_tag 'examples/seo-example.png'
 
             .col-md-6.form-group
+              = f.label 'Ссылка'
               = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: portugalija'
 
             .col-md-6.form-group
+              = f.label 'meta заголовок'
               = f.text_field :meta_title, maxlength: 50, class: 'form-control', placeholder: 'meta заголовок'
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: Туры в Португалию'
@@ -102,6 +104,7 @@
                 = 'Максимум 50 знаков'
 
             .col-md-6.form-group
+              = f.label 'meta описание'
               = f.text_area :meta_description, rows: 4, class: 'form-control', placeholder: 'meta описание'
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: Наша Португалия - не туристическая, она...'
@@ -109,12 +112,16 @@
                 = 'Будет использовано первых 150 знаков'
 
             .col-md-6.form-group
+              = f.label 'meta ключевые слова'
               = f.text_area :meta_keywords, rows: 4, class: 'form-control', placeholder: 'ключевые слова (через запятую)'
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: туры, туризм, португалия...'
 
-      .row
-        %hr
-        .col-md-12{style: 'padding-top: 15px;'}
-          = f.submit 'Сохранить категорию!', class: 'btn btn-info pull-left'
+          #help.tab-pane
+            %div{style: 'text-align: center;'}
+              = image_tag 'examples/example_category1.png'
+              = image_tag 'examples/example_category2.png'
+
+      .col-md-12{style: 'padding-top: 15px;'}
+        = f.submit 'Сохранить категорию!', class: 'btn btn-info pull-left'
 

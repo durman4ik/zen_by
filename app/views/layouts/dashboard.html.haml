@@ -15,7 +15,23 @@
     %title ИСКАТЕЛИ ВПЕЧАТЛЕНИЙ | Панель администратора
     %meta{content: 'width=device-width,initial-scale=1.0', :name => 'viewport'}/
     %meta{content: 'ИСКАТЕЛИ ВПЕЧАТЛЕНИЙ | Панель администратора', property: 'og:title'}/
-  %body.skin-black
+  %body.skin-black{data: {changed: ''}}
+    :javascript
+      $(document).ready(function() {
+        var isEdit  = false;
+        $('input').change(function() {
+          isEdit = true;
+        });
+        function checkIsEdit() {
+          if(isEdit)
+            return "Вы действительно хотите покинуть страницу? Все не сохраненные данные будут потеряны.";
+        }
+        window.onbeforeunload = checkIsEdit;
+        $(document).submit(function(){
+          isEdit = false;
+        });
+      });
+
     - unless flash.empty?
       - flash.each do |f|
         - type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info')

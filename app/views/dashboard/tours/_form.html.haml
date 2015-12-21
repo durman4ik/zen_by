@@ -25,8 +25,9 @@
         %li
           %a{'data-toggle': 'tab', href: '#seo'} СЕО
 
-    = nested_form_for [:dashboard, @tour], html: { multipart: true, id: 'tour_form' } do |f|
-      .panel-body
+
+    .panel-body
+      = nested_form_for [:dashboard, @tour], html: { multipart: true, id: 'tour_form' } do |f|
         .tab-content
           #main.tab-pane.active
             - if @tour.errors.any?
@@ -53,13 +54,13 @@
 
             .col-md-3
               = f.label :country, 'Страна'
-              = f.collection_select :country_id, Country.all, :id, :name,
-                  { selected: @tour.country_id }, class: 'form-control'
+              = f.collection_select :country_ids, Country.all, :id, :name,
+                  { selected: @tour.countries.map {|a| a.id.to_s} }, class: 'form-control', multiple: true
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Создайте страну если ее нет в списке'
 
             .col-md-2
-              = f.label :price, 'Цена: '
+              = f.label :price, 'Цена и валюта: '
               = f.text_field :price, class: 'form-control validate[required]', placeholder: 'Цена'
             .col-md-2
               = f.label 'Валюта'
@@ -68,7 +69,7 @@
             .col-md-3
               = f.label 'Тип'
               .onoffswitch
-                = f.check_box :group_tour, class: 'onoffswitch-checkbox', id: 'onoffswitch'
+                = f.check_box :group_tour, class: 'onoffswitch-checkbox group_or_not_tour', id: 'onoffswitch'
                 %label.onoffswitch-label{for: 'onoffswitch'}
                   %span.onoffswitch-inner
                   %span.onoffswitch-switch
@@ -86,6 +87,8 @@
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Удерживая Ctrl, можно выбрать несколько'
 
+            = render 'dashboard/calendars/form', f: f
+
             .col-md-12.form-group
               = f.label :map_link, 'Ссылка на карту Яндекс'
               = f.text_field :map_link, class: 'form-control validate[required]', placeholder: 'Ссылка на карту'
@@ -101,8 +104,7 @@
                 = '3) Например: <script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru..."></script>'
 
             .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
-              - if action_name == 'edit' && @tour.image
-                = image_tag @tour.image(:preview), width: 400
+              = image_tag @tour.image(:preview), width: 400
 
             .col-md-8.form-group
               = f.label 'Фоновое изображение'
@@ -126,8 +128,7 @@
 
 
           #slider.tab-pane
-            #sliders.col-md-12
-              = render 'dashboard/sliders/form', f: f
+            = render 'dashboard/sliders/form', f: f
 
           #photo_gallery.tab-pane
             .images#images_list.row{style: 'padding-bottom: 20px;'}
@@ -148,22 +149,21 @@
                 = file_field_tag('tour_images_attributes_file', multiple: true, name: 'tour[gallery_images][]')
 
           #video_galery.tab-pane
-            #videos.col-md-12
+            #videos.row
               = f.fields_for :videos do |video_builder|
-                .row
-                  .col-md-7
-                    = video_builder.label :video_id, 'ID видео'
-                    = video_builder.text_field :video_id, class: 'form-control', placeholder: 'ID видео'
-                    %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                      = '1) Загрузите видео на сайт'
-                      = link_to 'vimeo.com', 'http://vimeo.com', target: '_blank'
-                      %br
-                      = '2) Введите в поле только id видео, после того как оно загрузится'
-                  .col-md-2.col-md-offset-3{style: 'padding-top: 25px;'}
-                    = video_builder.link_to_remove 'Удалить видео', class: 'btn btn-danger'
+                .col-md-7
+                  = video_builder.label :video_id, 'ID видео'
+                  = video_builder.text_field :video_id, class: 'form-control', placeholder: 'ID видео'
+                  %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
+                    = '1) Загрузите видео на сайт'
+                    = link_to 'vimeo.com', 'http://vimeo.com', target: '_blank'
+                    %br
+                    = '2) Введите в поле только id видео, после того как оно загрузится'
+                .col-md-2.col-md-offset-3{style: 'padding-top: 25px;'}
+                  = video_builder.link_to_remove 'Удалить видео', class: 'btn btn-danger pull-right'
             .row
               .col-md-2.col-md-offset-10
-                = f.link_to_add 'Добавить видео', :videos, class: 'btn btn-success', data: { target: '#videos' }
+                = f.link_to_add 'Добавить видео', :videos, class: 'pull-right btn btn-success', data: { target: '#videos' }
 
 
           #details.tab-pane
@@ -176,46 +176,60 @@
               = tinymce
 
           #days.tab-pane
+            .col-md-5.col-md-offset-7{style: 'text-align:right;'}
+              = f.label :use_hotels_block, 'Использовать этот блок для отображение отелей '
+              = f.check_box :use_hotels_block
             #travel_days.col-md-12
               = f.fields_for :travel_days, f.object.travel_days.sort { |a, b| a.day_number.to_i <=> b.day_number.to_i } do |days_builder|
                 .row{style: 'border-bottom: 1px solid #ddd;padding: 25px 0;list-style:none'}
                   .col-md-2.form-group
                     = days_builder.label :day_number, 'День №'
-                    = days_builder.text_field :day_number, class: 'form-control validate[required]', placeholder: 'День №'
+                    = days_builder.text_field :day_number, class: 'form-control', placeholder: 'День №'
                   .col-md-8.form-group
                     = days_builder.label :title, 'Заголовок дня'
                     = days_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок дня'
                   .col-md-2.form-group{style: 'padding-top: 25px;'}
-                    = days_builder.link_to_remove 'Удалить день', class: 'btn btn-danger'
+                    = days_builder.link_to_remove 'Удалить день', class: 'btn btn-danger pull-right'
                   .col-md-12
                     = days_builder.label :description, 'Описание дня'
                     = days_builder.text_area :description, class: 'editor tinyeditor form-control', rows: 8
                   :css
-                    #images_list .fields {
+                    .images_list.images .fields {
                       display:inline-block;
+                      float:left;
+                      padding-top: 10px;
                     }
 
                     img {
                       padding-right: 10px;
                     }
-                  .col-md-12#images_list{style: 'height: 140px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;padding-top: 20px;'}
-
+                  .col-md-12.images_list.images
                     = days_builder.fields_for :images do |travel_day_image_builder|
                       - if travel_day_image_builder.object.new_record?
-                        = travel_day_image_builder.file_field :uploaded_file
-                        = travel_day_image_builder.link_to_remove 'Удалить'
+                        %div{style: 'padding-bottom: 10px;'}
+                          = travel_day_image_builder.file_field :uploaded_file
+                          = travel_day_image_builder.link_to_remove 'Удалить', class: 'label label-danger'
                       - else
-                        %div#this_image
-                        .stat
-                          .stat-icon{style: 'height:90px;max-height:90px;overflow:hidden;'}
-                            = image_tag(travel_day_image_builder.object.uploaded_file(:thumb))
-                          .stat-info
-                            = travel_day_image_builder.link_to_remove 'Удалить'
-                  .col-md-12
-                    = days_builder.link_to_add 'Добавить изображение', :images
+                        %div{style: 'height: 140px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;padding-top: 20px;'}
+                          .stat
+                            .stat-icon{style: 'height:90px;max-height:90px;overflow:hidden;'}
+                              = image_tag(travel_day_image_builder.object.uploaded_file(:thumb))
+                            .stat-info
+                              = travel_day_image_builder.link_to_remove 'Удалить', class: 'label label-danger'
+                  .col-md-12.images_list.images
+                    = days_builder.link_to_add 'Добавить изображение', :images, class: 'label label-success'
             .row
-              .col-md-2.col-md-offset-10
-                = f.link_to_add 'Добавить день', :travel_days, class: 'btn btn-success', data: { target: '#travel_days' }
+              .col-md-3.col-md-offset-9{style: 'padding-top: 15px; text-align:right;'}
+                %a{data: {toggle: 'modal', target: '#travelDaysModal'}, class: 'btn btn-default btn-xs',
+                  style: 'margin: 5px 10px 0 0'}
+                  %i.fa.fa-question
+                #travelDaysModal.modal.fade{'aria-hidden': 'true', 'aria-label': 'travelDaysModalLabel',
+                  role: 'dialog', style: 'display: none;', tabindex: '-1'}
+                  .modal-dialog
+                    .modal-content
+                      .modal-body
+                        = image_tag 'examples/travel_days_example.png'
+                = f.link_to_add 'Добавить день', :travel_days, class: 'btn btn-success pull-right', data: { target: '#travel_days' }
 
           #hotels.tab-pane
             .row.col-md-12.form-group
@@ -236,9 +250,8 @@
                   .col-md-2{style: 'padding-top: 25px;'}
                     = days_in_hotel_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
             .row
-              .col-md-12
-                .col-md-2.col-md-offset-10
-                  = f.link_to_add 'Добавить отель', :days_in_hotels, class: 'btn btn-success', data: { target: '#days_in_hotels' }
+              .col-md-2.col-md-offset-10
+                = f.link_to_add 'Добавить отель', :days_in_hotels, class: 'btn btn-success pull-right', data: { target: '#days_in_hotels' }
             .row
               .col-md-12
                 = f.label :hotels_remark, 'Заметка к отелям'
@@ -259,12 +272,13 @@
                 = f.fields_for :price_includes do |price_includes_builder|
                   .row
                     .col-md-10
-                      = price_includes_builder.text_field :title, class: 'form-control', placeholder: 'Цена не включает'
+                      = price_includes_builder.text_field :title, class: 'form-control', placeholder: 'Цена включает'
                     .col-md-1
                       = price_includes_builder.link_to_remove 'X', class: 'btn btn-danger'
               .col-md-12{style: 'padding: 15px 0;'}
-                .col-md-2.col-md-offset-7
-                  = f.link_to_add 'Добавить "включает"', :price_includes, class: 'btn btn-success', data: { target: '#price_includes' }
+                .col-md-5.col-md-offset-7
+                  = f.link_to_add 'Добавить "включает"', :price_includes, class: 'btn btn-success  pull-right',
+                    data: { target: '#price_includes' }, style: 'margin-right: 10px;'
 
             %div{style: 'width: 50%; float:left;'}
               %h3
@@ -277,8 +291,9 @@
                     .col-md-1
                       = price_not_includes_builder.link_to_remove 'X', class: 'btn btn-danger'
               .col-md-12{style: 'padding: 15px 0;'}
-                .col-md-3.col-md-offset-7
-                  = f.link_to_add 'Добавить "НЕ включает"', :price_not_includes, class: 'btn btn-success', data: { target: '#price_not_includes' }
+                .col-md-5.col-md-offset-7
+                  = f.link_to_add 'Добавить "НЕ включает"', :price_not_includes, class: 'btn btn-success  pull-right',
+                    data: { target: '#price_not_includes' }, style: 'margin-right: 10px;'
 
 
 
@@ -295,7 +310,7 @@
                       .input-group-addon Вылет из:
                       = departure_builder.text_field :from, class: 'form-control'
                   .col-md-3.form-group.col-md-offset-5
-                    = departure_builder.link_to_remove 'Удалить страну вылета', class: 'btn btn-danger'
+                    = departure_builder.link_to_remove 'Удалить страну вылета', class: 'btn btn-danger  pull-right'
                 #travel_group_nested_form
                   = departure_builder.fields_for :travel_groups do |travel_group_builder|
                     .row
@@ -314,7 +329,7 @@
                   = departure_builder.link_to_add 'Добавить группу', :travel_groups, class: 'btn btn-success'
             .row
               .col-md-3.col-md-offset-9
-                = f.link_to_add 'Добавить страну вылета', :departures, class: 'btn btn-success', data: { target: '#departure' }
+                = f.link_to_add 'Добавить страну вылета', :departures, class: 'btn btn-success pull-right', data: { target: '#departure' }
 
             .row
               .col-md-12
@@ -324,18 +339,25 @@
           #faq.tab-pane
             #faqs
               = f.fields_for :faqs do |faq_builder|
-                .row
+                .row.form-group
                   .col-md-3.form-group
                     = faq_builder.label :title, 'Заголовок'
                     = faq_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок'
                   .col-md-2.col-md-offset-7.form-group{style: 'padding-top: 25px;'}
-                    = faq_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+                    = faq_builder.link_to_remove 'Удалить', class: 'btn btn-danger pull-right'
                   .col-md-12
                     = faq_builder.label :description, 'Описание'
                     = faq_builder.text_area :description, class: 'editor tinyeditor form-control', rows: 8
-            .row
-              .col-md-3.col-md-offset-9
-                = f.link_to_add  'Добавить пункт FAQ', :faqs, class: 'btn btn-success', data: { target: '#faqs' }
+            .row{style:'padding-top: 20px;'}
+              .col-md-3.col-md-offset-9{style: 'text-align: right;'}
+                %a{data: {toggle: 'modal', target: '#faqHelpModal'}, class: 'btn btn-default btn-xs', style: 'margin: 5px 10px 0 0'}
+                  %i.fa.fa-question
+                #faqHelpModal.modal.fade{'aria-hidden': 'true', 'aria-label': 'faqHelpModalLabel', role: 'dialog', style: 'display: none;', tabindex: '-1'}
+                  .modal-dialog
+                    .modal-content
+                      .modal-body
+                        = image_tag 'examples/example_faq.png'
+                = f.link_to_add  'Добавить пункт FAQ', :faqs, class: 'btn btn-success pull-right', data: { target: '#faqs' }
 
           #seo.tab-pane
             :css
@@ -353,7 +375,7 @@
                 %i meta заголовок
                 можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
 
-            .col-xs-12
+            .col-md-12{style: 'padding-bottom: 20px;'}
               %header.panel-heading Пример
               = image_tag 'examples/seo-example.png'
 
@@ -377,44 +399,5 @@
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: туры, туризм, португалия...'
         .row
-          %hr
           .col-md-12{style: 'padding-top: 15px;'}
             = f.submit 'Сохранить тур!', class: 'btn btn-info pull-left'
-
-
--##modalAddTravelDayImages.modal.fade{'aria-hidden': 'true', 'aria-label': 'modalAddTravelDayImagesLabel', role: 'dialog', style: 'display: none;', tabindex: '-1'}
--#  .modal-dialog
--#    :css
--#      .modal-dialog {
--#          width: 790px;
--#          margin: 30px auto;
--#        }
--#      .modal-dialog, .modal-content {
--#        height: 85%;
--#      }
--#
--#      .modal-body {
--#        height: calc(100% - 78px);
--#        overflow-y: scroll;
--#      }
--#
--#      .modal-body img {
--#        max-height: 115px;
--#        max-width: 230px !important ;
--#        padding: 5px 3px;
--#      }
--#    .modal-content
--#      .modal-header
--#        %button.close{'aria-hidden': 'true', 'data-dismiss': 'modal', type: 'button'} ×
--#        %div{style: 'width:50%'}
--#          = form_for @tour.travel_day_images.new, url: dashboard_travel_day_images_path, html: { multipart: true } do |t|
--#            = t.label :uploaded_file, 'Загрузите файл'
--#            = t.file_field :uploaded_file, multiple: true, name: 'travel_day_image[uploaded_file]'
--#        %div{style: 'width:49%;float:right;margin-top: -17px;'}
--#          #progress.progress-striped.progress-sm
--#            .progress-bar.progress-bar-success.progress-bar-striped
--#      .modal-body
--#        .panel
--#          %ul.list-group.teammates#travel_day_images
--#            = render 'dashboard/travel_day_images/images'
--#

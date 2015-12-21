@@ -4,6 +4,8 @@ gem 'rails', '4.2.4'
 gem 'puma'
 gem 'mongoid', '~> 5.0.0'
 gem 'bson_ext'
+gem 'whenever', :require => false
+
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -29,18 +31,19 @@ gem 'jquery-fileupload-rails'
 gem 'mini_magick'
 gem 'kaminari'
 gem 'nested_form'
+gem 'haml-rails'
 
 # SEO
 gem 'metamagic'
 gem 'babosa'
 gem 'geocoder'
+gem 'sitemap_generator'
 
 group :development, :test do
   gem 'better_errors'
   gem 'rspec-rails'
   gem 'mongoid-rspec'
   gem 'factory_girl_rails'
-  gem 'haml-rails'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'pry'

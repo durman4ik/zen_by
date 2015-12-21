@@ -1,0 +1,11 @@
+$('form.new_subscription').slideToggle(function() {
+    $('h2.h2').text('Подписка оформлена. Спасибо!').css('color', 'green');
+});
+
+$('.for_clear').each(function(){
+    $(this).val('')
+});
+
+
+
+window.loading_screen.finish();

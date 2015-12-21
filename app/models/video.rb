@@ -4,6 +4,6 @@ class Video
 
   field :video_id
 
-  belongs_to :tour
+  embedded_in :tour
 
 end

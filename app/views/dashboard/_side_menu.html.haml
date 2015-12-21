@@ -12,49 +12,42 @@
 
     / sidebar menu: : style can be found in sidebar.less
     %ul.sidebar-menu
-      %li{class: "#{'active' if current_page?(dashboard_path)}" }
+      %li{class: "#{'active' if current_page?(dashboard_path)}", style: 'border-top: 1px solid #565555;' }
         = link_to dashboard_path do
           %i.fa.fa-dashboard
           %span Панель управления
       %li{class: "#{'active' if request.fullpath.include?('orders')}" }
         = link_to dashboard_orders_path do
-          %i.fa.fa-paper-plane
+          %i.fa.fa-money
           %span Заказы
-      %li{class: "#{'active' if request.fullpath.include?('reviews')}" }
+      %li{class: "#{'active' if request.fullpath.include?('reviews')}", style: 'border-bottom: 1px solid #565555;' }
         = link_to dashboard_reviews_path do
-          %i.fa.fa-newspaper-o
+          %i.fa.fa-star
           %span Отзывы
       %li{class: "#{'active' if request.fullpath.include?('countries')}" }
         = link_to dashboard_countries_path do
-          %i.fa.fa-gavel
+          %i.fa.fa-globe
           %span Страны
       %li{class: "#{'active' if request.fullpath.include?('categories')}" }
         = link_to dashboard_categories_path do
-          %i.fa.fa-globe
+          %i.fa.fa-folder
           %span Категории
       %li{class: "#{'active' if request.fullpath.include?('hotels')}" }
         = link_to dashboard_hotels_path do
-          %i.fa.fa-globe
+          %i.fa.fa-home
           %span Отели
-      %li{class: "#{'active' if request.fullpath.include?('tours')}" }
+      %li{class: "#{'active' if request.fullpath.include?('tours') && !request.fullpath.include?('spec')}" }
         = link_to dashboard_tours_path do
-          %i.fa.fa-globe
+          %i.fa.fa-plane
           %span Туры
+      %li{class: "#{'active' if request.fullpath.include?('special_tours')}" }
+        = link_to dashboard_special_tours_path do
+          %i.fa.fa-plane
+          %span Специальные туры
       %li{class: "#{'active' if request.fullpath.include?('pages')}" }
         = link_to dashboard_pages_path do
-          %i.fa.fa-glass
+          %i.fa.fa-newspaper-o
           %span Страницы
--#      %span{style: 'float:right;width: 40px;', "aria-controls" => "collapseListGroup1", "aria-expanded" => "true", "data-toggle" => "collapse", :href => "#collapseListGroup1"}
--#        >
--#  #collapseListGroup1.panel-collapse.collapse{"aria-expanded" => "true", "aria-labelledby" => "collapseListGroupHeading1", :role => "tabpanel"}
--#    %ul.sidebar-menu.accordion
--#      %li
--#        = link_to '#' do
--#          %i.fa.fa-university
--#          %span Главная
--#      - Page.all.each do |page|
--#        %li
--#          = link_to edit_dashboard_page_path(slug: page.slug) do
--#            %i.fa.fa-binoculars
--#            %span
--#              = page.title
+    %div{style: 'position: relative;margin-top: 100px; bottom: 50px; left: 10px; width: 100%; '}
+      = link_to 'К сайту', root_path, class: 'btn btn-success', target: '_blank',
+        style: 'border-radius: 0;box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.54);padding: 10px 75px;'

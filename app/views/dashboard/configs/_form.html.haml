@@ -17,8 +17,8 @@
       - if action_name == 'edit'
         %p
           %label
-            = hidden_field_tag 'remove_image', 'false'
-            = check_box_tag 'remove_image', true
+            = hidden_field_tag 'config[remove_image]', 'false'
+            = check_box_tag 'config[remove_image]', true
             Сбросить логотип
           %span.help-block{style: 'font-style: italic;font-size: small;'}
             = 'Поставьте галку и сохраните для сброса на стандартное изображение'

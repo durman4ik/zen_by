@@ -1,22 +1,24 @@
-%header.header.has-dropdown.has-btn-nav.has-logo.has-header-background.has-header-subline.has-header-title.clear{:role => "banner"}
+%header.header.has-dropdown.has-btn-nav.has-logo.has-header-background.has-header-subline.has-header-title.clear{:role => 'banner'}
   #identityWrapper.header-container.clear
     #identityContact.header-content.clear
-      %a.logo.logo-hidden-small{:href => "/", :title => ""}
-        %img{:alt => "", :height => "69", :itemprop => "logo", :src => "http://www.zen.by/upl/website/275011_srcset-large.png", :width => "540"}/
+      = link_to root_path, class: 'logo logo-hidden-small' do
+        = image_tag @config.logo
       #identity.header-title.hgroup.hidden-small
         #companyName.h1
         #companyTagline.h2
       #contact.header-subline.hgroup.hidden-small
         #actionLine.h1
         #phoneNumber.h2
-          %a{"data-track-action" => "tapToCall", "data-track-event" => "click", :href => "tel:#{@about.phone}", :itemprop => "telephone"}
+          %a{'data-track-action' => 'tapToCall', 'data-track-event' => 'click', :href => "tel:#{@about.phone}", :itemprop => 'telephone'}
             = @about.phone
       .header-title.hidden-large
         %span.h1
-          %span{:itemprop => "name"} Искатели впечатлений
-      %a#menubutton.btn.btn-nav.hidden-large{"data-bind" => "toggle-btn-nav", :href => "#"} Меню
-  %nav#topNav.nav.nav-primary.hidden-small{:role => "navigation"}
+          %span{:itemprop => 'name'} Искатели впечатлений
+      %a#menubutton.btn.btn-nav.hidden-large{'data-bind' => 'toggle-btn-nav', :href => '#'} Меню
+  %nav#topNav.nav.nav-primary.hidden-small{:role => 'navigation'}
     %ul.clear
+      %li{style: 'text-transform: uppercase;', class: "#{'active' if request.path == root_path}"}
+        = link_to 'Главная', root_path
       - @menu_items.each do |item|
         - @path = item.external_link.present? ? item.external_link : "/#{eval('item.'+ item.attachment_type + '.slug')}"
         %li{style: 'text-transform: uppercase;', class: "#{'active' if request.path == @path}"}

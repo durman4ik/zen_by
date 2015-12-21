@@ -1,0 +1,39 @@
+.row.form-group#calendar_row
+  #calendar
+    = f.fields_for :calendar do |calendar_builder|
+      .col-md-1
+        = calendar_builder.label 'Январь'
+        = calendar_builder.text_field :jan, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Февраль'
+        = calendar_builder.text_field :feb, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Март'
+        = calendar_builder.text_field :mar, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Апрель'
+        = calendar_builder.text_field :apr, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Май'
+        = calendar_builder.text_field :may, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Июнь'
+        = calendar_builder.text_field :jun, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Июль'
+        = calendar_builder.text_field :jul, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Август'
+        = calendar_builder.text_field :aug, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Сентябрь'
+        = calendar_builder.text_field :sep, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Октябрь'
+        = calendar_builder.text_field :oct, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Ноябрь'
+        = calendar_builder.text_field :nov, class: 'form-control'
+      .col-md-1
+        = calendar_builder.label 'Декабрь'
+        = calendar_builder.text_field :dec, class: 'form-control'

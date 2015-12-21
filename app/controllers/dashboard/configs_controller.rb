@@ -5,7 +5,7 @@ class Dashboard::ConfigsController < ApplicationController
   end
 
   def update
-    if @config.update(config_params)
+    if @config.update_config(config_params)
       flash[:success] = 'Настройки сайта успешно обновлены!'
       redirect_to dashboard_path
     else
@@ -21,6 +21,7 @@ class Dashboard::ConfigsController < ApplicationController
                                    :slider_enabled,
                                    :facebook_enabled,
                                    :subscribe_enabled,
+                                   :remove_image,
                                    :logo)
   end
 end

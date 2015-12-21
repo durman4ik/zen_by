@@ -1,4 +1,40 @@
-FactoryGirl.define do  factory :about do
+FactoryGirl.define do  factory :pre_count do
+    
+  end
+  factory :callback do
+    
+  end
+  factory :message do
+    
+  end
+  factory :subscribe do
+    
+  end
+  factory :calendar do
+    
+  end
+  factory :template do
+    
+  end
+  factory :task_item do
+    
+  end
+  factory :travel_task do
+    
+  end
+  factory :corporate_tour do
+    
+  end
+  factory :html_content do
+    
+  end
+  factory :sticky_item do
+    
+  end
+  factory :why_us_cause do
+    
+  end
+  factory :about do
     
   end
   factory :page_attachment do
@@ -8,9 +44,6 @@ FactoryGirl.define do  factory :about do
     
   end
   factory :sub_menu_item do
-    
-  end
-  factory :menu do
     
   end
   factory :slider do

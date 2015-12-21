@@ -85,7 +85,7 @@
       this.$element.html(
         '<div class="input-group bfh-colorpicker-toggle" data-toggle="bfh-colorpicker">' +
         iconLeft +
-        '<input type="text" name="' + this.options.name + '" class="' + this.options.input + '" placeholder="' + this.options.placeholder + '" readonly>' +
+        '<input type="text" name="' + this.options.name + '" class="' + this.options.input + '" placeholder="' + this.options.placeholder + '" >' +
         iconRight +
         '</div>' +
         '<div class="bfh-colorpicker-popover">' +

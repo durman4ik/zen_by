@@ -100,7 +100,7 @@ $(document).on('ready', function() {
                     self.setFontSize();
                     setTimeout(function () {
                         self.setHeight();
-                    }, 70)
+                    }, 70);
                     if (self.options.onResize) {
                         self.options.onResize.call(self);
                     }

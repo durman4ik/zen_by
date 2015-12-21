@@ -33,8 +33,13 @@ class Country
 
   has_one  :menu_item,          dependent: :destroy
   has_one  :sub_menu_item,      dependent: :destroy
-  has_many :tours,              dependent: :destroy
   has_many :hotels,             dependent: :destroy
+
+  has_many                      :page_attachments
+  has_many                      :sliders
+  has_and_belongs_to_many       :tours,               dependent: :destroy
+
+  accepts_nested_attributes_for :sliders,             allow_destroy: true, reject_if: :all_blank
 
   before_validation :create_slug
 
@@ -51,7 +56,7 @@ class Country
   end
 
   def update_country(params)
-    self.image = nil if params[:remove_image].present?
+    self.image = nil if params[:remove_image] == 'true'
     update(params)
   end
 

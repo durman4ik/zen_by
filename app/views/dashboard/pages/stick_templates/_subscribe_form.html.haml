@@ -1,21 +1,10 @@
+.module.hidden-large.call
+  %a.btn.btn-call.piwik_ignore{'data-track-action' => 'tapToCall', 'data-track-event' => 'click', :href => 'tel:+375296621909', :itemprop => 'telephone', :title => ''} +375 (29) 662-19-09
+%h1.module.h1 Подписка
 .module.divider-divider-variable.divider-variable{:style => 'height: 10px;'}
 .module.divider-divider.divider
 %article.module.text
   %p{:style => 'text-align: justify;'}
-    %span{:style => 'color:#000000;font-size:16px;'}
-      Хотите еще больше впечатлений? Подпишитесь на нас и получайте уведомления на ваш e-mail о текущих акциях, скидках и новых турах! Мы заботимся о наших клиентах и делаем рассылку не чаще одного раза в месяц.
-#contentArea_1_-module_6_.module.formbuilder.normal
-  %h2.h2 Подписаться
-  %form#form-contentArea_1_-module_6_{:action => 'podpiska', 'data-track-action' => 'custom_form', 'data-track-event' => 'submit', :method => 'post', :onsubmit => 'disableSubmit(this);return submitForm(this);'}
-    %fieldset
-      %label{:for => 'form_contentArea_1_-module_6__0'}
-        Введите Ваш е-mail
-        %span#error_contentArea_1_-module_6__form_contentArea_1_-module_6__0.error
-      .text-container
-        %input.text{:name => 'form_contentArea_1_-module_6__0', :type => 'text', :value => ''}/
-    %span#error-contentArea_1_-module_6_.error
-    .width-container
-      .button-container
-        %input.button{:name => 'contentArea_1_-module_6_', :type => 'submit', :value => 'подписаться'}/
-        %button.btn{:type => 'submit'} подписаться
-.module.divider-divider-variable.divider-variable{:style => 'height: 50px;'}
+    %span{:style => 'color:#000000;'}
+      %span{:style => 'font-size:16px;'} Хотите еще больше впечатлений? Подпишитесь на нас и получайте уведомления на ваш e-mail о текущих акциях, скидках и новых турах! Мы заботимся о наших клиентах и делаем рассылку не чаще одного раза в месяц
+= render 'subscriptions/form'

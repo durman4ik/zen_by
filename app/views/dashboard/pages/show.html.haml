@@ -1,10 +1,129 @@
 = render 'dashboard/pages/meta', page: @page
 #contentWrapperWrapper.main-container
-  #contentWrapper.section.main{:role => "main"}
+  #contentWrapper.section.main{:role => 'main'}
     .contentArea.contentAreaC
       = render 'page_header'
-      - if @page.page_attachments.present?
-        - @page.page_attachments.each do |attachment|
-          = render "dashboard/pages/stick_templates/#{attachment.template}"
+      - if @page.templates.present?
+        - @page.templates.each do |template|
+          = render "dashboard/pages/stick_templates/#{template.name}"
 
       = raw @page.html_content
+
+      - if @page.sticky_items.present?
+        .module.margin-collapse.htmlModule
+          %meta{:charset => 'utf-8'}/
+          :css
+            .contentArea .columns, .module .columns, .module > .columns:first-child, .footer-content .columns {
+
+            font-size: 14px;
+            color: black;
+
+            }
+            .h2.module.margin-collapse, .cart-container .module.margin-collapse.headline, .carousel figcaption.module.margin-collapse, .product-units .module.margin-collapse.price, .image-text .module.margin-collapse.price, .checkoutArea .module.margin-collapse.h1 {
+            color: rgb(0, 99, 132);
+            }
+            .btn-large, .formbuilder .btn, .checkoutArea .btn, .product-single .btn {
+            font-size: 1em;
+            padding: .5em 1em;
+            }
+             .module.margin-collapse.border.bar h1.h2 {
+            color: #006384;
+            }
+            .module.margin-collapse.border.bar h2.h2 {
+            color: #006384;
+            }
+            .module.margin-collapse.border.bar h3.h2 {
+            color: #006384;
+            }
+            .usp li:before {
+            content: "\0058";
+            color: #FFB32A;
+            }
+            .contentArea .h2 {
+            font-size: 20px;
+            color: #000;
+            line-height: 1;
+            font-style: normal;
+            font-weight: 600;
+            }
+            .btn-call, .btn-email {
+            padding: 2.25em .75em .25em 3em;
+            font-size: 0.985em;
+            height: 90px;
+            }
+            .btn-call:before, .btn-email:before {
+            padding: 2.25em .75em;
+            border-right: 1px dotted white;
+            }
+            .spec{
+            background: #006384;
+            color: #fff;
+            }
+            .to_top{
+            position: fixed;
+            top: 0;
+            width: 3000px;
+            background: #0099cc;
+            margin-left: -1050px;}
+            #stick_menu{
+
+
+            color:black;
+
+            z-index:1;
+            }
+
+            #stick_menu td{
+            vertical-align:center;
+            background: #0099cc;
+            border: 1px solid white;
+
+            }
+            #stick_menu .active{
+            color:white;
+            background: #FFB32A;
+            }
+            #stick_menu td a{
+            color:white;
+            display: block;
+            text-decoration:none;
+            padding: 12px;
+            padding-left: 0px;
+            padding-right: 0px;
+            }
+            .tdd{
+            font-size:14px;
+            }
+            #stick_menu td:hover{
+            color:white;
+            background: #ffa523;
+            text-decoration:none;
+            }
+            #stick_menu td:focus{
+            color:white;
+            background: #FFB32A;
+            text-decoration:none;
+            }
+            #stick_menu a:hover{text-decoration:none;}
+
+
+          #stick_menu
+            %table{:align => 'center', :border => '0', :width => '900'}
+              %tbody
+                %tr{:align => 'center'}
+                  -@page.sticky_items.each_with_index do |item, index|
+                    %td
+                      %a.tdd{:href => "##{index+1}"}
+                        = item.title
+        - @page.sticky_items.each_with_index do |item, index|
+          %div{class: "#{'module htmlModule' if index == 0}"}
+            %section{id: "#{index+1}", style: 'position: absolute; height: 518px;'}
+          - if index == 0
+            .module.margin-collapse.divider-divider.divider
+            .module.divider-divider-variable.divider-variable{:style => 'height: 9px;'}
+          - if item.html_contents.present?
+            - item.html_contents.each do |content|
+              = raw content.content
+          - if item.templates.present?
+            - item.templates.each do |template|
+              = render "dashboard/pages/stick_templates/#{template.name}"

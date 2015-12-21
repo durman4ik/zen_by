@@ -73,7 +73,11 @@ class Dashboard::PagesController < ApplicationController
                                    :meta_keywords,
                                    :description_background,
                                    :slug,
-                                   page_attachments_attributes: [:id, :_destroy, :template])
+                                   templates_attributes: [:_destroy, :id, :name],
+                                   sticky_items_attributes:[:_destroy, :title, :id,
+                                                            templates_attributes: [:_destroy, :id, :name],
+                                                            page_attachments_attributes: [:_destroy, :id, :template],
+                                                            html_contents_attributes:[:_destroy, :id, :content]])
 
     end
 end

@@ -29,7 +29,7 @@ body {
     }
 
     #identityContact {
-        background-image: url(/uploads/website/blank_srcset-large.png);
+        background-image: image_url('blank_srcset-large.png');
     }
 }
 
@@ -115,7 +115,7 @@ content: "\0057";
     
 }
 .contentAreaC .jumbotron.has-formbuilder .module, .contentAreaC .jumbotron.has-spotcall .module, .contentAreaC .jumbotron.has-booking .module, .contentAreaC .jumbotron.has-box .module {
-margin: 8.875em 0px;
+margin: 8.875em 0;
 }
 
 /* -----------------------Top bar and Navigation ----------------------- */

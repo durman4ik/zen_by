@@ -3,6 +3,8 @@
 //= require application/btn-nav
 //= require application/image-loader
 //= require application/stick_menu
+//= require application/forms
+//= require application/validation
 //= require_self
 
 

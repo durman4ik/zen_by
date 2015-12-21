@@ -1,0 +1,26 @@
+User-agent: *
+
+    Allow: <%= root_path %>
+
+<% @pages.each do |p| %>
+    Allow: <%= show_page_path(slug: p.slug) %>
+<% end %>
+
+<% @tours.each do |p| %>
+    Allow: <%= show_tour_path(slug: p.slug) %>
+<% end %>
+
+<% @countries.each do |p| %>
+    Allow: <%= show_country_path(slug: p.slug) %>
+<% end %>
+
+<% @categories.each do |p| %>
+    Allow: <%= show_category_path(slug: p.slug) %>
+<% end %>
+
+    Allow: <%= subscribe_page_path  %>
+
+    Disallow: <%= dashboard_path %>
+    Disallow: <%= new_admin_session_path %>
+
+Sitemap: http://zen.by/sitemap.xml.gz

@@ -56,6 +56,7 @@
             = f.collection_select :country_id, Country.all, :id, :title, { include_blank: 'Нет' },
                 class: 'form-control attach_select'
           .col-md-4.form-group#tour_fields.hidden
+            = f.label ' '
             = f.collection_select :tour_id, Tour.all, :id, :name, { include_blank: 'Нет' },
                 class: 'form-control attach_select'
           .col-md-2.form-group
@@ -111,7 +112,7 @@
 
       .row.form-group
         .col-md-3.col-md-offset-9.pull-right
-          = f.link_to_add 'Добавить подпункт', :sub_menu_items, class: 'btn btn-success', 'data-target': '#sub_menu_items'
+          = f.link_to_add 'Добавить подпункт', :sub_menu_items, class: 'btn btn-success pull-right', 'data-target': '#sub_menu_items'
       .col-md-6.form-group
         .button-container
           = f.submit 'Сохранить пункт меню!', class: 'btn btn-info', id: 'place_new_order'

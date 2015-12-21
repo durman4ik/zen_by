@@ -10,4 +10,15 @@ class UserMailer < ApplicationMailer
       false
     end
   end
+
+  def subscribe_user(subscription)
+    @subscription = subscription
+    @url = 'http://zen.by/'
+
+    if @subscription.email.present?
+      mail(to: @subscription.email, subject: 'Оформление подписки - Искатели впечатлений!')
+    else
+      false
+    end
+  end
 end

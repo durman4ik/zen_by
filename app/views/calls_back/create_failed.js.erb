@@ -1,0 +1,6 @@
+$('form.new_pre_count').slideToggle(function() {
+  $('h3.h2#pre_counts').text("Внутренняя ошибка! Не удалось отправить заявку. " +
+      "Попробуйте позже или свяжитесь с нами по телефону <%= @about.phone %>").css('color', 'red');
+});
+
+window.loading_screen.finish();

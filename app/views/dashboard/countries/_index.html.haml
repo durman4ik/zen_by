@@ -4,6 +4,7 @@
     %td= country.name
     %td= country.tours.length
     %td= country.hotels.length
+    %td.text-center= convert_boolean country.sliders.present?
     %td
       = link_to dashboard_edit_countries_path(slug: country.slug), class: 'btn btn-default btn-xs' do
         %i.fa.fa-pencil

@@ -5,4 +5,5 @@ class Faq
   field :description,     type: String
 
   belongs_to :tour
+  belongs_to :home_page
 end

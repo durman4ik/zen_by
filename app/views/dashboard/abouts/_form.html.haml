@@ -45,6 +45,39 @@
             .col-md-12.form-group
               = f.label :requisites, 'Реквизиты компании'
               = f.text_area :requisites, class: 'form-control', placeholder: 'Реквизиты компании', rows: 10
-            .col-md-12.form-group
-              = f.submit 'Сохранить информацию!', class: 'btn btn-info'
-          #four_causes
+
+          #four_causes.tab-pane
+            #causes.col-md-12
+              = f.fields_for :why_us_causes do |causes_builder|
+                .row{style: 'padding-bottom: 25px; border-bottom: 1px solid #D4D2D2;padding-top: 20px;'}
+                  .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
+                    = image_tag causes_builder.object.image(:preview), width: 400
+                  .col-md-3.form-group
+                    = causes_builder.label 'Изображение'
+                    = causes_builder.file_field :image
+                    %span.help-block{style: 'font-style: italic;font-size: small;'}
+                      = 'Картинка должна быть шириной 204px'
+                    %br
+                    - if action_name == 'edit'
+                      %p
+                        %label
+                          = causes_builder.check_box :remove_image, class: 'icheck'
+                          Удалить картинку
+                        %span.help-block{style: 'font-style: italic;font-size: small;'}
+                          = 'Поставьте галку и сохраните для сброса изображения'
+                  .col-md-5
+                    .form-group
+                      = causes_builder.label 'Заголовок'
+                      = causes_builder.text_field :title, class: 'form-control', placeholder: 'Заголовок'
+                    .form-group
+                      = causes_builder.label :description, 'Текст'
+                      = causes_builder.text_area :description, class: 'form-control', placeholder: 'Текст', rows: 6
+                  .col-md-3{style: 'margin-top: -35px;'}
+                    = causes_builder.link_to_remove 'Удалить причину', class: 'btn btn-danger'
+
+            .row
+              .col-md-2.col-md-offset-10{style: 'padding-top: 15px;'}
+                = f.link_to_add 'Добавить причину', :why_us_causes, class: 'btn btn-success add_nested_why_us_fields',
+                  data: { target: '#causes' }
+        .col-md-12.form-group
+          = f.submit 'Сохранить информацию!', class: 'btn btn-info'

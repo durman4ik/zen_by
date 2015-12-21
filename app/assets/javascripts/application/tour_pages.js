@@ -7,4 +7,6 @@
 //= require application/slider
 //= require application/slideshow
 //= require application/video_slider
+//= require application/forms
+//= require application/validation
 //= require_self

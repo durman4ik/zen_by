@@ -1,6 +1,4 @@
-class Order
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class Order < Message
   include GlobalID::Identification
 
   STATUSES = %w(новый обработан подтвержден отклонен)
