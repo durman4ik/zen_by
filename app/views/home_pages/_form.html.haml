@@ -156,14 +156,14 @@
 
                         = attachment_builder.link_to_remove 'Удалить', class: 'label label-danger pull-right'
                       .row{style: 'padding: 20px 25px 0 0;'}
-                        .form-group#category_fields
+                        .form-group#country_fields
                           = attachment_builder.label ' '
-                          = attachment_builder.collection_select :category_id, Category.all, :id, :title, {include_blank: 'Нет'},
+                          = attachment_builder.collection_select :country_id, Country.all, :id, :name, {include_blank: 'Нет'},
                               class: 'form-control attach_select'
-                        .form-group#country_fields.hidden
+                        .form-group#category_fields.hidden
                           = attachment_builder.label ' '
-                          = attachment_builder.collection_select :country_id, Country.all, :id, :title, {include_blank: 'Нет'},
-                              class: 'form-control attach_select'
+                          = attachment_builder.collection_select :category_id, Category.all, :id, :name, {include_blank: 'Нет'},
+                            class: 'form-control attach_select'
                         .form-group#tour_fields.hidden
                           = attachment_builder.label ' '
                           = attachment_builder.collection_select :tour_id, Tour.all, :id, :name, {include_blank: 'Нет'},

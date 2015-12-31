@@ -176,6 +176,10 @@
                       = image_tag(eval("attachment.#{attachment.type}.image(:preview)"))
                       %h2.block
                         = eval "attachment.#{attachment.type}.name"
+                        - if attachment.type == 'tour'
+                          = '/'
+                          = attachment.tour.days
+                          = show_price attachment.tour
                       %p
         .module
         - if item.link.present?

@@ -18,10 +18,9 @@ class Tour
   field :days_remark,                                 type: String
   field :price,                                       type: String
   field :hotels_remark,                               type: String
-  field :show_hotels_with_date,                       type: String,  default: true
+  field :show_hotels_with_date,                       type: Boolean, default: false
   field :group_tour,                                  type: Boolean
   field :use_in_slider,                               type: Boolean, default: false
-  field :use_hotels_block,                            type: Boolean, default: false
   # seo
   field :meta_title,                                  type: String
   field :meta_description,                            type: String
@@ -45,8 +44,8 @@ class Tour
   has_many    :faqs,                                  dependent: :destroy
   has_many    :price_includes,                        dependent: :destroy
   has_many    :price_not_includes,                    dependent: :destroy
-  has_many    :orders
   has_many    :page_attachments,                      dependent: :destroy
+  has_many    :orders
 
   embeds_many :videos
   embeds_one  :calendar

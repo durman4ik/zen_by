@@ -39,7 +39,9 @@
               = f.label 'Изображение'
               = f.file_field :image
               %span.help-block{style: 'font-style: italic;font-size: small;'}
-                = 'Будет отображаться на странице всех стран'
+                = 'Размер 310х148 или больше.'
+                %br
+                = 'Будет отображаться на странице всех стран.'
               %br
               - if action_name == 'edit'
                 %p
@@ -67,46 +69,7 @@
             = render 'dashboard/sliders/form', f: f
 
           #seo.tab-pane
-            .col-lg-12
-              .alert.alert-block.alert-danger
-                %strong Внимание!
-                Редактируйте эти поля, только если знаете что делаете! Это прямо влияет на ранжирование сайта в поисковых системах!
-
-              .alert.alert-info
-                %strong К сведению!
-                Поля
-                %i ссылка
-                и
-                %i meta заголовок
-                можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
-
-            .col-md-12
-              %header.panel-heading Пример
-              = image_tag 'examples/seo-example.png'
-
-            .col-md-6.form-group
-              = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: portugalija'
-
-            .col-md-6.form-group
-              = f.text_field :meta_title, maxlength: 50, class: 'form-control', placeholder: 'meta заголовок'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: Туры в Португалию'
-                %br
-                = 'Максимум 50 знаков'
-
-            .col-md-6.form-group
-              = f.text_area :meta_description, rows: 4, class: 'form-control', placeholder: 'meta описание'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: Наша Португалия - не туристическая, она...'
-                %br
-                = 'Будет использовано первых 150 знаков'
-
-            .col-md-6.form-group
-              = f.text_area :meta_keywords, rows: 4, class: 'form-control', placeholder: 'ключевые слова (через запятую)'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: туры, туризм, португалия...'
+            = render 'dashboard/seo_form', f: f
 
         .row
           .col-md-12{style: 'padding-top: 15px;'}

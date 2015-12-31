@@ -5,7 +5,7 @@ class Country
 
   scope :sorted_by_name, -> { order_by(name: 'osc') }
 
-  REGIONS = ['Австралия и Океания', 'Азия', 'Антарктида', 'Африка', 'Европа', 'Северная Америка', 'Южная Америка']
+  REGIONS = ['Австралия и Океания', 'Азия', 'Антарктида', 'Африка', 'Европа', 'Северная Америка', 'Южная Америка', 'Карибское море', 'Ближний Восток', 'Индийский океан']
 
   attr_accessor :remove_image
 
@@ -37,7 +37,7 @@ class Country
 
   has_many                      :page_attachments
   has_many                      :sliders
-  has_and_belongs_to_many       :tours,               dependent: :destroy
+  has_and_belongs_to_many       :tours
 
   accepts_nested_attributes_for :sliders,             allow_destroy: true, reject_if: :all_blank
 

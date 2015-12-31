@@ -5,5 +5,6 @@ class HtmlContent
 
   field :content, type: String
 
-  belongs_to :sticky_item
+  embedded_in :sticky_item
+  embedded_in :days_in_hotel
 end

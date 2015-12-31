@@ -54,11 +54,13 @@ $(document).on('ready', function(){
 
     if ($('#show_field_days_in_hotels_checkbox').is(':checked')) {
         $('.show_field_days_in_hotels').each(function(){
-            $(this).removeClass('hidden')
+            $(this).removeClass('hidden');
+            $('.remove_tour_block').removeClass('col-md-offset-5').addClass('col-md-offset-3');
         });
     } else {
         $('.show_field_days_in_hotels').each(function(){
-            $(this).addClass('hidden')
+            $(this).addClass('hidden');
+            $('.remove_tour_block').removeClass('col-md-offset-3').addClass('col-md-offset-5');
         });
     }
     if(ind_or_group_switcher.is(':checked')) {
@@ -118,11 +120,13 @@ $(document).on('ready', function(){
     $(document).on('ifChanged', '#show_field_days_in_hotels_checkbox', function(){
         if(this.checked) {
             $('.show_field_days_in_hotels').each(function(){
-               $(this).removeClass('hidden')
+                $(this).removeClass('hidden');
+                $('.remove_tour_block').removeClass('col-md-offset-5').addClass('col-md-offset-3');
             });
         } else {
             $('.show_field_days_in_hotels').each(function(){
-                $(this).addClass('hidden')
+                $(this).addClass('hidden');
+                $('.remove_tour_block').removeClass('col-md-offset-3').addClass('col-md-offset-5');
             });
         }
     });
@@ -237,18 +241,21 @@ $(document).on('nested:fieldAdded', function(event){
     });
 
     if ($('#show_field_days_in_hotels_checkbox').is(':checked')) {
+
         $('.show_field_days_in_hotels').each(function(){
-            $(this).removeClass('hidden')
+            $(this).removeClass('hidden');
+            $('.remove_tour_block').removeClass('col-md-offset-5').addClass('col-md-offset-3');
         });
     } else {
         $('.show_field_days_in_hotels').each(function(){
-            $(this).addClass('hidden')
+            $(this).addClass('hidden');
+            $('.remove_tour_block').removeClass('col-md-offset-3').addClass('col-md-offset-5');
         });
+
     }
 
-    $("input[type=checkbox]#is_active_travel_group").iCheck({
+    $("input[type=checkbox]").not('#onoffswitch').not('#onoffswitch1').not('#onoffswitch2').iCheck({
         checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
         increaseArea: '20%'
     });
 

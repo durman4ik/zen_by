@@ -41,9 +41,16 @@
         .module.divider-divider-variable.divider-variable{:style => 'height: 10px;'}
         .module.margin-collapse.divider-dotted.dotted
         %article.module.margin-collapse.text{style: 'min-height:330px;'}
+          - if tour.route.present?
+            %p
+              %strong{style: 'line-height: 20.7999992370605px;'}
+                Маршрут:
+              = tour.route
+            %br
           %p
             %span{:style => 'color:#000000;font-size:14px;'}
-              = raw '<strong>Описание: </strong>' + tour.description
+              %strong Описание:
+              = raw tour.description
             %br
           - if tour.group_tour && tour.departures.present?
             %table{:border => '1', :cellpadding => '0', :cellspacing => '0', :style => 'border: 2px white; '}
@@ -71,7 +78,7 @@
                         %span{:style => 'color:#000000;font-size:12px;line-height: 20.7999992370605px;'}
                           = l travel_group.finish_date.to_date, format: '%e %B'
                       = check_travel_group(travel_group)
-          - if !tour.group_tour && tour.departures.present?
+          - if !tour.group_tour
             %h3
               %strong
                 %span{:style => 'color:#000000;font-size:14px;'}
@@ -79,7 +86,9 @@
                     - @dates = departure.travel_groups.map(&:start_date).map {|x| l x.to_date, format: '%d %B'}.join(', ')
                     = "Даты путешествия из #{departure.from}: #{@dates}"
                     %br/
+
             - if tour.calendar.present?
+
               %p
                 %span{:style => 'color: rgb(0, 0, 0); font-size: 14px;'}
                   %strong

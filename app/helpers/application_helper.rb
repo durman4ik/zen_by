@@ -25,9 +25,9 @@ module ApplicationHelper
   def check_travel_group(group, options = {})
     start = group.start_date.to_date
     today = Date.today
-    if today - start <= 7 && group.active
+    if (today - start).to_i >= -7 && (today - start).to_i <= 0 && group.active
       group_status('rgb(49, 149, 191)', 'Последние места')
-    elsif today - start > 7 && group.active
+    elsif today - start < -7 && group.active
       group_status('rgb(0, 153, 51)', 'Идет набор')
     else
       group_status('rgb(204, 0, 0)', 'Группа набрана')

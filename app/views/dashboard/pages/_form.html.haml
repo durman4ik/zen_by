@@ -111,42 +111,7 @@
           #seo.tab-pane
             :css
               textarea { resize: vertical; }
-            .col-lg-12
-              .alert.alert-block.alert-danger
-                %strong Внимание!
-                Редактируйте эти поля, только если знаете что делаете! Это прямо влияет на ранжирование сайта в поисковых системах!
-
-              .alert.alert-info
-                %strong К сведению!
-                Поля
-                %i ссылка
-                и
-                %i meta заголовок
-                можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
-
-            .col-xs-12
-              %header.panel-heading Пример
-              = image_tag 'examples/seo-example.png'
-
-            .col-md-6.form-group
-              = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: portugalija'
-
-            .col-md-6.form-group
-              = f.text_field :meta_title, class: 'form-control', placeholder: 'meta заголовок'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: Туры в Португалию'
-
-            .col-md-6.form-group
-              = f.text_area :meta_description, rows: 8, class: 'form-control', placeholder: 'meta описание', id: 'meta_description'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: Наша Португалия - не туристическая, она...'
-
-            .col-md-6.form-group
-              = f.text_area :meta_keywords, rows: 8, class: 'form-control', placeholder: 'ключевые слова (через запятую)', id: 'meta_keywords'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: туры, туризм, португалия...'
+            = render 'dashboard/seo_form', f: f
 
       .form-group{style: 'margin-top: 15px'}
         .col-md-4

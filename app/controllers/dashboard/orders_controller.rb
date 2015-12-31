@@ -25,9 +25,7 @@ class Dashboard::OrdersController < ApplicationController
             render nothing: true
           end
         end
-        format.js do
-          render 'dashboard/reviews/create'
-        end
+        format.js
       else
         format.html do
           if current_admin

@@ -3,13 +3,15 @@ class Hotel
 
   attr_accessor :hotel_images
 
-  field :title, type: String
-  field :stars, type: Integer
-  field :description, type: String
+  field :title,              type: String
+  field :stars,              type: String
+  field :description,        type: String
 
-  has_many :images, dependent: :destroy
+  has_many :images,          dependent: :destroy
   has_many :days_in_hotels
+
   belongs_to :country
+
 
   validates_uniqueness_of :title, message: 'Отель с таким названием уже существует! Измените название отеля.'
 

@@ -36,9 +36,9 @@ class DashboardController < ApplicationController
   end
 
   def countries
-    query = Country.all.order_by(name: :desc)
-    total_pages = get_pages(query, 12)
-    @countries = get_objects(query, 12, total_pages)
+    query = Country.all.order_by(name: :asc)
+    total_pages = get_pages(query, 15)
+    @countries = get_objects(query, 15, total_pages)
     check_redirect(total_pages)
   end
 
@@ -57,14 +57,14 @@ class DashboardController < ApplicationController
   end
 
   def hotels
-    query = Hotel.all.order_by(stars: :desc)
+    query = Hotel.all.order_by(country: :asc)
     total_pages = get_pages(query, 12)
     @hotels = get_objects(query, 12, total_pages)
     check_redirect(total_pages)
   end
 
   def categories
-    query = Category.all
+    query = Category.sorted_by_name
     total_pages = get_pages(query, 12)
     @categories = get_objects(query, 12, total_pages)
     check_redirect(total_pages)

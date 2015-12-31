@@ -3,7 +3,7 @@ class Category
   include Mongoid::Paperclip
   include ActionView::Helpers
 
-  scope :sorted_by_name, -> { order_by(name: 'osc') }
+  scope :sorted_by_name, -> { order_by(name: :asc) }
   scope :showed_on_main, -> { where(show_on_main: true).order_by(name: 'osc') }
 
   before_validation :create_slug
@@ -56,8 +56,8 @@ class Category
   end
 
   def set_meta(params)
-    self.meta_description = strip_tags(params[:description]).delete("\n").truncate(150) unless params[:meta_description].present?
-    self.meta_title = strip_tags(params[:title]).delete("\n").truncate(50) unless params[:meta_title].present?
+    self.meta_description = strip_tags(params[:description]).delete("\n") unless params[:meta_description].present?
+    self.meta_title = strip_tags(params[:name]).delete("\n") unless params[:meta_title].present?
   end
 
   private

@@ -1,4 +1,4 @@
-$(document).on('click', 'button.remote_button', function() {
+$(document).on('click', '.remote_button', function() {
     if ($(this).closest('form').validationEngine('validate') == true) {
         window.loading_screen = window.pleaseWait({
             backgroundColor: 'rgba(111, 111, 111, 0.60)',

@@ -61,7 +61,7 @@
 
             .col-md-2
               = f.label :price, 'Цена и валюта: '
-              = f.text_field :price, class: 'form-control validate[required]', placeholder: 'Цена'
+              = f.number_field :price, class: 'form-control validate[required]', placeholder: 'Цена'
             .col-md-2
               = f.label 'Валюта'
               = f.collection_select :currency_id, Currency.all, :id, :name,
@@ -176,9 +176,6 @@
               = tinymce
 
           #days.tab-pane
-            .col-md-5.col-md-offset-7{style: 'text-align:right;'}
-              = f.label :use_hotels_block, 'Использовать этот блок для отображение отелей '
-              = f.check_box :use_hotels_block
             #travel_days.col-md-12
               = f.fields_for :travel_days, f.object.travel_days.sort { |a, b| a.day_number.to_i <=> b.day_number.to_i } do |days_builder|
                 .row{style: 'border-bottom: 1px solid #ddd;padding: 25px 0;list-style:none'}
@@ -246,9 +243,14 @@
                   .col-md-5
                     = days_in_hotel_builder.label 'Выберите отель'
                     = days_in_hotel_builder.collection_select :hotel_id, Hotel.all, :id, :title_for_select,
-                      { include_blank: 'Выберите отель...', selected: days_in_hotel_builder.object.hotel_id }, { class: 'form-control'}
-                  .col-md-2{style: 'padding-top: 25px;'}
-                    = days_in_hotel_builder.link_to_remove 'Удалить', class: 'btn btn-danger'
+                      { include_blank: 'Выберите отель...', selected: days_in_hotel_builder.object.hotel_id }, { class: 'form-control' }
+                  .col-md-offset-5.col-md-2.remove_tour_block{style: 'padding-top: 25px;'}
+                    = days_in_hotel_builder.link_to_remove 'Удалить', class: 'pull-right btn btn-danger'
+                .row.form-group
+                  .col-md-12
+                    = days_in_hotel_builder.fields_for :html_content,
+                    (days_in_hotel_builder.object.build_html_content if days_in_hotel_builder.object.new_record?) do |html_builder|
+                      = html_builder.text_area :content, class: 'editor tinyeditor form-control'
             .row
               .col-md-2.col-md-offset-10
                 = f.link_to_add 'Добавить отель', :days_in_hotels, class: 'btn btn-success pull-right', data: { target: '#days_in_hotels' }
@@ -260,7 +262,7 @@
           #prices.tab-pane
             .col-md-12.row{style: 'padding-bottom: 15px;'}
               = f.label :price_description, 'Подробное описание цены'
-              = f.text_area :price_description, class: 'editor form-control', rows: 12
+              = f.text_area :price_description, class: 'editor  form-control', rows: 12
             :css
               #price_includes .fields, #price_not_includes .fields {
                 padding-top: 10px;
@@ -362,42 +364,7 @@
           #seo.tab-pane
             :css
               textarea { resize: vertical; }
-            .col-lg-12
-              .alert.alert-block.alert-danger
-                %strong Внимание!
-                Редактируйте эти поля, только если знаете что делаете! Это прямо влияет на ранжирование сайта в поисковых системах!
-
-              .alert.alert-info
-                %strong К сведению!
-                Поля
-                %i ссылка
-                и
-                %i meta заголовок
-                можно оставлять пустыми. Они всегда генерируются автоматически если не указано иное!
-
-            .col-md-12{style: 'padding-bottom: 20px;'}
-              %header.panel-heading Пример
-              = image_tag 'examples/seo-example.png'
-
-            .col-md-6.form-group
-              = f.text_field :slug, class: 'form-control', placeholder: 'ссылка'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: portugalija'
-
-            .col-md-6.form-group
-              = f.text_field :meta_title, class: 'form-control', placeholder: 'meta заголовок'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: Туры в Португалию'
-
-            .col-md-6.form-group
-              = f.text_area :meta_description, rows: 8, class: 'form-control', placeholder: 'meta описание', id: 'meta_description'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: Наша Португалия - не туристическая, она...'
-
-            .col-md-6.form-group
-              = f.text_area :meta_keywords, rows: 8, class: 'form-control', placeholder: 'ключевые слова (через запятую)', id: 'meta_keywords'
-              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
-                = 'Например: туры, туризм, португалия...'
+            = render 'dashboard/seo_form', f: f
         .row
           .col-md-12{style: 'padding-top: 15px;'}
             = f.submit 'Сохранить тур!', class: 'btn btn-info pull-left'

@@ -1,7 +1,7 @@
 = render 'dashboard/pages/meta', page: @tour
 #contentWrapperWrapper.main-container
   #contentWrapper.section.main{role: 'main'}
-    .contentArea.contentAreaC
+    .contentArea.contentAreaC{style: 'min-height: 330px;'}
       #contentArea_1_-module_1_.module.has-box.jumbotron.clear
         .slideshow
           %figure.slide.slide-active
@@ -14,8 +14,10 @@
                     %span
         .module-container
           .module.box-large.alignleft.text-left.box{style: 'background-color: rgba(0, 0, 0, 0.7);filter: progid:DXImageTransform.Microsoft.gradient(startColorStr=#B2000000,endColorStr=#B2000000);margin: 8.875em 0px 4.875em;'}
-            %h3{style: 'text-align: center;color:#FFFFFF;font-size:48px;'}
-              = @tour.name
+            %p{style: 'text-align: center;'}
+              %span{style: 'font-size:48px;color:#FFFFFF;line-height: 1.1em;'}
+                = @tour.name
+
     .contentArea.contentAreaB
       .module.margin-collapse.h4.preamble
         %p
@@ -172,10 +174,7 @@
                     %a.tdd{href: '#2'} Описание
                 - if @tour.travel_days.present?
                   %td
-                    - if @tour.use_hotels_block
-                      %a.tdd{href: '#3'} Проживание
-                    - else
-                      %a.tdd{href: '#3'} Программа
+                    %a.tdd{href: '#3'} Программа
                 - if @tour.hotels.present?
                   %td
                     %a.tdd{href: '#4'} Проживание
@@ -254,10 +253,7 @@
         .module.margin-collapse.border.bar
           %p
             %span{style: 'font-size:22px;'}
-              - if @tour.use_hotels_block
-                %h2.h2 Проживание
-              - else
-                %h2.h2 Программа
+              %h2.h2 Программа
         .module.divider-divider-variable.divider-variable{style: 'height: 30px;'}
         - if @travel_days.present?
           - @travel_days.each do |day|
@@ -283,16 +279,21 @@
           %h3.h2 Проживание
           %hr/
         .module.divider-divider-variable.divider-variable{style: 'height: 9px;'}
-        - @tour.hotels.each do |hotel|
+        - @tour.days_in_hotels.each do |day_in_hotels|
           %article.module.margin-collapse.intro.image-text.image-text-medium.medium.alignleft.clear
-            %div{style: 'width: 220px;'}
-              - hotel.images.each do |image|
-                = image_tag image.uploaded_file(:travel_day_image)
-            %h3.h2
-              = "#{hotel.title} #{hotel.stars}* "
-              - if @tour.show_hotels_with_date && @tour.days_in_hotels.find_by(hotel_id: hotel.id).present?
-                = "- #{ @tour.days_in_hotels.find_by(hotel_id: hotel.id).days }"
-            = raw hotel.description
+            - if day_in_hotels.hotel.present?
+              %div{style: 'width: 220px;'}
+                - day_in_hotels.hotel.images.each do |image|
+                  = image_tag image.uploaded_file(:travel_day_image)
+              %h3.h2
+                = day_in_hotels.hotel.title
+                - if day_in_hotels.hotel.stars.present?
+                  = "#{day_in_hotels.hotel.stars}*"
+                - if @tour.show_hotels_with_date && day_in_hotels.days.present?
+                  = "- #{ day_in_hotels.days }"
+              = raw day_in_hotels.hotel.description
+
+              = raw day_in_hotels.html_content.content if day_in_hotels.html_content.present?
           %p.small{style: 'height: 30px;'}
         - if @tour.hotels_remark.present?
           .module.display
@@ -313,24 +314,23 @@
 
 
         .column.column-50.last
-          - if @tour.departures.present?
-            %h3.h2.text-left Даты:
-            - @tour.departures.each do |departure|
-              %h3
-                %span{style: 'color:#000000;font-size:14px;'}
-                  %strong
-                    = "Даты путешествия из города #{departure.from.capitalize}"
-              %ul
-                - if departure.travel_groups.present?
-                  - departure.travel_groups.each do |travel_group|
-                    %li
-                      %span{style: 'color:#000000;font-size: 14px; line-height: 22.3999996185303px;'}
-                        - if travel_group.start_date.to_date >= Date.today
-                          = "#{l travel_group.start_date.to_date, format: '%d %B'} - #{l travel_group.finish_date.to_date, format: '%d %B'}"
-            %p
-              %span{style: 'color:#000000;font-size: 14px;'}
-                = 'Для уточнения доступных дат и деталей путешествия свяжитесь с нами по телефону'
-                = @about.phone
+          %h3.h2.text-left Даты:
+          - @tour.departures.each do |departure|
+            %h3
+              %span{style: 'color:#000000;font-size:14px;'}
+                %strong
+                  = "Даты путешествия из города #{departure.from.capitalize}"
+            %ul
+              - if departure.travel_groups.present?
+                - departure.travel_groups.each do |travel_group|
+                  %li
+                    %span{style: 'color:#000000;font-size: 14px; line-height: 22.3999996185303px;'}
+                      - if travel_group.start_date.to_date >= Date.today
+                        = "#{l travel_group.start_date.to_date, format: '%d %B'} - #{l travel_group.finish_date.to_date, format: '%d %B'}"
+          %p
+            %span{style: 'color:#000000;font-size: 14px;'}
+              = 'Для уточнения доступных дат и деталей путешествия свяжитесь с нами по телефону'
+              = @about.phone
 
       %article.module.margin-collapse.doubleText.columns.clear
         .column.column-50
@@ -354,7 +354,7 @@
         %hr/
       .module.divider-divider-variable.divider-variable{style: 'height: 9px;'}
       %article.module.doubleText.columns.clear
-        - @tour.faqs.each_with_index do |faq, index|
+        - @tour.faqs.order_by(created_at: :asc).each_with_index do |faq, index|
           .column.column-50{class: "#{'last' if (index+1).even?}"}
             %h3.h2.text-left
               = faq.title
@@ -369,7 +369,7 @@
           .green {
             color: lightgreen !important;
           }
-        %h3.h2 Забронировать тур
+        %h3.h2#new_order Забронировать тур
         %p
           %span{style: 'color:#000000;font-size:14px;'}
             = "«#{@tour.name}»:"

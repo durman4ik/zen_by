@@ -11,7 +11,7 @@
       %span.input-group-btn
         %button.btn.btn-white.to_clipboard{'data-toggle': 'tooltip', :title => 'Копировать в буфер!',
         'data-clipboard-binder': '', 'data-clipboard-action': 'copy',
-        'data-clipboard-text': "#{image_path upload.file(:travel_day_image)}"}
+        'data-clipboard-text': "#{image_url upload.file(:travel_day_image)}"}
           %i.fa.fa-paperclip{alt: 'Скопировать в буфер'}
     .input-group.input-group-sm{style: 'clear:both;padding-bottom:3px;'}
       %span.input-group-addon#basic-addon4{style: 'width: 145px;'}
@@ -19,7 +19,7 @@
       %span.input-group-btn
         %button.btn.btn-white.to_clipboard{'data-toggle': 'tooltip', :title => 'Копировать в буфер!',
         'data-clipboard-binder': '', 'data-clipboard-action': 'copy',
-        'data-clipboard-text': "#{image_path upload.file(:privew)}" }
+        'data-clipboard-text': "#{image_url upload.file(:privew)}" }
           %i.fa.fa-paperclip{alt: 'Скопировать в буфер'}
     .input-group.input-group-sm{style: 'clear:both;padding-bottom:3px;'}
       %span.input-group-addon#basic-addon5{style: 'width: 145px;'}
@@ -27,7 +27,7 @@
       %span.input-group-btn
         %button.btn.btn-white.to_clipboard{'data-toggle': 'tooltip', :title => 'Копировать в буфер!',
         'data-clipboard-binder': '', 'data-clipboard-action': 'copy',
-        'data-clipboard-text': "#{image_path upload.file}" }
+        'data-clipboard-text': "#{image_url upload.file}" }
           %i.fa.fa-paperclip{alt: 'Скопировать в буфер'}
 :javascript
   var clipboard = new Clipboard('[data-clipboard-binder]');
