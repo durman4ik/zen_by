@@ -111,16 +111,13 @@
             %table{:align => 'center', :border => '0', :width => '900'}
               %tbody
                 %tr{:align => 'center'}
-                  -@page.sticky_items.each_with_index do |item, index|
+                  - @sticky_items.each_with_index do |item, index|
                     %td
                       %a.tdd{:href => "##{index+1}"}
                         = item.title
-        - @page.sticky_items.each_with_index do |item, index|
+        - @sticky_items.each_with_index do |item, index|
           %div{class: "#{'module htmlModule' if index == 0}"}
             %section{id: "#{index+1}", style: 'position: absolute; height: 518px;'}
-          - if index == 0
-            .module.margin-collapse.divider-divider.divider
-            .module.divider-divider-variable.divider-variable{:style => 'height: 9px;'}
           - if item.html_contents.present?
             - item.html_contents.each do |content|
               = raw content.content

@@ -24,9 +24,6 @@ $(document).on('ready', function(){
             init: function() {
                 var self = this,
                     clickEvents = ["click"];
-                if (Modernizr.touch) {
-                    clickEvents.push("tap")
-                }
                 self.appendNav();
                 self.$element.on(clickEvents.join(" "), function(e) {
                     if (clickEvents.length > 1 && e.type === "click") {

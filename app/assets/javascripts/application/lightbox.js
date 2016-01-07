@@ -29,9 +29,6 @@ $(document).on('ready', function() {
             init: function () {
                 var self = this,
                     $anchors = self.$element.find("a").has("img");
-                if (Modernizr.touch) {
-                    self.clickEvent = "tap"
-                }
                 $anchors.each(function () {
                     var img = $(this).find("img")[0];
                     self.slides.push({

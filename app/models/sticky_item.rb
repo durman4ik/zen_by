@@ -1,5 +1,6 @@
 class StickyItem
   include Mongoid::Document
+  include Mongoid::Timestamps::Created
 
   field :title
   field :full_title

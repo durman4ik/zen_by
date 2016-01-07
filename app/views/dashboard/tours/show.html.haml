@@ -1,9 +1,9 @@
 = render 'dashboard/pages/meta', page: @tour
 #contentWrapperWrapper.main-container
-  #contentWrapper.section.main{role: 'main'}
+  #contentWrapper.section.main.the_tour{role: 'main'}
     .contentArea.contentAreaC{style: 'min-height: 330px;'}
       #contentArea_1_-module_1_.module.has-box.jumbotron.clear
-        .slideshow
+        .slideshow{style: 'max-height: 24em;'}
           %figure.slide.slide-active
             - if @tour.image.present?
               = image_tag @tour.image
@@ -327,6 +327,9 @@
                     %span{style: 'color:#000000;font-size: 14px; line-height: 22.3999996185303px;'}
                       - if travel_group.start_date.to_date >= Date.today
                         = "#{l travel_group.start_date.to_date, format: '%d %B'} - #{l travel_group.finish_date.to_date, format: '%d %B'}"
+          %p
+            %span{style: 'color:#000000;font-size: 14px;'}
+              = raw @tour.days_remark
           %p
             %span{style: 'color:#000000;font-size: 14px;'}
               = 'Для уточнения доступных дат и деталей путешествия свяжитесь с нами по телефону'

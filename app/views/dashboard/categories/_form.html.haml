@@ -27,11 +27,28 @@
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: Туры по Европе'
 
-            .col-md-8.form-group
+            .col-md-6.form-group
               = f.label 'Заголовок'
-              = f.text_field :title, class: 'form-control validate[required]', placeholder: 'Заголовок категории'
+              = f.text_field :title, class: 'form-control', placeholder: 'Заголовок категории'
               %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;'}
                 = 'Например: сойти с избитых туристических троп'
+
+            .col-md-2.form-group{style: 'text-align:center;'}
+              = f.label :is_enabled, 'Включена', style: 'padding-bottom:5px;'
+              %br
+              = f.check_box :is_enabled
+
+            .col-md-12.form-group
+              :css
+                #category_tour_ids {
+                  height: 140px;
+                  border-bottom: 1px solid black;
+                }
+              = f.label 'Туры'
+              = f.collection_select :tour_ids, Tour.all, :id, :title_for_orders, {},
+                          class: 'form-control attach_select', multiple: true
+              %span.help-block{style: 'padding-left: 15px;font-style: italic;font-size: small;margin-bottom: 15px;'}
+                = 'Удерживайте Ctrl чтобы добавить или выбрать несколько!'
 
             .form-group
               .col-md-4.form-group{style: 'max-height: 180px; overflow: hidden;'}
@@ -52,15 +69,15 @@
                     %span.help-block{style: 'font-style: italic;font-size: small;'}
                       = 'Поставьте галку и сохраните для сброса на стандартное изображение'
 
-              .col-md-4.form-group
-                = f.label 'Цвет фона'
-                .bfh-colorpicker{'data-color': "#{f.object.background_color}", 'data-align': 'left',
-                'data-name': 'category[background_color]'}
-                  .input-group.bfh-colorpicker-toggle{'data-toggle':'bfh-colorpicker'}
-                    %span.input-group-addon
-                      %span.bfh-colorpicker-icon
-                    = f.text_field :background_color, class: 'form-control validate[required]', placeholder: 'Цвет фона'
-
+              .col-md-4
+                .form-group
+                  = f.label 'Цвет фона'
+                  .bfh-colorpicker{'data-color': "#{f.object.background_color}", 'data-align': 'left',
+                  'data-name': 'category[background_color]'}
+                    .input-group.bfh-colorpicker-toggle{'data-toggle':'bfh-colorpicker'}
+                      %span.input-group-addon
+                        %span.bfh-colorpicker-icon
+                      = f.text_field :background_color, class: 'form-control validate[required]', placeholder: 'Цвет фона'
 
             .col-md-12.form-group
               %header.panel-heading Описание

@@ -34,7 +34,7 @@
           %span{:style => 'font-size:14px;'}
             %strong
               Описание: 
-              = tour.description
+            = tour.description
           %br/
           %br/
 
@@ -52,51 +52,14 @@
                   %li
                     %span{:style => 'color:#000000;'}
                       = item.title
-    - if tour.calendar.present?
-      %p
-        %span{:style => 'color: rgb(0, 0, 0); font-size: 14px;'}
-          %strong
-            Когда ехать?
-      :css
-        #calendar > tr td {
-          background-color: rgb(255, 255, 255);
-        }
-      %div
-        %table{:border => '1', :cellpadding => '1', :cellspacing => '1', :style => 'color: rgb(0, 0, 0); font-size: 13.3333339691162px; line-height: 23.1111106872559px; width: 650px;'}
-          %tbody#calendar
-            %tr{:style => 'text-align: center; background-color: rgb(255, 255, 255);'}
-              %td Янв
-              %td Фев
-              %td Мар
-              %td Апр
-              %td Май
-              %td Июн
-              %td Июл
-              %td Авг
-              %td Сен
-              %td Окт
-              %td Ноя
-              %td Дек
-            %tr{style: 'text-align: center;background-color: rgb(255, 255, 255);'}
-              %td= tour.calendar.jan
-              %td= tour.calendar.feb
-              %td= tour.calendar.mar
-              %td= tour.calendar.apr
-              %td= tour.calendar.may
-              %td= tour.calendar.jun
-              %td= tour.calendar.jul
-              %td= tour.calendar.aug
-              %td= tour.calendar.sep
-              %td= tour.calendar.oct
-              %td= tour.calendar.nov
-              %td= tour.calendar.dec
+    = render 'dashboard/calendars/calendar', tour: tour
   .contentArea.contentAreaB{style: 'padding:0;'}
     .module.divider-divider-variable.divider-variable{:style => 'height: 25px;'}
     = image_tag tour.image(:corporate), class: 'module margin-collapse image'
     .module.alignleft.text-left.box.callToAction{:style => 'background-color: #626262;'}
       %p{:style => 'text-align: center;'}
         %span{:style => 'font-size: 14px;'}
-          %font{:color => '#ffffff', style: 'float: left;'} Стоимость:
+          %font{:color => '#ffffff', style: 'float: left;'} Стоимость от:
           %span{:style => 'color:#FFA500;float: right;'}
             %strong
               = show_bel_price(tour)
@@ -107,7 +70,7 @@
         %span{style: 'float: left;text-align: center;width: 100%;line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);'}
           за 1 человека
           %br/
-        %span{style: 'line-height: 17.6000003814697px; font-size: 10px;color: rgb(255, 255, 255);'} ......................................................
+        %span{style: 'margin-bottom: 10px;border-bottom: 1px dotted white;padding-bottom: 10px;float: left;text-align: center;width: 100%;line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);'}
         %br/
         %span{style: 'font-size: 14px; line-height: 17.6000003814697px;color: rgb(255, 255, 255);'}
           = tour.days

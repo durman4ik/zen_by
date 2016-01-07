@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
       @home_page  = HomePage.first_or_create
       @config     = Config.first_or_create
       @about      = About.first_or_create
-      @categories = Category.all
+      @categories = Category.enabled
       @countries  = Country.sorted_by_name
       @menu_items = MenuItem.order_by(position: :asc)
     end

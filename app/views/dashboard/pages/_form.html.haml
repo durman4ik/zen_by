@@ -74,7 +74,7 @@
 
           #sticky_menu.tab-pane
             #sticky.col-md-12
-              = f.fields_for :sticky_items do |sticky_builder|
+              = f.fields_for :sticky_items, f.object.sticky_items.sort {|a, b| a.id <=> b.id } do |sticky_builder|
                 .form-group.row
                   .col-md-2
                     = sticky_builder.link_to_remove 'Удалить', class: 'btn btn-danger', style: 'width: 140px;'

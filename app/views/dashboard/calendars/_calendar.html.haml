@@ -1,0 +1,38 @@
+- if tour.calendar.present?
+  %p.calendar_container
+    %span{:style => 'color: rgb(0, 0, 0); font-size: 14px;'}
+      %strong
+        Когда ехать?
+  :css
+    #calendar > tr td {
+      background-color: rgb(255, 255, 255);
+    }
+  %div.calendar_container
+    %table{:border => '1', :cellpadding => '1', :cellspacing => '1', :style => 'color: rgb(0, 0, 0); font-size: 13.3333339691162px; line-height: 23.1111106872559px; width: 650px;'}
+      %tbody#calendar
+        %tr{:style => 'text-align: center; background-color: rgb(255, 255, 255);'}
+          %td Янв
+          %td Фев
+          %td Мар
+          %td Апр
+          %td Май
+          %td Июн
+          %td Июл
+          %td Авг
+          %td Сен
+          %td Окт
+          %td Ноя
+          %td Дек
+        %tr{style: 'text-align: center;background-color: rgb(255, 255, 255);'}
+          %td= tour.calendar.jan
+          %td= tour.calendar.feb
+          %td= tour.calendar.mar
+          %td= tour.calendar.apr
+          %td= tour.calendar.may
+          %td= tour.calendar.jun
+          %td= tour.calendar.jul
+          %td= tour.calendar.aug
+          %td= tour.calendar.sep
+          %td= tour.calendar.oct
+          %td= tour.calendar.nov
+          %td= tour.calendar.dec

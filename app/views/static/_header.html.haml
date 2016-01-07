@@ -9,12 +9,12 @@
       #contact.header-subline.hgroup.hidden-small
         #actionLine.h1
         #phoneNumber.h2
-          %a{'data-track-action' => 'tapToCall', 'data-track-event' => 'click', :href => "tel:#{@about.phone}", :itemprop => 'telephone'}
+          %a{'data-track-action': 'tapToCall', 'data-track-event': 'click', href: "tel:#{@about.phone}", itemprop: 'telephone'}
             = @about.phone
       .header-title.hidden-large
         %span.h1
-          %span{:itemprop => 'name'} Искатели впечатлений
-      %a#menubutton.btn.btn-nav.hidden-large{'data-bind' => 'toggle-btn-nav', :href => '#'} Меню
+          = link_to 'Искатели впечатлений', root_path
+      = link_to 'Меню', '#', class: 'menubutton btn btn-nav hidden-large', id: 'menubutton', 'data-bind': 'toggle-btn-nav'
   %nav#topNav.nav.nav-primary.hidden-small{:role => 'navigation'}
     %ul.clear
       %li{style: 'text-transform: uppercase;', class: "#{'active' if request.path == root_path}"}
@@ -35,7 +35,7 @@
                   - else
                     = link_to sub_item.name, eval("show_#{sub_item.attachment_type.downcase}_path(slug: sub_item.#{sub_item.attachment_type}.slug)")
               - if item.stick_to_menu == 'категории'
-                - Category.all.each do |category|
+                - @categories.each do |category|
                   %li{style: 'text-transform: none;'}
                     = link_to category.name, show_category_path(slug: category.slug)
               - if item.stick_to_menu == 'страны'

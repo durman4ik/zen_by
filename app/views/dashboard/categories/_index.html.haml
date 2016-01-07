@@ -4,6 +4,7 @@
     %td= category.name
     %td.text-center= category.tours.to_a.count
     %td.text-center= convert_boolean category.sliders.present?
+    %td.text-center= convert_boolean category.is_enabled
     %td
       = link_to dashboard_edit_category_path(slug: category.slug), class: 'btn btn-default btn-xs' do
         %i.fa.fa-pencil

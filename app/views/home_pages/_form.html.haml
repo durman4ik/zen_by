@@ -166,7 +166,7 @@
                             class: 'form-control attach_select'
                         .form-group#tour_fields.hidden
                           = attachment_builder.label ' '
-                          = attachment_builder.collection_select :tour_id, Tour.all, :id, :name, {include_blank: 'Нет'},
+                          = attachment_builder.collection_select :tour_id, Tour.all, :id, :title_for_orders, {include_blank: 'Нет'},
                               class: 'form-control attach_select'
                 #sticky_attachments.col-md-12
                   = render 'dashboard/page_attachments/form', f: sticky_builder

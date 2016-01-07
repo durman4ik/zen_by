@@ -51,8 +51,8 @@ class DashboardController < ApplicationController
 
   def tours
     query = Tour.all.order_by(created_at: :desc)
-    total_pages = get_pages(query, 12)
-    @tours = get_objects(query, 12, total_pages)
+    total_pages = get_pages(query, 20)
+    @tours = get_objects(query, 20, total_pages)
     check_redirect(total_pages)
   end
 

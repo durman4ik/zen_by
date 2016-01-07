@@ -4,7 +4,7 @@ class Category
   include ActionView::Helpers
 
   scope :sorted_by_name, -> { order_by(name: :asc) }
-  scope :showed_on_main, -> { where(show_on_main: true).order_by(name: 'osc') }
+  scope :enabled,        -> { where(is_enabled: true) }
 
   before_validation :create_slug
 
@@ -21,6 +21,7 @@ class Category
   field :meta_description,      type: String
   field :meta_keywords,         type: String
   field :slug,                  type: String
+  field :is_enabled,            type: Boolean, default: true
 
   index slug: 1
 

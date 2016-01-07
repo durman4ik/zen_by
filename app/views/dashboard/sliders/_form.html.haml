@@ -42,15 +42,15 @@
         .col-md-4
           .form-group#category_fields
             = slide_builder.label ' '
-            = slide_builder.collection_select :category_id, Category.all, :id, :title, {include_blank: 'Нет'},
+            = slide_builder.collection_select :category_id, Category.all, :id, :name, {include_blank: 'Нет'},
                                   class: 'form-control attach_select'
           .form-group#country_fields.hidden
             = slide_builder.label ' '
-            = slide_builder.collection_select :country_id, Country.all, :id, :title, {include_blank: 'Нет'},
+            = slide_builder.collection_select :country_id, Country.all, :id, :name, {include_blank: 'Нет'},
                                   class: 'form-control attach_select'
           .form-group#tour_fields.hidden
             = slide_builder.label ' '
-            = slide_builder.collection_select :tour_id, Tour.all, :id, :name, {include_blank: 'Нет'},
+            = slide_builder.collection_select :tour_id, Tour.all, :id, :title_for_orders, {include_blank: 'Нет'},
                                   class: 'form-control attach_select'
     - else
       = slide_builder.hidden_field :type, value: f.object.class.to_s.downcase

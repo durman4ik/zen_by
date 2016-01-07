@@ -12,7 +12,8 @@
  *
  *= require please-wait
  *= require validationEngine.jquery
- *= require_tree .
+ *= require application/slider
+ *= require application/website
  *= require_self
  */
 

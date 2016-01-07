@@ -35,7 +35,7 @@
         %span{:style => 'font-size:14px;'}
           %strong
             Описание: 
-            = tour.description
+          = tour.description
         %br/
         %br/
 
@@ -58,25 +58,32 @@
     = image_tag tour.image(:corporate), class: 'module margin-collapse image'
     .module.alignleft.text-left.box.callToAction{:style => 'background-color: #626262;'}
       %p{:style => 'text-align: center;'}
-        %span{:style => 'line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);'} от 
-        %span{:style => 'line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 165, 0);'}
-          = show_price(tour)
-        %span{:style => 'line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);'}
-          \/ 1 человек
+        %span{:style => 'font-size: 14px;'}
+          %font{:color => '#ffffff', style: 'float: left;'} Стоимость от:
+          %span{:style => 'color:#FFA500;float: right;'}
+            %strong
+              = show_bel_price(tour)
+          %br
+          %span{:style => 'color:#FFA500;padding-left: 80px;float: right;'}
+            %strong
+              = show_price(tour)
+        %span{style: 'float: left;text-align: center;width: 100%;line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);'}
+          за 1 человека
           %br/
           %span{:style => 'line-height: 1.6;'}
-          (для группы
-          = tour.group_size
-          чел)
+            = '(для группы'
+            = tour.group_size
+            = 'чел)'
           %br/
-          %span{:style => 'line-height: 17.6000003814697px; font-size: 10px;'} ......................................................
-          %br/
-          %span{:style => 'font-size: 14px; line-height: 17.6000003814697px;'}  
+
+        %span{style: 'margin-bottom: 10px;border-bottom: 1px dotted white;padding-bottom: 10px;float: left;text-align: center;width: 100%;line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);'}
+        %br/
+        %span{style: 'font-size: 14px; line-height: 17.6000003814697px;color: rgb(255, 255, 255);'}
           = tour.days
-        %br{:style => 'line-height: 20.7999992370605px; text-align: -webkit-center;'}/
-        %br{:style => 'line-height: 20.7999992370605px; text-align: -webkit-center;'}/
+        %br{style: 'line-height: 20.7999992370605px; text-align: -webkit-center;'}/
+        %br{style: 'line-height: 20.7999992370605px; text-align: -webkit-center;'}/
         %span{:style => 'line-height: 20.7999992370605px; text-align: -webkit-center; color: rgb(255, 255, 255);'}
-          %span{:style => 'font-size: 14px;'} ПОДРОБНАЯ ПРОГРАММА,РАСЧЕТ НА ВАШИ ДАТЫ И КОЛИЧЕСТВО ПУТЕШЕСТВЕННИКОВ ПРЕДОСТАВЛЯЕТСЯ ПО ЗАПРОСУ
+          %span{:style => 'font-size: 14px;'} ПОДРОБНАЯ ПРОГРАММА, РАСЧЕТ НА ВАШИ ДАТЫ И КОЛИЧЕСТВО ПУТЕШЕСТВЕННИКОВ ПРЕДОСТАВЛЯЕТСЯ ПО ЗАПРОСУ
   .contentArea.contentAreaC{style: 'padding:0;'}
     :css
       hr {

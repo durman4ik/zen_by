@@ -66,6 +66,8 @@ class Dashboard::CategoriesController < ApplicationController
                                        :slug,
                                        :meta_keywords,
                                        :remove_image,
+                                       :is_enabled,
+                                       tour_ids: [],
                                        sliders_attributes:[:id, :_destroy, :title, :image, :description, :type])
     end
   end

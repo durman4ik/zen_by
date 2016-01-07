@@ -210,8 +210,10 @@ $(document).on('ready', function(){
 });
 
 $(document).on('nested:fieldAdded', function(event){
-    var field = event.field,
-        textarea = field.find('.tinyeditor')[0];
+    var field           = event.field,
+        textarea        = field.find('.tinyeditor')[0],
+        boxes           = $("input[type=checkbox]").not('#onoffswitch').not('#onoffswitch1').not('#onoffswitch2'),
+        radios          = $('.attach_checkbox');
 
     if(textarea) {
         var text_area_id = textarea.id;
@@ -251,10 +253,27 @@ $(document).on('nested:fieldAdded', function(event){
             $(this).addClass('hidden');
             $('.remove_tour_block').removeClass('col-md-offset-3').addClass('col-md-offset-5');
         });
-
     }
 
-    $("input[type=checkbox]").not('#onoffswitch').not('#onoffswitch1').not('#onoffswitch2').iCheck({
+    $.each(radios, function(){
+        if($(this).is(':checked')){
+            var page_fields = $(this).closest('.fields').find('#page_fields'),
+                country_fields = $(this).closest('.fields').find('#country_fields'),
+                category_fields = $(this).closest('.fields').find('#category_fields'),
+                tour_fields = $(this).closest('.fields').find('#tour_fields'),
+                ar = [page_fields, tour_fields, category_fields, country_fields],
+                value = this.value;
+            $.each(ar, function(){
+                if(typeof this[0] != 'undefined' && value != ''  && this[0].id.indexOf(value) > -1) {
+                    this.removeClass('hidden');
+                } else {
+                    this.addClass('hidden');
+                }
+            });
+        }
+    });
+
+    boxes.iCheck({
         checkboxClass: 'icheckbox_square-blue',
         increaseArea: '20%'
     });

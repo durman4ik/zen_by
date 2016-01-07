@@ -8,6 +8,7 @@ class Dashboard::PagesController < ApplicationController
   end
 
   def show
+    @sticky_items = @page.sticky_items.order_by(id: :osc) if @page.sticky_items.present?
   end
 
   def new
